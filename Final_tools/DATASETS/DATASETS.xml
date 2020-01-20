@@ -11,11 +11,11 @@
 
     <inputs>
       <param name="DataSets" type="select" label="DataSets" argument="--kernel">
-        <option value="usa-malawi.tsv">usa-malawi</option>
-        <option value="sex.tsv">sex</option>
-        <option value="malawi-venezuela.tsv">malawi-venezuela</option>
-        <option value="baby-age.tsv">baby-age</option>
-        <option value="obese-lean">obes-lean</option>
+        <option value="usa-malawi.tsv">UsaVsMalawi</option>
+        <option value="sex.tsv">SamplesFromDiffSex</option>
+        <option value="malawi-venezuela.tsv">MalawiVsVenezuela</option>
+        <option value="baby-age.tsv">BabyAge</option>
+        <option value="obese-lean.tsv">ObesVsLean</option>
         <option value="NO_BACT_BACK.tsv">BacteremiaVsNoBacteremia </option>
       </param>
 

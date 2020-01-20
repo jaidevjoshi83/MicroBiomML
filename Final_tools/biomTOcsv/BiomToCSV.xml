@@ -1,0 +1,49 @@
+<tool id="BiomToCsv" name="BiomToCsv" version="0.1.0" python_template_version="3.5">
+    <requirements>
+      <requirement type="package" version="2.1.7">biom-format</requirement>
+      <requirement type="package" version="2.9.0">h5py</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/BiomToCsv.py' -I '$input1' -O SampleDataset
+    ]]></command>
+
+    <inputs>
+        <param type="data" name="input1" format="biom" multiple="true"/>
+        <param name="SampleDataset" type="text" size="25" label="output name" value="SampleDataset"/>
+    </inputs>
+
+    <outputs>
+        <collection type="list" label="tsv_files" name="output1" >
+            <discover_datasets pattern="(?P&lt;designation&gt;.*)" directory="SampleDataset" format="tsv"/>
+        </collection>
+    </outputs>
+
+    <help><![CDATA[
+        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
+                  OUT_FILE_NAME
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE_NAME, --file_name FILE_NAME
+                        Path to target CSV file
+  -n N_FOLDS, --n_folds N_FOLDS
+                        n_folds for Cross Validation
+  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
+                        n_folds for Cross Validation
+  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
+                        Path to out file
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+}</citation>
+    </citations>
+</tool>
+
+

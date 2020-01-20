@@ -1,0 +1,52 @@
+<tool id="CleanBiom" name="CleanBiom" version="0.1.0" python_template_version="3.5">
+    <requirements>
+      <requirement type="package" version="0.23.0">pandas</requirement> 
+
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/CleanBiom.py' -I '$input1' -O_T '$output1' -O_D '$output2' -S '$skiprows'
+    ]]></command>
+
+    <inputs>
+         <param name="input1" type="data"  format="tsv" multiple="false"/>
+         <param name="skiprows" type="integer"  label="skiprows" value='1' />
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tsv' label="Out_file_data.tsv" />  
+        <data name='output2' format='tsv' label="Out_file_Taxonomy.tsv" />  
+    </outputs>
+
+    <tests>
+        <test>
+            <param name="input1" value="1.biom" />
+            <output name="output1" file="1.tsv" />
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
+                  OUT_FILE_NAME
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE_NAME, --file_name FILE_NAME
+                        Path to target CSV file
+  -n N_FOLDS, --n_folds N_FOLDS
+                        n_folds for Cross Validation
+  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
+                        n_folds for Cross Validation
+  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
+                        Path to out file
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+}</citation>
+    </citations>
+</tool>

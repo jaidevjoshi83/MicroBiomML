@@ -1,14 +1,13 @@
-import sys  
-import os
-import glob
+
+import pandas as pd
 
 
-def biom_main(in_files,out_file_dir):
+def DF_main(in_files, out_file):
 
 
-    os.environ['f'] = in_files
-    os.environ['o'] = out_file_dir
-    os.system('biom convert -i $f -o $o --to-tsv ') 
+    df = pd.read_csv(in_files, sep="\t")
+    df = df.T
+    df.to_csv(out_file, sep='\t', index=None)
 
 
 if __name__=='__main__':
@@ -23,13 +22,13 @@ if __name__=='__main__':
                         default=None,
                         help="Path to target tsv file")
 
-    parser.add_argument("-O", "--Out_dir",
+    parser.add_argument("-O", "--Out_file",
                         required=True,
                         default=None,
                         help="Path to target tsv file")
                         
                        
     args = parser.parse_args()
-    biom_main(args.in_file,args.Out_dir)
+    DF_main(args.in_file,args.Out_file)
 
 

@@ -1,0 +1,246 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "", 
+    "format-version": "0.1", 
+    "name": "ML_WorkFlow", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "content_id": "MergeDataFrame", 
+            "errors": null, 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool MergeDataFrame", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "MergeDataFrame", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 250.96591186523438, 
+                "top": 162.96874237060547
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "MergeDataFrame", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "f04cb299-61af-439e-8e2d-ea813786867f", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "ffad6c16-9ee3-4a5f-99f6-fbeba563b201"
+                }
+            ]
+        }, 
+        "1": {
+            "annotation": "", 
+            "content_id": null, 
+            "errors": null, 
+            "id": 1, 
+            "input_connections": {}, 
+            "inputs": [], 
+            "label": null, 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 209.00567626953125, 
+                "top": 314.9857864379883
+            }, 
+            "tool_id": null, 
+            "tool_state": "{\"optional\": false}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "uuid": "46224fac-85d6-47b8-92cb-c1daf39fffc7", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output", 
+                    "uuid": "b8ff3090-9db7-44fb-95d2-35d18b0f3805"
+                }
+            ]
+        }, 
+        "2": {
+            "annotation": "", 
+            "content_id": "MergeMetaData", 
+            "errors": null, 
+            "id": 2, 
+            "input_connections": {
+                "input1": {
+                    "id": 0, 
+                    "output_name": "output1"
+                }, 
+                "input2": {
+                    "id": 1, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "MergeMetaData", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 539.3891906738281, 
+                "top": 206.9460220336914
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "MergeMetaData", 
+            "tool_state": "{\"input2\": {\"__class__\": \"ConnectedValue\"}, \"input3\": \"class_label\", \"__rerun_remap_job_id__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "ecd32db9-1f27-41c3-a8b9-8b53f509381d", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "1ad83e6b-f3c2-445f-ad11-dda59cf93e80"
+                }
+            ]
+        }, 
+        "3": {
+            "annotation": "", 
+            "content_id": "FeatureSelection", 
+            "errors": null, 
+            "id": 3, 
+            "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FeatureSelection", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 860.9516906738281, 
+                "top": 197.98294830322266
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "FeatureSelection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"Corr\", \"__current_case__\": 0, \"Coef\": \"0.0\"}, \"input1\": {\"__class__\": \"ConnectedValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "d949ab2d-b1cd-442f-9174-419b062f69c6", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "9a18549f-df8f-4e4a-91bc-6d991a912243"
+                }
+            ]
+        }, 
+        "4": {
+            "annotation": "", 
+            "content_id": "FeatureSelection", 
+            "errors": null, 
+            "id": 4, 
+            "input_connections": {
+                "input1": {
+                    "id": 3, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FeatureSelection", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 1120.4403381347656, 
+                "top": 122.95453643798828
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }
+            }, 
+            "tool_id": "FeatureSelection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"SelBest\", \"SelBest\": \"10\", \"__current_case__\": 1}, \"input1\": {\"__class__\": \"ConnectedValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "3eacec7d-2aa1-4024-990c-d1bb12e9db2a", 
+            "workflow_outputs": []
+        }, 
+        "5": {
+            "annotation": "", 
+            "content_id": "MultiClassPrediction", 
+            "errors": null, 
+            "id": 5, 
+            "input_connections": {
+                "input1": {
+                    "id": 4, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool MultiClassPrediction", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "MultiClassPrediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 1363.4658508300781, 
+                "top": 175.98011016845703
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "MultiClassPrediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SVMC\", \"__current_case__\": 0, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "51dfce5b-c81e-4b8c-b11f-fc65402a6308", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output2", 
+                    "uuid": "81acdb6b-10e7-4f02-87fc-50fe31019eee"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "aa56e510-4cf0-4c07-b2f9-6ff3a9e5303a"
+                }
+            ]
+        }
+    }, 
+    "tags": [], 
+    "uuid": "71d2406f-1fc5-42f9-8dbb-3e82aa9cf10d", 
+    "version": 3
+}

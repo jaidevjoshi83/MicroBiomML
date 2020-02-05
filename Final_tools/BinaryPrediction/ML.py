@@ -202,15 +202,15 @@ def Fit_Model(TrainData, Test_Method, Algo, Selected_Sclaer,  Workdirpath,  html
         pl.legend(loc="lower right")
 
         ########################################################################################################################################
-        V_header = ["accuracy","presision","recall","f1","mean_auc"]                                                                           #
-        v_values = [round(accuracy_score_mean, 3), round(precision_mean, 3), round(recall_mean, 3),round(f_score_mean, 3), round(mean_auc, 3)] #                                         # 
+        V_header = ["Algo","accuracy","presision","recall","f1","mean_auc"]                                                                           #
+        v_values = [sys.argv[1], round(accuracy_score_mean, 3), round(precision_mean, 3), round(recall_mean, 3),round(f_score_mean, 3), round(mean_auc, 3)]                                        # 
         ########################################################################################################################################
 
         df = pd.DataFrame([v_values], columns=V_header)
-        df.to_csv(os.path.join(Workdirpath, OutFile), columns=V_header, sep='\t')
+        df.to_csv(os.path.join(Workdirpath, OutFile), columns=V_header, sep='\t', index=None)
         pl.savefig(os.path.join(Workdirpath, htmlOutDir, "out.png"))
         pl.figure()
-        pl.bar(V_header, v_values, color=(0.2, 0.4, 0.6, 0.6))
+        pl.bar(V_header[1:], v_values[1:], color=(0.2, 0.4, 0.6, 0.6))
         pl.xlabel('Accuracy Perameters', fontweight='bold', color = 'orange', fontsize='17', horizontalalignment='center')
         pl.savefig(os.path.join(Workdirpath, htmlOutDir, "2.png"))
         #pl.show()

@@ -1,0 +1,62 @@
+<tool id="HeatMap" name="HeatMap" version="0.1.0" python_template_version="3.6">
+    <requirements>
+      <requirement type="package" version="3.1.2">matplotlib</requirement>
+      <requirement type="package" version="0.25.3">pandas</requirement>
+      <requirement type="package" version="0.9.0">seaborn</requirement> 
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+
+        python '$__tool_directory__/Graph.py'  --in_file '$input1' --FigHight '$input2' --FigWidth '$input3' --Rotation '$input4' --htmlOutDir '$output2.extra_files_path'  --htmlFname '$output2' 
+             
+    ]]></command>
+
+    <inputs>
+      <param name="input1" type="data" format="tsv" argument= "--TrainFile"/>
+      <param name="input2" type="integer" label="FigHight" value="3"  help="(--FigHight)" />
+      <param name="input3" type="integer" label="FigWidth" value="3"  help="(--FigWidth)" /> 
+      <param name="input4" type="integer" label="Rotation" value="3"  help="(--Rotation)" />
+    </inputs>
+
+    <outputs>   
+        <data name='output2' format='html' label="repot.html" />
+    </outputs>
+ 
+    <tests>
+        <test>
+            <param name="input1" value="1.csv"/>
+            <output name="output1" file="out.csv"/>
+        </test>
+    </tests>
+
+    <help><![CDATA[
+        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
+                  OUT_FILE_NAME
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE_NAME, --file_name FILE_NAME
+                        Path to target CSV file
+  -n N_FOLDS, --n_folds N_FOLDS
+                        n_folds for Cross Validation
+  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
+                        n_folds for Cross Validation
+  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
+                        Path to out file
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+    </citations>
+</tool>
+
+
+

@@ -1,0 +1,251 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "", 
+    "format-version": "0.1", 
+    "name": "Test_2", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "content_id": null, 
+            "errors": null, 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [], 
+            "label": null, 
+            "name": "Input dataset", 
+            "outputs": [], 
+            "position": {
+                "left": 199.94317626953125, 
+                "top": 232.98294830322266
+            }, 
+            "tool_id": null, 
+            "tool_state": "{\"optional\": false}", 
+            "tool_version": null, 
+            "type": "data_input", 
+            "uuid": "c710bdd3-3ca5-49bc-a107-cd91ea7b135f", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output", 
+                    "uuid": "8a4b6818-adaa-41d7-b2c9-f85dd03a6495"
+                }
+            ]
+        }, 
+        "1": {
+            "annotation": "", 
+            "content_id": "FeatureSelection", 
+            "errors": null, 
+            "id": 1, 
+            "input_connections": {
+                "input1": {
+                    "id": 0, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FeatureSelection", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 552.9829406738281, 
+                "top": 210.95169830322266
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "FeatureSelection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"Corr\", \"__current_case__\": 0, \"Coef\": \"0.8\"}, \"input1\": {\"__class__\": \"ConnectedValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "2f5dfbe9-605b-4e87-a8ed-47b34e8ab475", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "9abf0ec7-e4f2-4271-87e3-82ca37df6b11"
+                }
+            ]
+        }, 
+        "2": {
+            "annotation": "", 
+            "content_id": "FeatureSelection", 
+            "errors": null, 
+            "id": 2, 
+            "input_connections": {
+                "input1": {
+                    "id": 1, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "FeatureSelection", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 793.9914855957031, 
+                "top": 232.98294830322266
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }
+            }, 
+            "tool_id": "FeatureSelection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"SelBest\", \"SelBest\": \"20\", \"__current_case__\": 1}, \"input1\": {\"__class__\": \"ConnectedValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "5ae55311-6602-4e07-8a55-3ff608464510", 
+            "workflow_outputs": []
+        }, 
+        "3": {
+            "annotation": "", 
+            "content_id": "FeatureSelection", 
+            "errors": null, 
+            "id": 3, 
+            "input_connections": {
+                "input1": {
+                    "id": 1, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool FeatureSelection", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "FeatureSelection", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }
+            ], 
+            "position": {
+                "left": 801.4630432128906, 
+                "top": 368.9772720336914
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }
+            }, 
+            "tool_id": "FeatureSelection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"SelImpo\", \"SelImpo\": \"20\", \"__current_case__\": 2}, \"input1\": {\"__class__\": \"RuntimeValue\"}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "2614bc22-8c21-435c-9061-5267e2a1f599", 
+            "workflow_outputs": []
+        }, 
+        "4": {
+            "annotation": "", 
+            "content_id": "BinaryPrediction", 
+            "errors": null, 
+            "id": 4, 
+            "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "BinaryPrediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 1067.9971008300781, 
+                "top": 229.98578643798828
+            }, 
+            "post_job_actions": {}, 
+            "tool_id": "BinaryPrediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SVMC\", \"__current_case__\": 0, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "53433275-105b-441a-8e59-766d1c329197", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output2", 
+                    "uuid": "a51a2f3a-fb71-4e51-8a56-17e6a1b8e5b9"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "c698b6d5-a128-46b4-bd41-5027760a44d6"
+                }
+            ]
+        }, 
+        "5": {
+            "annotation": "", 
+            "content_id": "BinaryPrediction", 
+            "errors": null, 
+            "id": 5, 
+            "input_connections": {
+                "input1": {
+                    "id": 3, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [], 
+            "label": null, 
+            "name": "BinaryPrediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 1071.0084533691406, 
+                "top": 380.99430084228516
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }, 
+                "HideDatasetActionoutput2": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output2"
+                }
+            }, 
+            "tool_id": "BinaryPrediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SVMC\", \"__current_case__\": 0, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "dbbc2469-928c-4c5c-a2a3-10f8ba89f1d8", 
+            "workflow_outputs": []
+        }
+    }, 
+    "tags": [], 
+    "uuid": "21bc842c-ab64-4faa-ba05-a1bce39cfb5a", 
+    "version": 3
+}

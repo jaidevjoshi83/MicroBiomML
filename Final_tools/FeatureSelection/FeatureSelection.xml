@@ -76,18 +76,16 @@
 
 
     <help><![CDATA[
-        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
-                  OUT_FILE_NAME
+usage: FeatureSelection.py [-h] {Corr,SelBest,SelImpo,CumImpo} ...
+
+Deployment tool
+
+positional arguments:
+  {Corr,SelBest,SelImpo,CumImpo}
+
 optional arguments:
   -h, --help            show this help message and exit
-  -f FILE_NAME, --file_name FILE_NAME
-                        Path to target CSV file
-  -n N_FOLDS, --n_folds N_FOLDS
-                        n_folds for Cross Validation
-  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
-                        n_folds for Cross Validation
-  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
-                        Path to out file
+
     ]]></help>
     <citations>
         <citation type="bibtex">

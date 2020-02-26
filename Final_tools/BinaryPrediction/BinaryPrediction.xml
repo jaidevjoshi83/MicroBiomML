@@ -617,7 +617,7 @@
     </tests>
 
     <help><![CDATA[
-    usage: ML.py [-h] {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP} ...
+    usage: ML.py [-h] {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP}
 
     Deployment tool
 

@@ -30,18 +30,27 @@
     </tests>
 
     <help><![CDATA[
-        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
-                  OUT_FILE_NAME
+usage: Graph.py [-h] -I IN_FILE [-H FIGHIGHT] [-W FIGWIDTH] [-R ROTATION]
+                [--htmlOutDir HTMLOUTDIR] [--htmlFname HTMLFNAME]
+                [--Workdirpath WORKDIRPATH]
+
 optional arguments:
   -h, --help            show this help message and exit
-  -f FILE_NAME, --file_name FILE_NAME
-                        Path to target CSV file
-  -n N_FOLDS, --n_folds N_FOLDS
-                        n_folds for Cross Validation
-  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
-                        n_folds for Cross Validation
-  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
-                        Path to out file
+  -I IN_FILE, --in_file IN_FILE
+                        Path to target tsv file
+  -H FIGHIGHT, --FigHight FIGHIGHT
+                        Path to target tsv file
+  -W FIGWIDTH, --FigWidth FIGWIDTH
+                        Path to target tsv file
+  -R ROTATION, --Rotation ROTATION
+                        Path to target tsv file
+  --htmlOutDir HTMLOUTDIR
+                        HTML Out Dir
+  --htmlFname HTMLFNAME
+                        HTML out file
+  --Workdirpath WORKDIRPATH
+                        Working Directory Path
+
     ]]></help>
     <citations>
         <citation type="bibtex">

@@ -25,18 +25,21 @@
         </test>
     </tests>
     <help><![CDATA[
-        usage: ML_algo.py [-h] -f FILE_NAME [-n N_FOLDS] [-w WORK_DIR_PATH] -o
-                  OUT_FILE_NAME
-optional arguments:
-  -h, --help            show this help message and exit
-  -f FILE_NAME, --file_name FILE_NAME
-                        Path to target CSV file
-  -n N_FOLDS, --n_folds N_FOLDS
-                        n_folds for Cross Validation
-  -w WORK_DIR_PATH, --Work_dir_path WORK_DIR_PATH
-                        n_folds for Cross Validation
-  -o OUT_FILE_NAME, --out_file_name OUT_FILE_NAME
-                        Path to out file
+
+      usage: CleanBiom.py [-h] -I IN_FILE [-O_T OUT_FILE_DATA] 
+      [-O_D OUT_FILE_TAXONOMY] [-S SKIPROWS]
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -I IN_FILE, --in_file IN_FILE
+                              Path to target tsv file
+        -O_T OUT_FILE_DATA, --Out_file_data OUT_FILE_DATA
+                              Path to target tsv file
+        -O_D OUT_FILE_TAXONOMY, --Out_file_Taxonomy OUT_FILE_TAXONOMY
+                              Path to target tsv file
+        -S SKIPROWS, --skiprows SKIPROWS
+                              Path to target tsv file
+
     ]]></help>
     <citations>
         <citation type="bibtex">

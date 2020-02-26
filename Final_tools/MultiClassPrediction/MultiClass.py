@@ -193,16 +193,16 @@ def Fit_Model(TrainData, Test_Method, Algo, Selected_Sclaer,  Workdirpath,  html
         #plt.show()
 
         ########################################################################################################################################
-        V_header = ["accuracy","presision","recall","f1","mean_auc"]                                                                           #
-        v_values = [round(accuracy_score(y, y_pred),3),round(a[0],3),round(a[1],3),round(a[2],3),roc_auc[i]] #                                         # 
+        V_header = ["Algo","accuracy","presision","recall","f1","mean_auc"]                                                                           #
+        v_values = [sys.argv[1],round(accuracy_score(y, y_pred),3),round(a[0],3),round(a[1],3),round(a[2],3),roc_auc[i]] #                                         # 
         ########################################################################################################################################
 
         df = pd.DataFrame([v_values], columns=V_header)
         #(print df)
-        df.to_csv(os.path.join(Workdirpath, OutFile), columns=V_header, sep='\t')
+        df.to_csv(os.path.join(Workdirpath, OutFile), columns=V_header, sep='\t', index=None)
 
         plt.figure()
-        plt.bar(V_header, v_values, color=(0.2, 0.4, 0.6, 0.6))
+        plt.bar(V_header[1:], v_values[1:], color=(0.2, 0.4, 0.6, 0.6))
         plt.xlabel('Accuracy Perameters', fontweight='bold', color = 'orange', fontsize='17', horizontalalignment='center')
         plt.savefig(os.path.join(Workdirpath, htmlOutDir, "2.png"))
         #plt.show()

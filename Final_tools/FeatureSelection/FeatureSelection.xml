@@ -14,7 +14,7 @@
 
     <command detect_errors="exit_code"><![CDATA[
 
-        python '$__tool_directory__/Feature.py' '$Method_Select.FeatSelect'
+        python '$__tool_directory__/FeatureSelection.py' '$Method_Select.FeatSelect'
 
               --InFile '$input1' 
 

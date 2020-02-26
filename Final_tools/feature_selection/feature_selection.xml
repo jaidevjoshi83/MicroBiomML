@@ -1,0 +1,102 @@
+<tool id="feature_selection" name="feature_selection" version="0.1.0" python_template_version="3.5">
+    <requirements>
+
+
+      <requirement type="package" version="2.1.2">matplotlib </requirement>
+      <requirement type="package" version="0.8.1">seaborn </requirement>
+      <requirement type="package" version="2.3.0"> lightgbm </requirement>
+      <requirement type="package" version="0.20.1" >scikit-learn </requirement>
+      <requirement type="package" version="0.23.0" >pandas</requirement>
+      <requirement type="package" version="0.20.1" >scikit-learn </requirement>
+
+    </requirements>
+
+
+    <command detect_errors="exit_code"><![CDATA[
+
+        python '$__tool_directory__/feature_selection.py' '$Method_Select.FeatSelect'
+
+              --InFile '$input1' 
+
+              --OutFile '$output1'
+
+              #if $Method_Select.FeatSelect == 'Corr'
+                  --C '$Method_Select.Coef'
+              #end if
+
+              #if $Method_Select.FeatSelect == 'SelBest'
+                  --N '$Method_Select.SelBest'
+              #end if
+
+              #if $Method_Select.FeatSelect == 'SelImpo'
+                  --N '$Method_Select.SelImpo'
+              #end if
+
+    ]]></command>
+
+    <inputs>
+      <conditional name="Method_Select">
+        <param name="FeatSelect" type="select" label="FeatSelect" argument="">
+          <option value="Corr">Corr</option>
+          <option value="SelBest">SelBest</option>
+          <option value="SelImpo">SelImpo</option>
+          <option value="CumImpo">CumImpo</option>
+        </param>
+
+        <when value= 'Corr'>
+            <param name="Coef" type="float" label="" value="0.0" help="--coef0"/>
+        </when>
+
+        <when value= 'SelBest'>
+            <param name="SelBest" type="integer" label="" value="10" help="--coef0"/>
+        </when>
+
+        <when value= 'SelImpo'>
+            <param name="SelImpo" type="integer" label="" value="10" help="--coef0"/>
+        </when>
+
+
+      </conditional>
+
+      <param name="input1" type="data" format="tsv" argument= "--TrainFile"/>
+
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tsv' label="out.tsv" />    
+
+    </outputs>
+ 
+    <tests>
+        <test>
+            <param name="input1" value="1.csv"/>
+            <output name="output1" file="out.csv" />
+        </test>
+    </tests>
+
+
+    <help><![CDATA[
+usage: FeatureSelection.py [-h] {Corr,SelBest,SelImpo,CumImpo} ...
+
+Deployment tool
+
+positional arguments:
+  {Corr,SelBest,SelImpo,CumImpo}
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+    </citations>
+</tool>

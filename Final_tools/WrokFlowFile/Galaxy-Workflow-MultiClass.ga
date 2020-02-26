@@ -2,7 +2,7 @@
     "a_galaxy_workflow": "true", 
     "annotation": "", 
     "format-version": "0.1", 
-    "name": "Test_3 (imported from uploaded file)", 
+    "name": "MultiClass", 
     "steps": {
         "0": {
             "annotation": "", 
@@ -15,25 +15,25 @@
             "name": "Input dataset", 
             "outputs": [], 
             "position": {
-                "left": 159.97158813476562, 
-                "top": 187.1875
+                "left": 163.99147033691406, 
+                "top": 341.9886360168457
             }, 
             "tool_id": null, 
             "tool_state": "{\"optional\": false}", 
             "tool_version": null, 
             "type": "data_input", 
-            "uuid": "ab675163-2315-4035-8be2-cc2b774cb759", 
+            "uuid": "ad98d91d-0400-4266-93fe-75d759b89a63", 
             "workflow_outputs": [
                 {
                     "label": null, 
                     "output_name": "output", 
-                    "uuid": "d8da012c-d2cd-49e8-ac21-d5f0b9b30a06"
+                    "uuid": "b1cee307-2ba3-4f22-b201-1f6323e81e99"
                 }
             ]
         }, 
         "1": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "feature_selection", 
             "errors": null, 
             "id": 1, 
             "input_connections": {
@@ -42,103 +42,106 @@
                     "output_name": "output"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool feature_selection", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "feature_selection", 
             "outputs": [
                 {
                     "name": "output1", 
                     "type": "tsv"
-                }, 
-                {
-                    "name": "output2", 
-                    "type": "html"
                 }
             ], 
             "position": {
-                "left": 431.5766906738281, 
-                "top": 169.55966186523438
+                "left": 282.5283966064453, 
+                "top": 466.9460029602051
             }, 
-            "post_job_actions": {}, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SVMC\", \"__current_case__\": 0, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }
+            }, 
+            "tool_id": "feature_selection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"Corr\", \"__current_case__\": 0, \"Coef\": \"0.0\"}, \"input1\": {\"__class__\": \"RuntimeValue\"}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "adbd2a69-d369-4f97-8ef1-a9d2f2249416", 
+            "uuid": "9ee7585c-daa7-43c6-b5d6-ca475f631446", 
             "workflow_outputs": [
                 {
                     "label": null, 
-                    "output_name": "output2", 
-                    "uuid": "da7c78a7-00b9-4750-8e3a-9ed6ce38dee1"
-                }, 
-                {
-                    "label": null, 
                     "output_name": "output1", 
-                    "uuid": "f6bd338b-6f6f-421e-976b-d4e09e61bdf2"
+                    "uuid": "5aea5920-a0af-4aa5-ad07-34ee8795640b"
                 }
             ]
         }, 
         "2": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "feature_selection", 
             "errors": null, 
             "id": 2, 
             "input_connections": {
                 "input1": {
-                    "id": 0, 
-                    "output_name": "output"
+                    "id": 1, 
+                    "output_name": "output1"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool feature_selection", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "feature_selection", 
             "outputs": [
                 {
                     "name": "output1", 
                     "type": "tsv"
-                }, 
-                {
-                    "name": "output2", 
-                    "type": "html"
                 }
             ], 
             "position": {
-                "left": 439.5738525390625, 
-                "top": 306.39202880859375
+                "left": 494.5028533935547, 
+                "top": 392.9403266906738
             }, 
             "post_job_actions": {
                 "HideDatasetActionoutput1": {
                     "action_arguments": {}, 
                     "action_type": "HideDatasetAction", 
                     "output_name": "output1"
-                }, 
-                "HideDatasetActionoutput2": {
-                    "action_arguments": {}, 
-                    "action_type": "HideDatasetAction", 
-                    "output_name": "output2"
                 }
             }, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SGDC\", \"__current_case__\": 1, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "tool_id": "feature_selection", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"Method_Select\": {\"FeatSelect\": \"Corr\", \"__current_case__\": 0, \"Coef\": \"0.0\"}, \"input1\": {\"__class__\": \"RuntimeValue\"}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "39003ea3-6f7a-4cf3-ba21-47bac260feb1", 
+            "uuid": "f71784be-fd15-45a2-bfec-fb42a320e556", 
             "workflow_outputs": []
         }, 
         "3": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "multi_class_prediction", 
             "errors": null, 
             "id": 3, 
             "input_connections": {
                 "input1": {
-                    "id": 0, 
-                    "output_name": "output"
+                    "id": 2, 
+                    "output_name": "output1"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "multi_class_prediction", 
             "outputs": [
                 {
                     "name": "output1", 
@@ -150,42 +153,47 @@
                 }
             ], 
             "position": {
-                "left": 443.57952880859375, 
-                "top": 425.5965881347656
+                "left": 758.4800872802734, 
+                "top": 127.95454025268555
             }, 
-            "post_job_actions": {
-                "HideDatasetActionoutput1": {
-                    "action_arguments": {}, 
-                    "action_type": "HideDatasetAction", 
-                    "output_name": "output1"
-                }, 
-                "HideDatasetActionoutput2": {
-                    "action_arguments": {}, 
-                    "action_type": "HideDatasetAction", 
-                    "output_name": "output2"
-                }
-            }, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"DTC\", \"__current_case__\": 2, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "post_job_actions": {}, 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SVMC\", \"__current_case__\": 0, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "bc10d180-39f0-40ef-9d09-1064072f0cf7", 
-            "workflow_outputs": []
+            "uuid": "37a89fcd-f4f9-4709-a2bf-57f5d52eb6ae", 
+            "workflow_outputs": [
+                {
+                    "label": null, 
+                    "output_name": "output2", 
+                    "uuid": "b4dd6a2b-3817-4a28-9c75-a7f526b50aa7"
+                }, 
+                {
+                    "label": null, 
+                    "output_name": "output1", 
+                    "uuid": "32b5b487-a3b8-4e1a-b0fb-d53ac1faddce"
+                }
+            ]
         }, 
         "4": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "multi_class_prediction", 
             "errors": null, 
             "id": 4, 
             "input_connections": {
                 "input1": {
-                    "id": 0, 
-                    "output_name": "output"
+                    "id": 2, 
+                    "output_name": "output1"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "multi_class_prediction", 
             "outputs": [
                 {
                     "name": "output1", 
@@ -197,8 +205,8 @@
                 }
             ], 
             "position": {
-                "left": 449.98577880859375, 
-                "top": 551.1931762695312
+                "left": 762.5425872802734, 
+                "top": 220.99431228637695
             }, 
             "post_job_actions": {
                 "HideDatasetActionoutput1": {
@@ -212,27 +220,32 @@
                     "output_name": "output2"
                 }
             }, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"GBC\", \"__current_case__\": 3, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"SGDC\", \"__current_case__\": 1, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "8b6eb990-8659-4bb1-9611-8fe2af46d325", 
+            "uuid": "7e4435bb-df26-427a-904b-1cc6e5eb976e", 
             "workflow_outputs": []
         }, 
         "5": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "multi_class_prediction", 
             "errors": null, 
             "id": 5, 
             "input_connections": {
                 "input1": {
-                    "id": 0, 
-                    "output_name": "output"
+                    "id": 2, 
+                    "output_name": "output1"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "multi_class_prediction", 
             "outputs": [
                 {
                     "name": "output1", 
@@ -244,8 +257,8 @@
                 }
             ], 
             "position": {
-                "left": 456.5340881347656, 
-                "top": 681.09375
+                "left": 768.5369110107422, 
+                "top": 312.9687385559082
             }, 
             "post_job_actions": {
                 "HideDatasetActionoutput1": {
@@ -259,27 +272,32 @@
                     "output_name": "output2"
                 }
             }, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"RFC\", \"__current_case__\": 4, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"DTC\", \"__current_case__\": 2, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "3a54d193-dd4f-42a6-89cf-ea4ca858d20c", 
+            "uuid": "fd32a8ad-cf2e-4f31-ae40-d71921bbfa82", 
             "workflow_outputs": []
         }, 
         "6": {
             "annotation": "", 
-            "content_id": "MultiClassPrediction", 
+            "content_id": "multi_class_prediction", 
             "errors": null, 
             "id": 6, 
             "input_connections": {
                 "input1": {
-                    "id": 0, 
-                    "output_name": "output"
+                    "id": 2, 
+                    "output_name": "output1"
                 }
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MultiClassPrediction", 
+            "name": "multi_class_prediction", 
             "outputs": [
                 {
                     "name": "output1", 
@@ -291,8 +309,8 @@
                 }
             ], 
             "position": {
-                "left": 468.53692626953125, 
-                "top": 796.10791015625
+                "left": 777.5710296630859, 
+                "top": 407.9687385559082
             }, 
             "post_job_actions": {
                 "HideDatasetActionoutput1": {
@@ -306,28 +324,228 @@
                     "output_name": "output2"
                 }
             }, 
-            "tool_id": "MultiClassPrediction", 
-            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"LRC\", \"__current_case__\": 5, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"GBC\", \"__current_case__\": 3, \"settings\": {\"__current_case__\": 0, \"advanced\": \"simple\"}}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "a6400283-287b-47fe-87c7-1e6553e5be27", 
+            "uuid": "8648be92-a46d-44cb-ae55-9a4d1d1b4bb2", 
             "workflow_outputs": []
         }, 
         "7": {
             "annotation": "", 
-            "content_id": "MergeDataFrame", 
+            "content_id": "multi_class_prediction", 
             "errors": null, 
             "id": 7, 
             "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "multi_class_prediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 779.5738372802734, 
+                "top": 499.9999885559082
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }, 
+                "HideDatasetActionoutput2": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output2"
+                }
+            }, 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"RFC\", \"__current_case__\": 4, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "fe0fb897-d421-47a7-b395-1c9a07a4a51d", 
+            "workflow_outputs": []
+        }, 
+        "8": {
+            "annotation": "", 
+            "content_id": "multi_class_prediction", 
+            "errors": null, 
+            "id": 8, 
+            "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "multi_class_prediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 780.5681610107422, 
+                "top": 589.9999885559082
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }, 
+                "HideDatasetActionoutput2": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output2"
+                }
+            }, 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"LRC\", \"__current_case__\": 5, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "25e1e097-f5cf-4302-8b29-d85285b0a500", 
+            "workflow_outputs": []
+        }, 
+        "9": {
+            "annotation": "", 
+            "content_id": "multi_class_prediction", 
+            "errors": null, 
+            "id": 9, 
+            "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "multi_class_prediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 785.5681610107422, 
+                "top": 681.9886360168457
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }, 
+                "HideDatasetActionoutput2": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output2"
+                }
+            }, 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"KNC\", \"__current_case__\": 6, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "83416cde-be4f-4c12-9d0d-f17850d134cb", 
+            "workflow_outputs": []
+        }, 
+        "10": {
+            "annotation": "", 
+            "content_id": "multi_class_prediction", 
+            "errors": null, 
+            "id": 10, 
+            "input_connections": {
+                "input1": {
+                    "id": 2, 
+                    "output_name": "output1"
+                }
+            }, 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool multi_class_prediction", 
+                    "name": "input1"
+                }
+            ], 
+            "label": null, 
+            "name": "multi_class_prediction", 
+            "outputs": [
+                {
+                    "name": "output1", 
+                    "type": "tsv"
+                }, 
+                {
+                    "name": "output2", 
+                    "type": "html"
+                }
+            ], 
+            "position": {
+                "left": 789.5738372802734, 
+                "top": 771.9886360168457
+            }, 
+            "post_job_actions": {
+                "HideDatasetActionoutput1": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output1"
+                }, 
+                "HideDatasetActionoutput2": {
+                    "action_arguments": {}, 
+                    "action_type": "HideDatasetAction", 
+                    "output_name": "output2"
+                }
+            }, 
+            "tool_id": "multi_class_prediction", 
+            "tool_state": "{\"__page__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}, \"scalling\": \"Min_Max\", \"__rerun_remap_job_id__\": null, \"TestMethods\": {\"SelTestMethods\": \"Internal\", \"nFolds\": \"5\", \"__current_case__\": 0}, \"SelMLAlgo\": {\"MLAlgo\": \"GNBC\", \"__current_case__\": 7, \"settings\": {\"__current_case__\": 2, \"advanced\": \"deviance\"}}}", 
+            "tool_version": "0.1.0", 
+            "type": "tool", 
+            "uuid": "d4194147-ebc2-46f5-9dcb-cd71764d093f", 
+            "workflow_outputs": []
+        }, 
+        "11": {
+            "annotation": "", 
+            "content_id": "merge_dataframe", 
+            "errors": null, 
+            "id": 11, 
+            "input_connections": {
                 "input1": [
-                    {
-                        "id": 1, 
-                        "output_name": "output1"
-                    }, 
-                    {
-                        "id": 2, 
-                        "output_name": "output1"
-                    }, 
                     {
                         "id": 3, 
                         "output_name": "output1"
@@ -343,12 +561,33 @@
                     {
                         "id": 6, 
                         "output_name": "output1"
+                    }, 
+                    {
+                        "id": 7, 
+                        "output_name": "output1"
+                    }, 
+                    {
+                        "id": 8, 
+                        "output_name": "output1"
+                    }, 
+                    {
+                        "id": 9, 
+                        "output_name": "output1"
+                    }, 
+                    {
+                        "id": 10, 
+                        "output_name": "output1"
                     }
                 ]
             }, 
-            "inputs": [], 
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool merge_dataframe", 
+                    "name": "input1"
+                }
+            ], 
             "label": null, 
-            "name": "MergeDataFrame", 
+            "name": "merge_dataframe", 
             "outputs": [
                 {
                     "name": "output1", 
@@ -356,42 +595,42 @@
                 }
             ], 
             "position": {
-                "left": 747.5141906738281, 
-                "top": 232.10226440429688
+                "left": 1122.5568084716797, 
+                "top": 430.99431228637695
             }, 
             "post_job_actions": {}, 
-            "tool_id": "MergeDataFrame", 
-            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input1\": {\"__class__\": \"ConnectedValue\"}}", 
+            "tool_id": "merge_dataframe", 
+            "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input1\": {\"__class__\": \"RuntimeValue\"}}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "3275fbf7-39d2-41ce-be5e-5a8f90e72328", 
+            "uuid": "dd5fad2d-417f-4f52-85e0-e177b093f7cb", 
             "workflow_outputs": [
                 {
                     "label": null, 
                     "output_name": "output1", 
-                    "uuid": "3e12a897-2d63-4217-b15a-820e79691a10"
+                    "uuid": "fdef31f9-5256-40dd-8034-5a45dc2935f1"
                 }
             ]
         }, 
-        "8": {
+        "12": {
             "annotation": "", 
-            "content_id": "HeatMap", 
+            "content_id": "heat_map", 
             "errors": null, 
-            "id": 8, 
+            "id": 12, 
             "input_connections": {
                 "input1": {
-                    "id": 7, 
+                    "id": 11, 
                     "output_name": "output1"
                 }
             }, 
             "inputs": [
                 {
-                    "description": "runtime parameter for tool HeatMap", 
+                    "description": "runtime parameter for tool heat_map", 
                     "name": "input1"
                 }
             ], 
             "label": null, 
-            "name": "HeatMap", 
+            "name": "heat_map", 
             "outputs": [
                 {
                     "name": "output2", 
@@ -399,25 +638,25 @@
                 }
             ], 
             "position": {
-                "left": 958.1107482910156, 
-                "top": 226.09375
+                "left": 1380.0709686279297, 
+                "top": 385.99431228637695
             }, 
             "post_job_actions": {}, 
-            "tool_id": "HeatMap", 
-            "tool_state": "{\"input2\": \"8\", \"input3\": \"10\", \"input1\": {\"__class__\": \"RuntimeValue\"}, \"input4\": \"3\", \"__page__\": null, \"__rerun_remap_job_id__\": null}", 
+            "tool_id": "heat_map", 
+            "tool_state": "{\"input2\": \"8\", \"input3\": \"10\", \"input1\": {\"__class__\": \"RuntimeValue\"}, \"input4\": \"20\", \"__page__\": null, \"__rerun_remap_job_id__\": null}", 
             "tool_version": "0.1.0", 
             "type": "tool", 
-            "uuid": "e91f536e-efed-4691-abaf-6f204da7838c", 
+            "uuid": "e6d1e382-1ccc-472f-a42d-759b01944297", 
             "workflow_outputs": [
                 {
                     "label": null, 
                     "output_name": "output2", 
-                    "uuid": "425aa51a-e653-4bdd-a717-f954e0c8fcec"
+                    "uuid": "70d3844f-2519-4037-94ef-21cccb0d01be"
                 }
             ]
         }
     }, 
     "tags": [], 
-    "uuid": "f6523ca3-4198-496b-ad2a-a03415dddf7f", 
-    "version": 1
+    "uuid": "e60a497b-ff6c-48e7-82a5-0fe9622395d2", 
+    "version": 2
 }

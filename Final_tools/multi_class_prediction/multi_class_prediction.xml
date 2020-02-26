@@ -1,0 +1,650 @@
+<tool id="multi_class_prediction" name="multi_class_prediction" version="0.1.0" python_template_version="3.6">
+    <requirements>
+      <requirement type="package" version="3.1.2">matplotlib</requirement>
+      <requirement type="package" version="3.6">python</requirement>
+      <requirement type="package" version="0.25.3">pandas</requirement>
+      <requirement type="package" version="0.22.1">scikit-learn</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+
+        python '$__tool_directory__/multi_class_prediction.py'  '$SelMLAlgo.MLAlgo'
+
+                        #if $SelMLAlgo.MLAlgo == 'SVMC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --cache_size $SelMLAlgo.settings.cache_size
+                                --C $SelMLAlgo.settings.C
+                                --kernel '$SelMLAlgo.settings.kernel'
+                                --degree '$SelMLAlgo.settings.degree'
+                                --gamma '$SelMLAlgo.settings.gamma'
+                                --coef0 '$SelMLAlgo.settings.coef0'
+                                --probability '$SelMLAlgo.settings.probability'
+                                --shrinking '$SelMLAlgo.settings.shrinking'
+                                --tol '$SelMLAlgo.settings.tol'
+                                --verbose '$SelMLAlgo.settings.verbose'
+                                --max_iter '$SelMLAlgo.settings.max_iter'
+                                --decision_function_shape '$SelMLAlgo.settings.decision_function_shape'
+                                --randomState '$SelMLAlgo.settings.randomState'
+                                --breakties '$SelMLAlgo.settings.breakties'
+                            #end if
+                        #end if 
+
+                        #if $SelMLAlgo.MLAlgo == 'SGDC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                               --loss $SelMLAlgo.settings.loss
+                               --penalty $SelMLAlgo.settings.penalty
+                               --alpha $SelMLAlgo.settings.alpha
+                               --l1_ratio $SelMLAlgo.settings.l1_ratio
+                               --fit_intercept $SelMLAlgo.settings.fit_intercept
+                               --max_iter $SelMLAlgo.settings.max_iter
+                               --tol $SelMLAlgo.settings.tol
+                               --shuffle $SelMLAlgo.settings.shuffle
+                               --verbose $SelMLAlgo.settings.verbose
+                               --epsilon $SelMLAlgo.settings.epsilon
+                               --n_jobs $SelMLAlgo.settings.n_jobs
+                               --random_state $SelMLAlgo.settings.random_state
+                               --learning_rate $SelMLAlgo.settings.learning_rate
+                               --eta0 $SelMLAlgo.settings.eta0
+                               --power_t $SelMLAlgo.settings.power_t
+                               --early_stopping $SelMLAlgo.settings.early_stopping
+                               --validation_fraction $SelMLAlgo.settings.validation_fraction
+                               --n_iter_no_change $SelMLAlgo.settings.n_iter_no_change
+                               --warm_start $SelMLAlgo.settings.warm_start
+                               --average $SelMLAlgo.settings.average
+
+                            #end if
+                        #end if 
+
+                        #if $SelMLAlgo.MLAlgo == 'DTC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --criterion $SelMLAlgo.settings.criterion
+                                --splitter $SelMLAlgo.settings.splitter
+                                --max_depth $SelMLAlgo.settings.max_depth
+                                --min_samples_split $SelMLAlgo.settings.min_samples_split
+                                --min_samples_leaf $SelMLAlgo.settings.min_samples_leaf
+                                --min_weight_fraction_leaf $SelMLAlgo.settings.min_weight_fraction_leaf
+                                --max_features $SelMLAlgo.settings.max_features
+                                --random_state $SelMLAlgo.settings.random_state
+                                --max_leaf_nodes $SelMLAlgo.settings.max_leaf_nodes
+                                --min_impurity_decrease $SelMLAlgo.settings.min_impurity_decrease
+                                --min_impurity_split $SelMLAlgo.settings.min_impurity_split
+                                --presort $SelMLAlgo.settings.presort
+                                --ccpalpha $SelMLAlgo.settings.ccpalpha
+                            #end if
+                        #end if 
+
+
+                         #if $SelMLAlgo.MLAlgo == 'GBC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --loss $SelMLAlgo.settings.loss
+                                --learning_rate $SelMLAlgo.settings.learning_rate
+                                --n_estimators $SelMLAlgo.settings.n_estimators
+                                --subsample $SelMLAlgo.settings.subsample
+                                --criterion $SelMLAlgo.settings.criterion
+                                --min_samples_split $SelMLAlgo.settings.min_samples_split
+                                --min_samples_leaf $SelMLAlgo.settings.min_samples_leaf
+                                --min_weight_fraction_leaf $SelMLAlgo.settings.min_weight_fraction_leaf
+                                --max_depth $SelMLAlgo.settings.max_depth
+                                --min_impurity_decrease $SelMLAlgo.settings.min_impurity_decrease
+                                --min_impurity_split $SelMLAlgo.settings.min_impurity_split
+                                --init $SelMLAlgo.settings.init
+                                --random_state $SelMLAlgo.settings.random_state
+                                --max_features $SelMLAlgo.settings.max_features
+                                --verbose $SelMLAlgo.settings.verbose
+                                --max_leaf_nodes $SelMLAlgo.settings.max_leaf_nodes
+                                --warm_start $SelMLAlgo.settings.warm_start
+                                --presort $SelMLAlgo.settings.presort
+                                --validation_fraction $SelMLAlgo.settings.validation_fraction
+                                --n_iter_no_change $SelMLAlgo.settings.n_iter_no_change
+                                --tol $SelMLAlgo.settings.tol
+                                --ccpalpha $SelMLAlgo.settings.ccpalpha
+                            #end if
+                        #end if 
+
+                        #if $SelMLAlgo.MLAlgo == 'RFC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --n_estimators $SelMLAlgo.settings.n_estimators
+                                --criterion $SelMLAlgo.settings.criterion
+                                --max_depth $SelMLAlgo.settings.max_depth
+                                --min_samples_split $SelMLAlgo.settings.min_samples_split
+                                --min_samples_leaf $SelMLAlgo.settings.min_samples_leaf
+                                --min_weight_fraction_leaf $SelMLAlgo.settings.min_weight_fraction_leaf
+                                --max_features $SelMLAlgo.settings.max_features
+                                --max_leaf_nodes $SelMLAlgo.settings.max_leaf_nodes
+                                --min_impurity_decrease $SelMLAlgo.settings.min_impurity_decrease
+                                --min_impurity_split $SelMLAlgo.settings.min_impurity_split
+                                --bootstrap $SelMLAlgo.settings.bootstrap
+                                --oob_score $SelMLAlgo.settings.oob_score
+                                --n_jobs $SelMLAlgo.settings.n_jobs
+                                --random_state $SelMLAlgo.settings.random_state
+                                --verbose $SelMLAlgo.settings.verbose
+                                --warm_start $SelMLAlgo.settings.warm_start
+                                --ccp_alpha $SelMLAlgo.settings.ccp_alpha
+                                --max_samples $SelMLAlgo.settings.max_samples
+                            #end if
+                        #end if 
+
+
+                        #if $SelMLAlgo.MLAlgo == 'LRC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --penalty $SelMLAlgo.settings.penalty
+                                --dual $SelMLAlgo.settings.dual
+                                --tol $SelMLAlgo.settings.tol
+                                --C $SelMLAlgo.settings.C
+                                --fit_intercept $SelMLAlgo.settings.fit_intercept
+                                --intercept_scaling $SelMLAlgo.settings.intercept_scaling
+                                --random_state $SelMLAlgo.settings.random_state
+                                --solver $SelMLAlgo.settings.solver
+                                --max_iter $SelMLAlgo.settings.max_iter
+                                --multi_class $SelMLAlgo.settings.multi_class
+                                --verbose $SelMLAlgo.settings.verbose
+                                --warm_start $SelMLAlgo.settings.warm_start
+                                --n_jobs $SelMLAlgo.settings.n_jobs
+                                --l1_ratio $SelMLAlgo.settings.l1_ratio 
+                            #end if
+                        #end if 
+
+                        #if $SelMLAlgo.MLAlgo == 'KNC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --n_neighbors $SelMLAlgo.settings.n_neighbors
+                                --weights $SelMLAlgo.settings.weights
+                                --algorithm $SelMLAlgo.settings.algorithm
+                                --leaf_size $SelMLAlgo.settings.leaf_size
+                                --p $SelMLAlgo.settings.p
+                                --metric $SelMLAlgo.settings.metric
+                                --n_jobs $SelMLAlgo.settings.n_jobs
+                            #end if
+                        #end if 
+
+
+                        #if $SelMLAlgo.MLAlgo == 'GNBC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --var_smoothing $SelMLAlgo.settings.var_smoothing
+                            #end if
+                        #end if 
+
+                        #if $SelMLAlgo.MLAlgo == 'KNC'
+                            #if $SelMLAlgo.settings.advanced == "advanced"
+                                --hidden_layer_sizes $SelMLAlgo.settings.hidden_layer_sizes
+                                --activation $SelMLAlgo.settings.activation
+                                --solver $SelMLAlgo.settings.solver
+                                --alpha $SelMLAlgo.settings.alpha
+                                --batch_size $SelMLAlgo.settings.batch_size   
+                                --learning_rate $SelMLAlgo.settings.learning_rate     
+                                --learning_rate_init $SelMLAlgo.settings.learning_rate_init
+                                --power_t $SelMLAlgo.settings.power_t       
+                                --max_iter $SelMLAlgo.settings.max_iter            
+                                --shuffle $SelMLAlgo.settings.shuffle              
+                                --random_state $SelMLAlgo.settings.random_state           
+                                --tol $SelMLAlgo.settings.tol            
+                                --verbose $SelMLAlgo.settings.verbose             
+                                --warm_start $SelMLAlgo.settings.warm_start          
+                                --momentum $SelMLAlgo.settings.momentum         
+                                --nesterovs_momentum $SelMLAlgo.settings.nesterovs_momentum   
+                                --early_stopping $SelMLAlgo.settings.early_stopping  
+                                --validation_fraction $SelMLAlgo.settings.validation_fraction
+                                --beta_1 $SelMLAlgo.settings.beta_1        
+                                --beta_2 $SelMLAlgo.settings.beta_2    
+                                --epsilon $SelMLAlgo.settings.epsilon
+                                --n_iter_no_change $SelMLAlgo.settings.n_iter_no_change
+                                --max_fun $SelMLAlgo.settings.max_fun
+                                --TrainFile $SelMLAlgo.settings.TrainFile
+                                --TestMethod $SelMLAlgo.settings.TestMethod
+                                --SelectedSclaer $SelMLAlgo.settings.SelectedSclaer
+                                --NFolds $SelMLAlgo.settings.NFolds
+                                --Testspt $SelMLAlgo.settings.Testspt
+                                --TestFile $SelMLAlgo.settings.TestFile
+                                --OutFile $SelMLAlgo.settings.OutFile
+                                --htmlOutDir $SelMLAlgo.settings.htmlOutDir
+                                --htmlFname $SelMLAlgo.settings.htmlFname
+                                --Workdirpath $SelMLAlgo.settings.Workdirpath
+                            #end if
+                        #end if 
+
+                        --TrainFile '$input1' --TestMethod   '$TestMethods.SelTestMethods' --SelectedSclaer '$scalling'
+
+                        --htmlOutDir '$output2.extra_files_path'
+
+                        --htmlFname '$output2'
+
+                        --OutFile '$output1'
+
+                        #if $TestMethods.SelTestMethods == 'predict'
+                              --TestFile '$TestMethods.input2'
+                        #end if
+
+                        #if $TestMethods.SelTestMethods == 'Internal'
+                              --NFolds '$TestMethods.nFolds'
+                        #end if
+
+    ]]></command>
+
+    <inputs>
+
+      <param name="input1" type="data" format="tsv" argument= "--TrainFile"/>
+
+      <conditional name='SelMLAlgo' >
+
+        <param name="MLAlgo" type="select" label="MLAlgo" argument="">
+          <option value="SVMC">SVMC</option>
+          <option value="SGDC">SGDC</option>
+          <option value="DTC">DTC</option>
+          <option value="GBC">GBC</option>
+          <option value="RFC">RFC</option>
+          <option value="LRC">LRC</option>
+          <option value="KNC">KNC</option>
+          <option value="GNBC">GNBC</option>
+          <option value="MLP">MLP</option>
+        </param>
+
+        <when value="SVMC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+                <option value="simple" selected="true">No, use program defaults.</option>
+                <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+
+            <when value="advanced">
+              <param name="C" type="float" label="C" value="1.0"  help="(--C)" />
+              <param name="kernel" type="select" label="kernel" argument="">
+                    <option value="rbf">rbf</option>  
+                    <option value="poly">poly</option>
+                    <option value="linear">linear</option>
+                    <option value="sigmoid">sigmoid </option>
+              </param>
+              <param name="degree" type="integer" label="degree" value="3"  help="(--degree)" />
+              <param name="gamma" type="text" label="gamma" value="scale"  help="(--gamma)" />
+              <param name="coef0" type="float" label="coef0" value="0.0"  help="(--coef0)" />
+              <param name="shrinking" type="boolean" label="shrinking"  value="true" help="(--shrinking)" />
+              <param name="probability" type="boolean" label="probability"  value="true" help="(--probability)" />
+              <param name="tol" type="float" label="tol" value="1e-3"  help="(--tol)" />
+              <param name="verbose" type="boolean" label="verbose" value="false"  help="(--verbose)" />
+              <param name="max_iter" type="integer" label="max_iter" value="-1"  help="(--max_iter)" />   
+              <param  name="decision_function_shape" type="select" label="decision_function_shape"  argument="" help="--decision_function_shape">
+                    <option value="ovo">ovo</option>  
+                    <option value="ovr">ovr</option>
+              </param>  
+              <param name="randomState" type="integer" label="randomState" value="100"  help="(--randomState)" />
+              <param name="breakties" type="boolean" label="breakties" value="false"  help="(--breakties)" />
+              <param name="cache_size" type="float" label="cache_size" value="100"  help="(--cache_size)" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="SGDC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+                <option value="simple" selected="true">No, use program defaults.</option>
+                <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+
+            <when value="advanced">
+              <param name="loss" type="select" label="loss" argument="" help="--loss" >
+               <option value="hinge" > hinge</option>
+               <option value="log" selected="true" > log </option>
+               <option value="modified_huber" > modified_huber </option>
+               <option value="squared_hinger" > squared_hinger </option>
+               <option value="perceptron" > perceptron </option>
+              </param>
+              <param name="penalty" type="select" label="penalty" argument="" help="--penalty" >
+                <option value="l2" selected="true"> l2 </option>
+                <option value="l1"> l1 </option>
+                <option vlaue="elasticnet" > elasticnet </option>
+              </param>
+              <param name="alpha" type="float" label="alpha" value="0.0001"  help="--alpha" />
+              <param name="l1_ratio" type="float" label="l1_ratio" value="0.15"  help="--l1_ratio" />
+              <param name="fit_intercept" type="boolean" label="fit_intercept" value="true"  help="--fit_intercept" />
+              <param name="max_iter" type="integer" label="max_iter" value="1000"  help="--max_iter" />
+              <param name="tol" type="float" label="tol" value="1e-3"  help="--tol" />
+              <param name="shuffle" type="boolean" label="shuffle" value='true' help="--shuffle" />
+              <param name="verbose" type="integer" label="verbose" value="0"  help="--verbose" />
+              <param name="epsilon" type="float" label="epsilon" value="0.1"  help="--epsilon" />
+              <param name="n_jobs" type="text" label="n_jobs" value="none"  help="--n_jobs" />
+              <param name="random_state" type="text" label="random_state" value="none" help="--random_state" />
+              <param name="learning_rate" type="select" label="learning_rate"  argument="" help="--learning_rate" >   
+                <option value="constant" selected="true" > constant </option>
+                <option value="optimal" > optimal </option>
+                <option value="invscaling"> invscaling </option>
+                <option vlaue="adaptive"> adaptive </option>
+              </param>     
+              <param name="eta0" type="float" label="eta0" value="1e-3"  help="--eta0" />
+              <param name="power_t" type="float" label="power_t" value="0.5"  help="--power_t" />
+              <param name="early_stopping" type="boolean" label="early_stopping" value="false" help="--early_stopping" />
+              <param name="validation_fraction" type="float" label="validation_fraction" value="0.1"  help="--validation_fraction" />
+              <param name="n_iter_no_change" type="integer" label="n_iter_no_change" value="5"  help="--n_iter_no_change" />
+              <param name="warm_start" type="boolean" label="warm_start" value='false' help="--warm_start" />
+              <param name="average" type="boolean" label="average"  value="false" help="--average" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="DTC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+                <option value="simple" selected="true">No, use program defaults.</option>
+                <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+
+            <when value="advanced">
+              <param name="criterion" type="select" label="criterion" argument="" help="--criterion" >
+                <option value="gini" selected="" > gini </option>
+                <option value="entropy"> entropy </option>
+              </param>
+              <param name="splitter" type="select" label="splitter" argument="" help="--splitter" >
+                <option value="best" selected="true" > best </option>
+                <option value="random"> random </option>
+              </param>
+              <param name="max_depth" type="integer" label="10" value="10"  help="--max_depth" /> 
+              <param name="min_samples_split" type="float" label="min_samples_split" value="2"  help="--min_samples_split" />
+              <param name="min_samples_leaf" type="float" label="min_weight_fraction_leaf" value="1"  help="--min_weight_fraction_leaf" />
+              <param name="min_weight_fraction_leaf" type="float" label="min_weight_fraction_leaf" value="0.0"  help="--min_weight_fraction_leaf" />
+              <param name="max_features" type="text" label="max_features" value='none' help="--max_features" > 
+              </param>
+              <param name="random_state" type="integer" label="random_state" value="10"  help="--random_state" />
+              <param name="max_leaf_nodes" type="integer" label="max_leaf_nodes" value="0"  help="--max_leaf_nodes" />
+              <param name="min_impurity_decrease" type="float" label="min_impurity_decrease" value="0.0"  help="--min_impurity_decrease" />
+              <param name="min_impurity_split" type="float" label="min_impurity_split" value="1e-7"  help="--min_impurity_split" />
+              <param name="presort" type="text" label="presort" value="deprecated"  help="--presort" />
+              <param name="ccpalpha" type="float" label="ccpalpha" value="0.0"  help="--ccpalpha" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="GBC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+                <option value="simple" selected="true">No, use program defaults.</option>
+                <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+
+            <when value="advanced">
+              <param name="loss" type="select" label="loss" argument=""  help="loss" >
+                <option value="deviance" selected="true" > deviance </option>
+                <option value="advanced">advanced</option>
+              </param>
+              <param name="learning_rate" type="float" label="learning_rate" value="0.1"  help="--learning_rate" />
+              <param name="n_estimators" type="integer" label="n_estimators" value="100"  help="--n_estimators" />
+              <param name="subsample" type="float" label="subsample" value="1.0"  help="--subsample" />
+              <param name="criterion" type="select" label="criterion"  argument="" help="--criterion" >
+                <option value="mse" selected="true">mse</option>
+                <option value="friedman_mse">friedman_mse</option> 
+                <option value="mae" > mae </option>
+              </param>
+              <param name="min_samples_split" type="text" label="min_samples_split" value="2"  help="--min_samples_split" /> 
+              <param name="min_samples_leaf" type="text" label="min_samples_leaf" value="1"  help="--min_samples_leaf" /> 
+              <param name="min_weight_fraction_leaf" type="float" label="min_weight_fraction_leaf" value="0.0"  help="--min_weight_fraction_leaf" /> 
+              <param name="max_depth" type="integer" label="max_depth" value="3"  help="--max_depth" /> 
+              <param name="min_impurity_decrease" type="float" label="min_impurity_decrease" value="0.0"  help="--min_impurity_decrease" />
+              <param name="min_impurity_split" type="float" label="min_impurity_split" value="1e-7"  help="--min_impurity_split" />
+              <param name="init" type="select" label="init" argument=""  help="init" >  
+                <option value="none" selected="true">None</option>
+                <option value="Zero">Zero</option> 
+              </param>
+              <param name="random_state" type="text" label="random_state" value="none"  help="--random_state"/> 
+              <param name="max_features" type="text" label="max_features" value="none"  help="--max_features" /> 
+              <param name="verbose" type="integer" label="verbose" value="0"  help="--verbose" />
+              <param name="max_leaf_nodes" type="text" label="max_leaf_nodes" value="none"  help="--max_leaf_nodes" />
+              <param name="warm_start" type="boolean" label="warm_start" value='false' help="--warm_start" /> 
+              <param name="presort" type="text" label="presort" value="deprecated"  help="--presort" />
+              <param name="validation_fraction" type="float" label="validation_fraction" value="0.1"  help="--validation_fraction" />
+              <param name="n_iter_no_change" type="text" label="n_iter_no_change" value="none"  help="--n_iter_no_change" />
+              <param name="tol" type="float" label="tol" value="1e-4"  help="--tol" /> 
+              <param name="ccpalpha" type="float" label="ccpalpha" value="0.0"  help="--ccpalpha" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="RFC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+              <option value="deviance" selected="true">No, use program defaults.</option>
+              <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+            <when value="advanced">
+              <param name="n_estimators" type="integer" label="n_estimators" value="100"  help="--n_estimators" />
+              <param name="criterion"  type="select" label="criterion" argument="" help="--criterion" >
+                <option value="gini" selected="true"> gini </option>
+                <option value="entropy">entropy</option>
+              </param>
+              <param name="max_depth" type="text" label="max_depth" value="none"  help="--max_depth" />
+              <param name="min_samples_split" type="text" label="min_samples_split" value="2"  help="--min_impurity_split" />
+              <param name="min_samples_leaf" type="text" label="min_samples_leaf" value="1"  help="--min_samples_leaf" />
+              <param name="min_weight_fraction_leaf" type="float" label="min_weight_fraction_leaf" value="0"  help="--min_weight_fraction_leaf" />
+              <param name="max_features" type="text" label="max_features" value='auto' help="--max_features" > 
+
+              </param>
+              <param name="max_leaf_nodes" type="text" label="max_leaf_nodes" value="none"  help="--max_leaf_nodes" />
+              <param name="min_impurity_decrease"  type="float" label="min_impurity_decrease" value="0"  help="--min_impurity_decrease" />
+              <param name="min_impurity_split" type="float" label="min_impurity_split" value="1e-7"  help="--min_impurity_split" />
+              <param name="bootstrap" type="boolean" label="bootstrap" value="true" help="--bootstrap" />
+              <param name="oob_score" type="boolean" label="oob_score" value="false" help="--oob_score" />
+              <param name="n_jobs" type="text" label="n_jobs" value="none"  help="--n_jobs" />
+              <param name="random_state" type="text" label="random_state" value="none"  help="--random_state" />
+              <param name="verbose" type="integer" label="verbose" value="0"  help="--verbose" />
+              <param name="warm_start" type="boolean" label="warm_start"  help="--warm_start" />
+              <param name="ccp_alpha" type="float" label="ccp_alpha" value="0.0"  help="--ccp_alpha" />
+              <param name="max_samples" type="text" label="max_samples" value="none" help="--max_samples" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="LRC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+              <option value="deviance" selected="true">No, use program defaults.</option>
+              <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+            <when value="advanced">
+              <param name="penalty" type="select" label="fit_intercept" argument="" help="--fit_intercept" >
+                <option value="l2" selected="true"> l1 </option>
+                <option value="l1" > l2 </option>
+                <option value="elastic" > elastic </option>
+                <option value="None" > None </option>
+              </param>
+              <param name="dual" type="boolean" label="dual" value="false" help="--dual" />
+              <param name="tol" type="float" label="tol" value="1e-4" help="--tol" />
+              <param name="C" type="float" label="C" value="1.0" help="--C" /> 
+              <param name="fit_intercept" type="boolean" label="fit_intercept" value="true" help="--fit_intercept" />
+              <param name="intercept_scaling" type="float" label="intercept_scaling" value="1.0" help="intercept_scaling" />
+              <param name="random_state" type="text" label="random_state" value="none"  help="--random_state" />
+              <param name="solver" type="select" label="solver" argument="" help="--solver" >
+                  <option value="newton-cg"  > newton-cg </option>
+                  <option value="lbfgs" selected="true" > lbfgs </option>
+                  <option value="saga" > saga </option>
+                  <option value="sag" > sag </option>
+                  <option value="liblinear" >liblinear </option>
+              </param>
+              <param name="max_iter" type="integer" label="max_iter" value="100" help="--max_iter" />
+              <param name="multi_class" type="select" label="multi_class" argument="" help="--multi_class" > 
+                <option value="auto" selected="true" > auto </option>
+                <option value="ovr" > ovr </option>
+                <option value="multinomial" > multinomial </option>
+              </param>
+              <param name="verbose" type="integer" label="verbose" value="0"  help="--verbose" />
+              <param name="warm_start" type="boolean" label="warm_start" value="false" help="--warm_start" />
+              <param name="n_jobs" type="text" label="n_jobs" value="none"  help="--n_jobs" /> 
+              <param name="l1_ratio" type="text" label="l1_ratio" value="none"  help="--l1_ratio" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="KNC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+              <option value="deviance" selected="true">No, use program defaults.</option>
+              <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+            <when value="advanced">
+              <param name="n_neighbors" type="integer" label="n_neighbors" value="5"  help="n_neighbors" />
+              <param name="weights" type="select" label="weights" argument="" help="--weights" >
+                <option value="uniform" selected="true" > uniform </option>
+                <option value="distance">distance</option>
+                <option value="callable">callable</option>
+              </param>
+              <param name="algorithm" type="select" label="algorithm"  argument="" help="--algorithm" >
+                <option value="auto" selected="true" > auto </option>
+                <option value="ball_tree">ball_tree</option>
+                <option value="kd_tree">kd_tree</option>
+                <option value="brute">brute</option>
+              </param>
+              <param name="leaf_size" type="integer" label="leaf_size" value="30"  help="--leaf_size" />
+              <param name="p" type="integer" label="p" value="2"  help="--p" />
+              <param name="metric" type="select" label="metric" argument="" help="--metric" >
+                <option value="minkowski" selected="true" > minkowski </option>
+                <option value="precomputed">precomputed</option>
+                <option value="nonzero">nonzero</option>
+              </param>
+              <param name="n_jobs" type="text" label="n_jobs" value="none"  help="--n_jobs" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="GNBC">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+              <option value="deviance" selected="true">No, use program defaults.</option>
+              <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+            <when value="advanced">
+              <param name="var_smoothing" type="float" label="var_smoothing" value="1e-9"  help="--var_smoothing" />
+            </when>
+        </conditional>
+        </when>
+
+        <when value="MLP">
+        <conditional name="settings">
+            <param name="advanced" type="select" label="Specify advanced parameters">
+              <option value="deviance" selected="true">No, use program defaults.</option>
+              <option value="advanced">Yes, see full parameter list.</option>
+            </param>
+            <when value="simple">
+            </when>
+            <when value="advanced">
+              <param name="hidden_layer_sizes" type="text" label="hidden_layer_sizes" value="100,"  help="--hidden_layer_sizes" />
+              <param name="activation" type='select' label="activation" help="--hidden_layer_sizes" >
+                <option value="indentity"  > indentity </option>
+                <option value="logistic" > logistic </option>
+                <option value="tanh" > tanh </option>
+                <option value="relu" selected="true" > relu </option>
+              </param>
+
+              <param name="solver" type="select" label="solver" help="--solver" >
+                <option value="lbfgs" > lbfgs </option>
+                <option value="sgd" > sgd </option>
+                <option value="adam" selected="true" >adam </option>
+              </param>
+
+              <param name="alpha" type="float" value="0.0001"  label="alpha" help="--alpha" />
+              <param name="batch_size" type="text" value="auto" label="batch_size" help="--batch_size" />
+              <param name="learning_rate" type="select" label="learning_rate" help="--learning_rate" >
+                <option value="constant" selected="true" >constant </option>
+                <option value="invscaling" >invscaling </option>
+                <option value="adaptive" >adaptive </option>
+              </param>
+              <param name="learning_rate_int" type="float" value="0.001" label="learning_rate_int" help="--learning_rate_int" />
+              <param name="power_t" type="float" value="0.5" label="power_t" help="--power_t" />
+              <param name="max_iter" type="integer" value="200" label="max_iter" help="--max_iter" />
+              <param name="shuffle" type="boolean" label="shuffle" value="true" help="--shuffle" />
+              <param name="random_state" type="text" label="random_state" value="none" help="--random_state" />
+              <param name="tol" type="float" label="tol" value="1e-4" help="--tol" />
+              <param name="verbose" type="boolean" label="verbose" value="false" help="--verbose" />
+              <param name="warm_start" type="boolean" label="warm_start" value="false" help="--warm_start" />
+              <param name="momentum" type="float" label="momentum" value="0.9" help="--momentum" />
+              <param name="nesterovs_momentum" type="boolean" label="nesterovs_momentum" value="true" help="--nesterovs_momentum" />
+              <param name="early_stopping" type="boolean" label="early_stopping" value="false" help="--early_stopping" />
+              <param name="validation_fraction" type="float" label="validation_fraction" value="0.1" help="--validation_fraction" />
+              <param name="beta_1" type="float" label="beta_1" value="0.9" help="--beta_1" />
+              <param name="beta_2" type="float" label="beta_1" value="0.999" help="--beta_2" />
+              <param name="epsilon" type="float" label="epsilon" value="1e-8" help="--epsilon" />
+              <param name="n_iter_no_change" type="integer" label="n_iter_no_change" value="10" help="--n_iter_no_change" />
+              <param name="max_fun" type="integer" label="max_fun" value="15000" help="--max_fun" />
+            </when>
+        </conditional>
+        </when>
+
+      </conditional>
+
+      <conditional name='TestMethods'>
+        <param name="SelTestMethods" type="select" label="Choose the Test method" argument="--TestMethod">
+          <option value="Internal">Internal</option>
+          <option value="Predict">Predict</option>
+        </param>
+        <when value="Internal">
+          <param name="nFolds" type="integer" label="TestMethod" value="5" min="5" max="10" help="(-X)" />
+        </when>
+        <when value="TestSplit">
+          <param name="TestSplit" type="float" label="TestMethod" value="0.2" min="0.0" max="1.0" help="(-X)" />
+        </when>
+        <when value="External">
+          <param name="input2" type="data" format="tsv"  argument="--TestFile"/>
+        </when>
+        <when value="Predict">
+          <param name="input2" type="data" format="tsv" argument="--TestFile"/>
+        </when>
+      </conditional>
+
+      <param name="scalling" type="select" label="Scalling data" argument="--SelectedSclaer">
+        <option value="Min_Max"> Min_Max </option>
+        <option value="Standard_Scaler"> Standard_Scaler </option>
+        <option value="No_Scaler"> No_Scaler </option>
+      </param>
+
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tsv' label="out.tsv" />    
+        <data name='output2' format='html' label="repot.html" />
+    </outputs>
+ 
+
+    <tests>
+        <test>
+            <param name="input1" value="1.csv"/>
+            <output name="output1" file="out.csv"/>
+        </test>
+    </tests>
+
+
+    <help><![CDATA[
+      usage: ML.py [-h] {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP}
+
+      Deployment tool
+
+      positional arguments:
+        {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP}
+
+      optional arguments:
+        -h, --help            show this help message and exit
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+    </citations>
+</tool>
+
+
+

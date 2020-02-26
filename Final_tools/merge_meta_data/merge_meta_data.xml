@@ -1,0 +1,52 @@
+<tool id="merge_metadata" name="merge_metadata" version="0.1.0" python_template_version="3.5">
+    <requirements>
+      <requirement version="0.24.2" package="pandas" >pandas </requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/merge_meta_data.py' -I '$input1' -M '$input2' -C '$input3' -O '$output1'
+    ]]></command>
+
+    <inputs>
+        <param type="data" name="input1" label="Data file" format="tsv" />
+        <param type="data" name="input2" label="Metadata F
+          ile" format="metadata" />
+        <param type="text" name="input3"  value="class_label"/>
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tsv' label="merged.tsv" /> 
+    </outputs>
+
+
+    <help><![CDATA[
+       usage: MergeMetaData.py [-h] -I IN_FILE -M METADATAFILE -C METADATACOLUMN -O
+                              OUTFILE
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -I IN_FILE, --in_file IN_FILE
+                              Input file
+        -M METADATAFILE, --MetaDataFile METADATAFILE
+                              In put MetaDataFile
+        -C METADATACOLUMN, --MetaDataColumn METADATACOLUMN
+                              Input columns
+        -O OUTFILE, --OutFile OUTFILE
+                              Output Files
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+}</citation>
+    </citations>
+</tool>
+
+
+
+

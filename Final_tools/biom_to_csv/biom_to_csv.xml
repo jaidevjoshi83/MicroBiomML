@@ -1,0 +1,46 @@
+<tool id="biom_to_csv" name="biom_to_csv" version="0.1.0" python_template_version="3.5">
+    <requirements>
+      <requirement type="package" version="2.1.7">biom-format</requirement>
+      <requirement type="package" version="2.9.0">h5py</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/biom_to_csv.py' -I '$input1' -O '$output2'
+    ]]></command>
+
+    <inputs>
+         <param type="data" name="input1" format="biom" multiple="true"/>
+    </inputs>
+
+    <outputs>
+        <data name='output2' format='tsv' label="1.tsv" />  
+    </outputs>
+
+    <tests>
+        <test>
+            <param name="input1" value="1.biom"/>
+            <output name="output1" file="1.tsv" />
+        </test>
+    </tests>
+    <help><![CDATA[
+usage: biom_to_csv.py [-h] -I IN_FILE -O OUT_DIR
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -I IN_FILE, --in_file IN_FILE
+                        Path to target tsv file
+  -O OUT_DIR, --Out_dir OUT_DIR
+                        Path to target tsv file
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+}</citation>
+    </citations>
+</tool>

@@ -1,0 +1,55 @@
+<tool id="clean_biom" name="clean_biom" version="0.1.0" python_template_version="3.5">
+    <requirements>
+      <requirement type="package" version="0.23.0">pandas</requirement> 
+
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+        python '$__tool_directory__/clean_biom.py' -I '$input1' -O_T '$output1' -O_D '$output2' -S '$skiprows'
+    ]]></command>
+
+    <inputs>
+         <param name="input1" type="data"  format="tsv" multiple="false"/>
+         <param name="skiprows" type="integer"  label="skiprows" value='1' />
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tsv' label="Out_file_data.tsv" />  
+        <data name='output2' format='tsv' label="Out_file_Taxonomy.tsv" />  
+    </outputs>
+
+    <tests>
+        <test>
+            <param name="input1" value="1.biom" />
+            <output name="output1" file="1.tsv" />
+        </test>
+    </tests>
+    <help><![CDATA[
+
+      usage: CleanBiom.py [-h] -I IN_FILE [-O_T OUT_FILE_DATA] 
+      [-O_D OUT_FILE_TAXONOMY] [-S SKIPROWS]
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -I IN_FILE, --in_file IN_FILE
+                              Path to target tsv file
+        -O_T OUT_FILE_DATA, --Out_file_data OUT_FILE_DATA
+                              Path to target tsv file
+        -O_D OUT_FILE_TAXONOMY, --Out_file_Taxonomy OUT_FILE_TAXONOMY
+                              Path to target tsv file
+        -S SKIPROWS, --skiprows SKIPROWS
+                              Path to target tsv file
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+}</citation>
+    </citations>
+</tool>

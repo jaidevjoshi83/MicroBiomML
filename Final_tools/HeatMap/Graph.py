@@ -37,7 +37,6 @@ def HTML_Gen(html):
       <h1> Machine Learning Algorithm Assessment Report </h1>
     </div>
     <div class="container">
-      <h2> ROC curve and result summary Graph </h2>
       <div class="row">
         <div class="col-sm-4">
           <img src="1.png" alt="Smiley face" height="500" width="400">
@@ -64,7 +63,7 @@ def HeatMapPlot(Infile,  FigHight, FigWidth, Rotation, Workdirpath, htmlOutDir, 
     x_axis_labels = df.columns[1:]
     y_axis_labels = df[df.columns[0]].tolist()
 
-    sns.set(font_scale=1)
+    sns.set(font_scale=2)
     sns.heatmap(df[df.columns[1:]], center=0, vmin=0, vmax=1, yticklabels=y_axis_labels, xticklabels=x_axis_labels)
 
     plt.xticks(rotation=45)

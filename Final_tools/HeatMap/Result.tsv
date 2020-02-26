@@ -1,0 +1,24 @@
+classification	Acc	Pre	Rec	f1	auc
+Age	0.98	0.75	0.99	0.828	0.83
+Penicillin vs Vancomycin-cecal	0.833	0.75	0.9	0.778	0.792
+Penicillin vs Vancomycin-fecal	1	1	1	1	1
+Malawi vs Venezuela	0.617	0.616	0.616	0.616	0.611
+USA vs Malawi	1	1	1	1	1
+Feces vs Rectum	0.817	0.812	0.801	0.805	0.701
+Feces vs Vagina	0.931	0.931	0.93	0.931	0.811
+Feces vs Nasal cavity	0.996	0.995	0.995	0.995	0.801
+Rectum vs Nasal cavity	1	1	1	1	1
+Vagina vs Nasal cavity	1	1	1	1	1
+Vagina vs Rectum	0.884	0.884	0.881	0.882	0.765
+Health vs CD	0.88	0.707	0.644	0.667	0.725
+Healthy vs Cirrhosis	0.924	0.926	0.927	0.924	0.807
+Healthy vs Diabetes	0.737	0.759	0.751	0.736	0.711
+Healthy vs UC	0.8	0.771	0.81	0.78	0.722
+Impaired vs Diabetes	0.485	0.487	0.487	0.483	0.311
+Normal vs Diabetes	0.677	0.709	0.693	0.674	0.553
+Male vs Female	0.949	0.88	0.88	0.88	0.862
+Buccal mucosa vs Rectum	0.914	0.93	0.927	0.933	0.807
+Buccal mucosa vs Feces	1	1	1	1	1
+Buccal mucosa vs Nasal Cavity	1	1	1	1	1
+Buccal mucosa vs Vagina	0.996	0.995	0.995	0.995	0.801
+Multi Class (Body Site data)	0.931	0.942	0.961	0.933	0.891

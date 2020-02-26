@@ -41,8 +41,10 @@ def Remove_corr_features(in_file, outFile, corr_cutoff):
     to_drop = [column for column in upper.columns if any(upper[column] > float(corr_cutoff))]
     final_df = processed_df.drop(df[to_drop], axis=1)
     print  ("After Rmove correlated Columns: ",final_df.shape[1])
+
     reuduced_corr_features  = pd.concat([final_df.round(3), y_train], axis=1)
-    final_df.to_csv(outFile,sep='\t', index=None)
+
+    reuduced_corr_features.to_csv(outFile,sep='\t', index=None)
 
 def Selected_best_features(in_file, outFile, nFeatures):
 
@@ -51,7 +53,6 @@ def Selected_best_features(in_file, outFile, nFeatures):
     clm_list = df.columns.tolist()
     X_train = df[clm_list[0:len(clm_list)-1]]
     y_train = df[clm_list[len(clm_list)-1]]
-
 
     print (X_train)
 
@@ -85,8 +86,8 @@ def Bestfeature_from_cummulative_importance(inFile, outFile ):
 
     df = pd.read_csv(inFile,sep='\t')
     print (df.shape)
-    train_labels = df['class_label']
-    train = df.drop(columns = ['class_label'])
+    train_labels = df['class']
+    train = df.drop(columns = ['class'])
     fs = FeatureSelector(data = train, labels = train_labels)
     fs.identify_zero_importance(task = 'classification', eval_metric = 'auc', n_iterations = 10, early_stopping = True)
     zero_importance_features = fs.ops['zero_importance']

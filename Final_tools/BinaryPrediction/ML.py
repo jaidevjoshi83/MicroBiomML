@@ -478,8 +478,6 @@ def SGD_Classifier( loss, penalty, alpha, l1_ratio, fit_intercept, max_iter, tol
     else:
         average = False
 
-
-
     pera = {"loss":loss, 
     "penalty":penalty, 
     "alpha":float(alpha),#0.0001
@@ -713,7 +711,6 @@ def RF_Classifier( n_estimators, criterion, max_depth, min_samples_split, min_sa
 
 
     print(type(min_samples_leaf))
-
 
     pera = {
     "n_estimators":int(n_estimators), #integer, optional (default=100)

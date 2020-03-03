@@ -1,11 +1,11 @@
-<tool id="biom_to_csv" name="biom_to_csv" version="0.1.0" python_template_version="3.5">
+<tool id="biom_to_tsv" name="biom_to_tsv" version="0.1.0" python_template_version="3.5">
     <requirements>
       <requirement type="package" version="2.1.7">biom-format</requirement>
       <requirement type="package" version="2.9.0">h5py</requirement>
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/biom_to_csv.py' -I '$input1' -O '$output2'
+        python '$__tool_directory__/biom_to_tsv.py' -I '$input1' -O '$output2'
     ]]></command>
 
     <inputs>

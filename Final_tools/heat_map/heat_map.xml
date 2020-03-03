@@ -24,8 +24,8 @@
  
     <tests>
         <test>
-            <param name="input1" value="1.csv"/>
-            <output name="output1" file="out.csv"/>
+            <param name="input1" value="test.tsv"/>
+            <output name="output2" file="report.html"/>
         </test>
     </tests>
 

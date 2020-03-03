@@ -13,8 +13,8 @@
     </outputs>
     <tests>
         <test>
-            <param name="input1" value="1.tsv,2.tsv,3.tsv"/>
-            <output name="output1" file="merge.tsv" />
+            <param name="input1" value="1.tsv,2.tsv,3.tsv,4.tsv,5.tsv,6.tsv"/>
+            <output name="output1" file="out.tsv" />
         </test>
     </tests>
     <help><![CDATA[

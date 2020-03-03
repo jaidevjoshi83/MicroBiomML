@@ -536,7 +536,7 @@
             <when value="advanced">
               <param name="hidden_layer_sizes" type="text" label="hidden_layer_sizes" value="100,"  help="--hidden_layer_sizes" />
               <param name="activation" type='select' label="activation" help="--hidden_layer_sizes" >
-                <option value="indentity"  > indentity </option>
+                <option value="indentity" > indentity </option>
                 <option value="logistic" > logistic </option>
                 <option value="tanh" > tanh </option>
                 <option value="relu" selected="true" > relu </option>
@@ -611,9 +611,10 @@
  
     <tests>
         <test>
-            <param name="input1" value="1.csv"/>
-            <output name="output1" file="out.csv"/>
-        </test>
+        	<param name="input1" value="test.tsv"/>
+            <output name="output1" value="out.tsv"/>
+            <output name="output2" file="report.html"/>
+         </test>
     </tests>
 
     <help><![CDATA[

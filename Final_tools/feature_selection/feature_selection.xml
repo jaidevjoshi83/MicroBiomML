@@ -1,4 +1,4 @@
-<tool id="feature_selection" name="feature_selection" version="0.1.0" python_template_version="3.5">
+<tool id="feature_selection" name="Feature Selection" version="0.1.0" python_template_version="3.5">
     <requirements>
 
 

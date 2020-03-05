@@ -1,4 +1,4 @@
-<tool id="merge_metadata" name="merge_metadata" version="0.1.0" python_template_version="3.5">
+<tool id="merge_metadata" name="Merge Metadata" version="0.1.0" python_template_version="3.5">
     <requirements>
       <requirement version="0.24.2" package="pandas" >pandas </requirement>
     </requirements>

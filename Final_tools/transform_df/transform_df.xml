@@ -1,4 +1,4 @@
-<tool id="transform_df" name="transform_df" version="0.1.0" python_template_version="3.5">
+<tool id="transform_df" name="Transform Dataframe" version="0.1.0" python_template_version="3.5">
     <requirements>
       <requirement type="package" version="0.24.2">pandas</requirement>
     </requirements>

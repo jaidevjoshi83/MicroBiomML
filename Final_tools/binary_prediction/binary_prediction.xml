@@ -1,4 +1,4 @@
-<tool id="binary_prediction" name="binary_prediction" version="0.1.0" python_template_version="3.6">
+<tool id="binary_prediction" name="Binary Prediction" version="0.1.0" python_template_version="3.6">
     <requirements>
       <requirement type="package" version="3.1.2">matplotlib</requirement>
       <requirement type="package" version="3.6">python</requirement>

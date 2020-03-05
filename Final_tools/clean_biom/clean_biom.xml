@@ -1,4 +1,4 @@
-<tool id="clean_biom" name="clean_biom" version="0.1.0" python_template_version="3.5">
+<tool id="clean_biom" name="Clean Biom" version="0.1.0" python_template_version="3.5">
     <requirements>
       <requirement type="package" version="0.23.0">pandas</requirement> 
 

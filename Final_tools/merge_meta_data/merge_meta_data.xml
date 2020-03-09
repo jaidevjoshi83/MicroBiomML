@@ -8,14 +8,13 @@
     ]]></command>
 
     <inputs>
-        <param type="data" name="input1" label="Data file" format="tsv" />
-        <param type="data" name="input2" label="Metadata F
-          ile" format="metadata" />
+        <param type="data" name="input1" label="Data file" format="tabular" />
+        <param type="data" name="input2" label="Metadata File" format="tabular" />
         <param type="text" name="input3"  value="class_label"/>
     </inputs>
 
     <outputs>
-        <data name='output1' format='tsv' label="merged.tsv" /> 
+        <data name='output1' format='tabular' label="merged.tsv" /> 
     </outputs>
 
 

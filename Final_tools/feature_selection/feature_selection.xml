@@ -1,7 +1,7 @@
 <tool id="feature_selection" name="Feature Selection" version="0.1.0" python_template_version="3.5">
+
+	<description> unsupervised and supervised feature selectoin. </description>
     <requirements>
-
-
       <requirement type="package" version="2.1.2">matplotlib </requirement>
       <requirement type="package" version="0.8.1">seaborn </requirement>
       <requirement type="package" version="2.3.0"> lightgbm </requirement>
@@ -56,12 +56,12 @@
         </when>
       </conditional>
 
-      <param name="input1" type="data" format="tsv" argument= "--TrainFile"/>
+      <param name="input1" type="data" format="tabular" argument= "--TrainFile"/>
 
     </inputs>
 
     <outputs>
-        <data name='output1' format='tsv' label="out.tsv" />    
+        <data name='output1' format='tabular' label="out.tsv" />    
     </outputs>
  
     <tests>

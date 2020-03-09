@@ -1,4 +1,6 @@
 <tool id="merge_dataframe" name="Merge Dataframe" version="0.1.0" python_template_version="3.5">
+
+	<description> Merge 2 or more dataframes </description>
     <requirements>
       <requirement version="0.24.2" package="pandas" >pandas </requirement>
     </requirements>
@@ -6,10 +8,10 @@
         python $__tool_directory__/concate_data_frame.py '$input1' '$output1'
     ]]></command>
     <inputs>
-        <param type="data" name="input1" format="tsv" multiple="true" />
+        <param type="data" name="input1" format="tabular" multiple="true" />
     </inputs>
     <outputs>
-        <data name='output1' format='tsv' label="merged.tsv" />    
+        <data name='output1' format='tabular' label="merged.tsv" multiple="false" />    
     </outputs>
     <tests>
         <test>

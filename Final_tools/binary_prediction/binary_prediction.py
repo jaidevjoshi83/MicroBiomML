@@ -440,8 +440,6 @@ def SVM_Classifier(C, kernel, degree, gamma, coef0, shrinking, probability, tol,
  
 def SGD_Classifier( loss, penalty, alpha, l1_ratio, fit_intercept, max_iter, tol, shuffle, verbose, epsilon, n_jobs, random_state, learning_rate, eta0, power_t, early_stopping, validation_fraction, n_iter_no_change,  warm_start, average, TrainFile, TestMethod, SelectedSclaer, NFolds, TestFile, OutFile, htmlOutDir, htmlFname, Workdirpath):
 
-
-
     print (type(random_state), n_jobs)
     if n_jobs == 'none':
         n_jobs =None
@@ -508,8 +506,6 @@ def SGD_Classifier( loss, penalty, alpha, l1_ratio, fit_intercept, max_iter, tol
 
 
 def DT_Classifier(criterion, splitter, max_depth, min_samples_split, min_samples_leaf, min_weight_fraction_leaf,  random_state, max_leaf_nodes, min_impurity_decrease, min_impurity_split,  presort, ccpalpha, max_features, TrainFile, TestMethod, SelectedSclaer, NFolds, TestFile, OutFile, htmlOutDir, htmlFname, Workdirpath):
-
-
 
     if max_depth == 'none':
         max_depth =None
@@ -647,7 +643,6 @@ def GB_Classifier(loss, learning_rate, n_estimators, subsample, criterion, min_s
 
 def RF_Classifier( n_estimators, criterion, max_depth, min_samples_split, min_samples_leaf, min_weight_fraction_leaf, max_features, max_leaf_nodes, min_impurity_decrease,  min_impurity_split, bootstrap, oob_score, n_jobs, random_state, verbose, warm_start, ccp_alpha, max_samples, TrainFile, TestMethod, SelectedSclaer, NFolds,  TestFile, OutFile, htmlOutDir, htmlFname, Workdirpath):
 
-
     if max_depth == 'none':
         max_depth = None 
     else:
@@ -731,11 +726,9 @@ def RF_Classifier( n_estimators, criterion, max_depth, min_samples_split, min_sa
     "warm_start":warm_start,#bool, optional (default=False)
     "ccp_alpha":float(ccp_alpha),#non-negative float, optional (default=0.0)
     "max_samples": max_samples #int or float, default=None
-
     }
 
     model = RandomForestClassifier(**pera)
-
     #Fit_Model('GBC.tsv', 'Internal', model, 'Min_Max',  os.getcwd(),  os.path.join(os.getcwd(),'report_dir'), 'out.tsv', 'out.html', NoOfFolds=3)
     Fit_Model(TrainData=TrainFile, Test_Method=TestMethod, Algo=model, Selected_Sclaer=SelectedSclaer, Workdirpath=Workdirpath, htmlOutDir=htmlOutDir, OutFile=OutFile, htmlFname=htmlFname,  NoOfFolds=int(NFolds), TestData=TestFile)
 
@@ -1151,6 +1144,6 @@ elif sys.argv[1] == 'GNBC':
 elif sys.argv[1] == 'MLP' :
     MLP_Classifier(args.hidden_layer_sizes, args.activation, args.solver, args.alpha, args.batch_size, args.learning_rate, args.learning_rate_init, args.power_t, args.max_iter, args.shuffle, args.random_state, args.tol, args.verbose, args.warm_start, args.momentum, args.nesterovs_momentum, args.early_stopping, args.validation_fraction, args.beta_1, args.beta_2, args.epsilon, args.n_iter_no_change, args.max_fun, args.TrainFile, args.TestMethod, args.SelectedSclaer, args.NFolds, args.Testspt, args.TestFile, args.OutFile, args.htmlOutDir, args.htmlFname, args.Workdirpath)
 else:
-    print ("its not accurate")
+    print ("option not correct")
     exit()
 

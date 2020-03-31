@@ -1,19 +1,30 @@
-import pandas as pd
 
 
-def MergeDataFrame(DataFile, MetaDataFile, MataDataColumns, OutFile):
+def MergeDataFrame(DataFile, MetaDataFile,  OutFile):
 
-    dtafile = pd.read_csv(DataFile, sep="\t")
-    MetaDataFile = pd.read_csv(MetaDataFile, sep="\t")
+ 
+    metadatafile = open(MetaDataFile)
+    lines1 = metadatafile.readlines()
 
-    MataDataColumns = MataDataColumns.split(',')
+    datafile = open(DataFile)
 
-    MetaDataFile = MetaDataFile[MataDataColumns]
+    lines = datafile.readlines()
+    first_line =  lines[0]
+    all_lines = lines[1:]
 
-    df  = pd.concat([dtafile, MetaDataFile], axis=1)
-    print (df)
-    df.to_csv(OutFile, sep='\t', index=False)
+    outfile = open(OutFile,'w')
 
+    #print "\t".join(first_line.split('\t')[1:])
+
+    outfile.write("\t".join(first_line.split('\t')[1:]).strip('\n')+'\t'+'class_label'+'\n')
+
+    for line1 in lines1:
+        lines  = datafile.readlines()[1:]
+ 
+        for line in all_lines:
+            if line1.split('\t')[0] == line.split('\t')[0]:
+                outfile.write("\t".join(line.split('\t')[1:]).strip('\n')+'\t'+line1.split('\t')[1])
+                #print "\t".join(line.split('\t')[1:]).strip('\n')+'\t'+line1.split('\t')[1]
 
 if __name__=="__main__":
 
@@ -29,12 +40,7 @@ if __name__=="__main__":
     parser.add_argument("-M", "--MetaDataFile",
                         required=True,
                         default=None,
-                        help="In put MetaDataFile")
-
-    parser.add_argument("-C", "--MetaDataColumn",
-                        required=True,
-                        default=None,
-                        help="Input columns")
+                        help="In put MetaDataFile") 
 
     parser.add_argument("-O", "--OutFile",
                         required=True,
@@ -43,9 +49,4 @@ if __name__=="__main__":
                        
     args = parser.parse_args()
 
-    MergeDataFrame(args.in_file, args.MetaDataFile, args.MetaDataColumn, args.OutFile)
-
-
-
-
-
+    MergeDataFrame(args.in_file, args.MetaDataFile, args.OutFile)

@@ -1,5 +1,5 @@
 <tool id="heat_map" name="Heat Map" version="0.1.0" python_template_version="3.6">
-	<description> Plot a heatmap </description>
+	<description> Plot a heatmap</description>
     <requirements>
       <requirement type="package" version="3.1.2">matplotlib</requirement>
       <requirement type="package" version="0.25.3">pandas</requirement>

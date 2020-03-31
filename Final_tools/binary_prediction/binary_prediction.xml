@@ -1,5 +1,5 @@
 <tool id="binary_prediction" name="Binary Prediction" version="0.1.0" python_template_version="3.6">
-	<description> predicts binary data </description>
+	<description> predict binary microbiom data </description>
     <requirements>
       <requirement type="package" version="3.1.2">matplotlib</requirement>
       <requirement type="package" version="3.6">python</requirement>
@@ -202,7 +202,6 @@
                         #end if 
 
                         --TrainFile '$input1' --TestMethod   '$TestMethods.SelTestMethods' --SelectedSclaer '$scalling'
-
                         --htmlOutDir '$output2.extra_files_path'
 
                         --htmlFname '$output2'

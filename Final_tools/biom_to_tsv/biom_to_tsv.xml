@@ -1,5 +1,5 @@
 <tool id="biom_to_tsv" name="biom_to_tsv" version="0.1.0" python_template_version="3.5">
-	<description> converts biom file into tsv formate </description>
+	<description> convert biom to tsv formate </description>
     <requirements>
       <requirement type="package" version="2.1.7">biom-format</requirement>
       <requirement type="package" version="2.9.0">h5py</requirement>

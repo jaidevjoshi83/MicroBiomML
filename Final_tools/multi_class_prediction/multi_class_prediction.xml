@@ -1,5 +1,5 @@
 <tool id="multi_class_prediction" name="Multi Class Prediction" version="0.1.0" python_template_version="3.6">
-	<description> Predicts Multiclass data </description>
+	<description> predicts multiclass microbiom data </description>
 
     <requirements>
       <requirement type="package" version="3.1.2">matplotlib</requirement>

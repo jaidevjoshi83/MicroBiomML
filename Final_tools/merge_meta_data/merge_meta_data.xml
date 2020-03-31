@@ -4,17 +4,16 @@
     </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-        python '$__tool_directory__/merge_meta_data.py' -I '$input1' -M '$input2' -C '$input3' -O '$output1'
+        python '$__tool_directory__/merge_meta_data.py' -I '$input1' -M '$input2' -O '$output1'
     ]]></command>
 
     <inputs>
         <param type="data" name="input1" label="Data file" format="tabular" />
         <param type="data" name="input2" label="Metadata File" format="tabular" />
-        <param type="text" name="input3"  value="class_label"/>
     </inputs>
 
     <outputs>
-        <data name='output1' format='tabular' label="merged.tsv" /> 
+        <data name='output1' format='tabular' label="merged.tsv" multiple="false" /> 
     </outputs>
 
 

@@ -1,6 +1,6 @@
 <tool id="merge_dataframe" name="Merge Dataframe" version="0.1.0" python_template_version="3.5">
 
-	<description> Merge 2 or more dataframes </description>
+	<description> merge 2 or more dataframe </description>
     <requirements>
       <requirement version="0.24.2" package="pandas" >pandas </requirement>
     </requirements>

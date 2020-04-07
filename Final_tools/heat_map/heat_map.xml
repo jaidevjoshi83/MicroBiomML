@@ -13,7 +13,7 @@
     ]]></command>
 
     <inputs>
-      <param name="input1" type="data" format="tsv" argument= "--TrainFile"/>
+      <param name="input1" type="data" format="tabular" argument= "--TrainFile"/>
       <param name="input2" type="integer" label="FigWidth" value="8"  help="(--FigWidth)" />
       <param name="input3" type="integer" label="FigHight" value="10"  help="(--FigHight)" /> 
       <param name="input4" type="integer" label="Rotation" value="20"  help="(--Rotation)" />

@@ -1,0 +1,843 @@
+[
+    {
+        "PernigoniN_2021": {
+            "age_category": 2,
+            "country": 2,
+            "location": 2
+        }
+    },
+    {
+        "ChengpingW_2017": {
+            "antibiotics_current_use": 2,
+            "age_category": 3,
+            "gender": 2
+        }
+    },
+    {
+        "VogtmannE_2016": {
+            "age_category": 2,
+            "gender": 3
+        }
+    },
+    {
+        "SankaranarayananK_2015": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "smoker": 2
+        }
+    },
+    {
+        "JieZ_2017": {
+            "age_category": 2,
+            "gender": 3,
+            "smoker": 3
+        }
+    },
+    {
+        "PehrssonE_2016": {
+            "age_category": 5,
+            "gender": 3,
+            "country": 2,
+            "location": 2
+        }
+    },
+    {
+        "BedarfJR_2017": {
+            "age_category": 3,
+            "gender": 2,
+            "antibiotics_current_use": 2,
+            "diet": 3
+        }
+    },
+    {
+        "ContevilleLC_2019": {
+            "age_category": 2
+        }
+    },
+    {
+        "LiuW_2016": {
+            "non_westernized": 2
+        }
+    },
+    {
+        "HMP_2012": {
+            "age_category": 2,
+            "gender": 2
+        }
+    },
+    {
+        "Bengtsson-PalmeJ_2015": {
+            "gender": 2
+        }
+    },
+    {
+        "ZeeviD_2015": {
+            "gender": 2,
+            "age_category": 2
+        }
+    },
+    {
+        "HansenLBS_2018": {
+            "gender": 2,
+            "uncurated_metadata": 2
+        }
+    },
+    {
+        "NagataN_2022": {
+            "gender": 2,
+            "age_category": 2
+        }
+    },
+    {
+        "NielsenHB_2014": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "ferm_milk_prod_consumer": 2
+        }
+    },
+    {
+        "YassourM_2016": {
+            "visit_number": 2,
+            "days_from_first_collection": 2
+        }
+    },
+    {
+        "Castro-NallarE_2015": {
+            "antibiotics_current_use": 2,
+            "antibiotics_family": 6,
+            "gender": 2
+        }
+    },
+    {
+        "LeChatelierE_2013": {
+            "age_category": 2,
+            "hitchip_probe_class": 2,
+            "gender": 3
+        }
+    },
+    {
+        "TettAJ_2019_a": {
+            "age_category": 4,
+            "family_role": 4
+        }
+    },
+    {
+        "DhakanDB_2019": {
+            "age_category": 5,
+            "gender": 2,
+            "location": 2
+        }
+    },
+    {
+        "YassourM_2018": {
+            "age_category": 2,
+            "gender": 2,
+            "days_from_first_collection": 7,
+            "pregnant": 2,
+            "family_role": 2,
+            "born_method": 3,
+            "feeding_practice": 3
+        }
+    },
+    {
+        "FrankelAE_2017": {
+            "age_category": 2,
+            "gender": 2,
+            "RECIST": 4,
+            "ORR": 2
+        }
+    },
+    {
+        "KarlssonFH_2013": {
+            "insulin_cat": 2
+        }
+    },
+    {
+        "LifeLinesDeep_2016": {
+            "age_category": 3,
+            "gender": 2
+        }
+    },
+    {
+        "QinJ_2012": {
+            "age_category": 3,
+            "gender": 3
+        }
+    },
+    {
+        "LiJ_2017": {}
+    },
+    {
+        "ShiB_2015": {
+            "days_from_first_collection": 2
+        }
+    },
+    {
+        "BritoIL_2016": {
+            "age_category": 4,
+            "gender": 2,
+            "location": 5
+        }
+    },
+    {
+        "YuJ_2015": {
+            "age_category": 2,
+            "gender": 2,
+            "smoker": 3,
+            "ever_smoker": 3,
+            "ajcc": 5,
+            "disease_location": 4
+        }
+    },
+    {
+        "ThomasAM_2018b": {
+            "age_category": 2,
+            "gender": 2
+        }
+    },
+    {
+        "ZhuF_2020": {
+            "age_category": 2,
+            "gender": 2,
+            "location": 7,
+            "smoker": 2,
+            "ever_smoker": 3
+        }
+    },
+    {
+        "CosteaPI_2017": {
+            "age_category": 4,
+            "gender": 3,
+            "country": 2
+        }
+    },
+    {
+        "OhJ_2014": {
+            "gender": 3
+        }
+    },
+    {
+        "VincentC_2016": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2
+        }
+    },
+    {
+        "KosticAD_2015": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "born_method": 2,
+            "feeding_practice": 2,
+            "autoantibody_positive": 7
+        }
+    },
+    {
+        "KeohaneDM_2020": {
+            "age_category": 3,
+            "gender": 2,
+            "smoker": 2,
+            "ever_smoker": 2,
+            "alcohol": 2
+        }
+    },
+    {
+        "WindTT_2020": {
+            "age_category": 2,
+            "gender": 2,
+            "RECIST": 4,
+            "ORR": 2,
+            "PFS12": 3
+        }
+    },
+    {
+        "BrooksB_2017": {
+            "gender": 3,
+            "born_method": 3,
+            "premature": 2
+        }
+    },
+    {
+        "FengQ_2015": {
+            "age_category": 2,
+            "gender": 2,
+            "diet": 3
+        }
+    },
+    {
+        "RoutyB_2018": {
+            "antibiotics_current_use": 2,
+            "age_category": 3,
+            "gender": 2,
+            "days_from_first_collection": 3,
+            "anti_PD_1": 2,
+            "RECIST": 4,
+            "PFS03": 3,
+            "PFS06": 3
+        }
+    },
+    {
+        "DavarD_2021": {
+            "antibiotics_current_use": 2,
+            "antibiotics_family": 2,
+            "age_category": 3,
+            "gender": 2,
+            "anti_PD_1": 2,
+            "RECIST": 4,
+            "ORR": 2
+        }
+    },
+    {
+        "SmitsSA_2017": {
+            "age_category": 3,
+            "gender": 3,
+            "location": 3
+        }
+    },
+    {
+        "VatanenT_2016": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "country": 3
+        }
+    },
+    {
+        "HMP_2019_ibdmdb": {
+            "antibiotics_current_use": 2,
+            "age_category": 4,
+            "gender": 2,
+            "location": 4
+        }
+    },
+    {
+        "KartalE_2022": {
+            "antibiotics_current_use": 3,
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "smoker": 3,
+            "ever_smoker": 3,
+            "alcohol": 3,
+            "disease_stage": 5
+        }
+    },
+    {
+        "LokmerA_2019": {
+            "age_category": 2,
+            "gender": 2,
+            "location": 7,
+            "population": 2,
+            "lifestyle": 3
+        }
+    },
+    {
+        "HeQ_2017": {
+            "age_category": 2,
+            "gender": 3
+        }
+    },
+    {
+        "WampachL_2018": {
+            "age_category": 2,
+            "gender": 2,
+            "days_from_first_collection": 3,
+            "born_method": 3
+        }
+    },
+    {
+        "WirbelJ_2018": {
+            "age_category": 2,
+            "gender": 2,
+            "ajcc": 6
+        }
+    },
+    {
+        "SchirmerM_2016": {
+            "age_category": 3,
+            "gender": 3,
+            "birth_control_pil": 3,
+            "smoker": 3,
+            "ever_smoker": 3
+        }
+    },
+    {
+        "HallAB_2017": {
+            "location": 2
+        }
+    },
+    {
+        "XuQ_2021": {
+            "antibiotics_current_use": 3,
+            "gender": 2,
+            "age_category": 2,
+            "smoker": 3,
+            "alcohol": 3
+        }
+    },
+    {
+        "Obregon-TitoAJ_2015": {
+            "age_category": 3,
+            "gender": 3,
+            "country": 2,
+            "location": 3,
+            "non_westernized": 2
+        }
+    },
+    {
+        "ThomasAM_2019_c": {
+            "age_category": 2,
+            "gender": 2,
+            "ajcc": 3
+        }
+    },
+    {
+        "Heitz-BuschartA_2016": {
+            "antibiotics_current_use": 2,
+            "antibiotics_family": 4,
+            "age_category": 3,
+            "gender": 2,
+            "mumps": 2
+        }
+    },
+    {
+        "SpencerCN_2021": {
+            "antibiotics_current_use": 3,
+            "age_category": 2,
+            "gender": 2,
+            "diet": 3,
+            "ORR": 2,
+            "PFS12": 2,
+            "previous_therapy": 3,
+            "PFS03": 2,
+            "PFS06": 2
+        }
+    },
+    {
+        "BaruchEN_2021": {
+            "age_category": 3,
+            "gender": 2,
+            "days_from_first_collection": 4,
+            "anti_PD_1": 2,
+            "RECIST": 4,
+            "ORR": 2,
+            "FMT_donor_sample": 3
+        }
+    },
+    {
+        "ZellerG_2014": {
+            "age_category": 2,
+            "gender": 2,
+            "ajcc": 5,
+            "fobt": 3
+        }
+    },
+    {
+        "BackhedF_2015": {
+            "antibiotics_current_use": 3,
+            "age_category": 3,
+            "gender": 3,
+            "pregnant": 3,
+            "family_role": 3,
+            "born_method": 3,
+            "feeding_practice": 6
+        }
+    },
+    {
+        "ChuDM_2017": {
+            "antibiotics_current_use": 3,
+            "antibiotics_family": 4,
+            "age_category": 2,
+            "gender": 2,
+            "population": 3,
+            "days_from_first_collection": 4,
+            "pregnant": 2,
+            "lactating": 2,
+            "family_role": 2,
+            "born_method": 2,
+            "premature": 2,
+            "feeding_practice": 4,
+            "menopausal_status": 2
+        }
+    },
+    {
+        "VilaAV_2018": {
+            "gender": 2
+        }
+    },
+    {
+        "RosaBA_2018": {
+            "country": 2,
+            "location": 3,
+            "days_from_first_collection": 6,
+            "uncurated_metadata": 4
+        }
+    },
+    {
+        "TettAJ_2016": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "location": 2
+        }
+    },
+    {
+        "RampelliS_2015": {
+            "age_category": 4,
+            "gender": 2,
+            "country": 2,
+            "location": 3,
+            "non_westernized": 2
+        }
+    },
+    {
+        "IjazUZ_2017": {
+            "antibiotics_current_use": 2,
+            "age_category": 3,
+            "gender": 3,
+            "family_role": 4,
+            "disease_location": 5,
+            "remission": 3
+        }
+    },
+    {
+        "DavidLA_2015": {
+            "age_category": 2
+        }
+    },
+    {
+        "LiSS_2016": {}
+    },
+    {
+        "TettAJ_2019_c": {
+            "age_category": 3,
+            "gender": 3,
+            "family_role": 2
+        }
+    },
+    {
+        "MatsonV_2018": {
+            "anti_PD_1": 3
+        }
+    },
+    {
+        "LomanNJ_2013": {
+            "stec_count": 4,
+            "shigatoxin_2_elisa": 3,
+            "stool_texture": 4
+        }
+    },
+    {
+        "PetersBA_2019": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "disease_stage": 2,
+            "PFS12": 3
+        }
+    },
+    {
+        "LiJ_2014": {
+            "age_category": 2,
+            "gender": 3,
+            "country": 3
+        }
+    },
+    {
+        "NagySzakalD_2017": {
+            "gender": 2
+        }
+    },
+    {
+        "QinN_2014": {
+            "age_category": 3,
+            "gender": 2,
+            "alcohol": 2
+        }
+    },
+    {
+        "TettAJ_2019_b": {
+            "age_category": 4,
+            "family_role": 3
+        }
+    },
+    {
+        "McCullochJA_2022": {
+            "antibiotics_current_use": 2,
+            "age_category": 2,
+            "gender": 2,
+            "ajcc": 4,
+            "RECIST": 4,
+            "ORR": 2,
+            "PFS12": 2,
+            "previous_therapy": 2
+        }
+    },
+    {
+        "Valles-ColomerM_2023_a": {
+            "antibiotics_current_use": 2,
+            "age_category": 5,
+            "gender": 3,
+            "subcohort": 6,
+            "born_method": 3,
+            "family_role": 3,
+            "zygosity": 2,
+            "country": 5,
+            "non_westernized": 3,
+            "feeding_practice": 3
+        }
+    },
+    {
+        "WenC_2017": {
+            "antibiotics_current_use": 2,
+            "age_category": 3,
+            "gender": 3
+        }
+    },
+    {
+        "RubelMA_2020": {
+            "age_category": 4,
+            "gender": 2,
+            "location": 6,
+            "lifestyle": 3
+        }
+    },
+    {
+        "YachidaS_2019": {
+            "age_category": 2,
+            "gender": 2,
+            "ajcc": 6
+        }
+    },
+    {
+        "MetaCardis_2020_a": {
+            "antibiotics_current_use": 3,
+            "gender": 3,
+            "age_category": 2,
+            "country": 3,
+            "location": 3,
+            "smoker": 3
+        }
+    },
+    {
+        "ThomasAM_2018a": {
+            "age_category": 2,
+            "gender": 2,
+            "smoker": 2,
+            "ever_smoker": 2,
+            "alcohol": 2
+        }
+    },
+    {
+        "OlmMR_2017": {}
+    },
+    {
+        "HanniganGD_2017": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "location": 4,
+            "fobt": 2
+        },
+        "OhJ_2016": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "location": 4,
+            "fobt": 2
+        }
+    },
+    {
+        "HanniganGD_2017": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "location": 4,
+            "fobt": 2
+        },
+        "OhJ_2016": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2,
+            "location": 4,
+            "fobt": 2
+        }
+    },
+    {
+        "GuptaA_2019": {
+            "age_category": 2,
+            "gender": 2,
+            "location": 2,
+            "fobt": 2,
+            "disease_stage": 5,
+            "disease_location": 4
+        }
+    },
+    {
+        "ChngKR_2016": {
+            "gender": 2,
+            "country": 5,
+            "alcohol": 2,
+            "flg_genotype": 4
+        }
+    },
+    {
+        "RaymondF_2016": {
+            "antibiotics_current_use": 2,
+            "antibiotics_family": 2,
+            "gender": 2,
+            "days_from_first_collection": 3
+        }
+    },
+    {
+        "IaniroG_2022": {
+            "FMT_role": 5,
+            "antibiotics_current_use": 2,
+            "subcohort": 4,
+            "age_category": 4
+        }
+    },
+    {
+        "GopalakrishnanV_2018": {}
+    },
+    {
+        "HMP_2019_t2d": {
+            "antibiotics_current_use": 2,
+            "antibiotics_family": 2,
+            "age_category": 2,
+            "gender": 2,
+            "population": 4
+        }
+    },
+    {
+        "DeFilippisF_2019": {
+            "gender": 2,
+            "diet": 3
+        }
+    },
+    {
+        "GhensiP_2019": {
+            "smoker": 3,
+            "ever_smoker": 3,
+            "dental_sample_type": 2,
+            "history_of_periodontitis": 3
+        }
+    },
+    {
+        "XieH_2016": {
+            "age_category": 2,
+            "smoker": 3,
+            "ever_smoker": 3,
+            "alcohol": 3,
+            "born_method": 3,
+            "premature": 2,
+            "zigosity": 2,
+            "menopausal_status": 4
+        }
+    },
+    {
+        "LouisS_2016": {
+            "days_from_first_collection": 6
+        }
+    },
+    {
+        "MehtaRS_2018": {
+            "days_from_first_collection": 3
+        }
+    },
+    {
+        "AsnicarF_2021": {
+            "age_category": 2,
+            "gender": 2,
+            "country": 2
+        }
+    },
+    {
+        "FerrettiP_2018": {
+            "gender": 2,
+            "age_category": 2,
+            "family_role": 2,
+            "feeding_practice": 3
+        }
+    },
+    {
+        "LassalleF_2017": {
+            "gender": 2,
+            "location": 2,
+            "population": 6,
+            "lifestyle": 2
+        }
+    },
+    {
+        "ShaoY_2019": {
+            "antibiotics_current_use": 3,
+            "age_category": 2,
+            "gender": 3,
+            "family_role": 2,
+            "born_method": 2,
+            "c_section_type": 3,
+            "premature": 2,
+            "menopausal_status": 2
+        }
+    },
+    {
+        "AsnicarF_2017": {
+            "age_category": 3,
+            "gender": 2,
+            "lactating": 2
+        }
+    },
+    {
+        "YeZ_2018": {
+            "age_category": 2,
+            "gender": 2
+        }
+    },
+    {
+        "KieserS_2018": {
+            "location": 2,
+            "uncurated_metadata": 2
+        }
+    },
+    {
+        "LeeKA_2022": {
+            "antibiotics_current_use": 3,
+            "age_category": 2,
+            "gender": 2,
+            "country": 3,
+            "location": 4,
+            "subcohort": 4,
+            "history_of_therapy": 2,
+            "toxicity_above_zero": 3,
+            "RECIST": 5,
+            "ORR": 2,
+            "PFS12": 3
+        }
+    },
+    {
+        "LoombaR_2017": {
+            "age_category": 2,
+            "disease_stage": 5
+        }
+    },
+    {
+        "PasolliE_2019": {
+            "age_category": 3,
+            "gender": 2,
+            "population": 2
+        }
+    },
+    {
+        "KaurK_2020": {
+            "age_category": 2,
+            "gender": 2,
+            "location": 3,
+            "population": 3,
+            "alcohol": 2
+        }
+    }
+]

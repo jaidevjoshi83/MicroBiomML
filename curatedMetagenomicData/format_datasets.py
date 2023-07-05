@@ -138,3 +138,12 @@ for relative_abundance_filepath in Path(relative_abundances_folder).glob("*.tsv"
                     os.path.join(output_datasets_folder, "{}.{}.tsv".format(os.path.splitext(os.path.basename(str(relative_abundance_filepath)))[0], meta)),
                     sep="\t", index = False
                 )
+
+                for col in df.columns.tolist():
+                    if col != "sample_id" and col != "label":
+                        df[col] = df[col].apply(lambda x: 1 if x > 0.0 else 0)
+                
+                df.to_csv(
+                    os.path.join(output_datasets_folder, "{}.bin.{}.tsv".format(os.path.splitext(os.path.basename(str(relative_abundance_filepath)))[0], meta)),
+                    sep="\t", index = False
+                )

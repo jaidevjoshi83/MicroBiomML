@@ -1,0 +1,112 @@
+<tool id="curated_metagenomic_data" name="Curated Metagenomic Data" version="1.0.0">
+    <description>The curatedMetagenomicData package provides standardized, curated humam microbiome data for novel analyses</description>
+
+    <requirements>
+        <requirement type="package" version="3.14.0">bioconductor-curatedmetagenomicdata</requirement> 
+    </requirements>
+
+    <command detect_errors="exit_code">
+        <![CDATA[
+            Rscript '$__tool_directory__/curated_metagenomic_data.r' '$name' '$count_data' '$metadata'
+        ]]>
+    </command>
+
+    <inputs>
+        <param name="name" type="select" label="Dataset name" help="Select Dataset name">
+            <option value="LiuW_2016">LiuW_2016</option>
+            <option value="LiJ_2017">LiJ_2017</option>
+            <option value="ThomasAM_2018a">ThomasAM_2018a</option>
+            <option value="TettAJ_2019_c">TettAJ_2019_c</option>
+            <option value="TettAJ_2019_b">TettAJ_2019_b</option>
+            <option value="TettAJ_2019_a">TettAJ_2019_a</option>
+            <option value="DhakanDB_2019">DhakanDB_2019</option>
+            <option value="QinJ_2012">QinJ_2012</option>
+            <option value="HanniganGD_2017">HanniganGD_2017</option>
+            <option value="GopalakrishnanV_2018">GopalakrishnanV_2018</option>
+            <option value="ChngKR_2016">ChngKR_2016</option>
+            <option value="JieZ_2017">JieZ_2017</option>
+            <option value="ZellerG_2014">ZellerG_2014</option>
+            <option value="XieH_2016">XieH_2016</option>
+            <option value="VincentC_2016">VincentC_2016</option>
+            <option value="KarlssonFH_2013">KarlssonFH_2013</option>
+            <option value="RampelliS_2015">RampelliS_2015</option>
+            <option value="Heitz_BuschartA_2016">Heitz_BuschartA_2016</option>
+            <option value="Obregon-TitoAJ_2015">Obregon-TitoAJ_2015</option>
+            <option value="SmitsSA_2017">SmitsSA_2017</option>
+            <option value="Castro_NallarE_2015">Castro_NallarE_2015</option>
+            <option value="FerrettiP_2018">FerrettiP_2018</option>
+            <option value="LoombaR_2017">LoombaR_2017</option>
+            <option value="MatsonV_2018">MatsonV_2018</option>
+            <option value="RaymondF_2016">RaymondF_2016</option>
+            <option value="ThomasAM_2018b">ThomasAM_2018b</option>
+            <option value="VatanenT_2016">VatanenT_2016</option>
+            <option value="PehrssonE_2016">PehrssonE_2016</option>
+            <option value="OhJ_2014">OhJ_2014</option>
+            <option value="ChengpingW_2017">ChengpingW_2017</option>
+            <option value="CosteaPI_2017">CosteaPI_2017</option>
+            <option value="Obregon_TitoAJ_2015">Obregon_TitoAJ_2015</option>
+            <option value="KosticAD_2015">KosticAD_2015</option>
+            <option value="BackhedF_2015">BackhedF_2015</option>
+            <option value="LiJ_2014">LiJ_2014</option>
+            <option value="LeChatelierE_2013">LeChatelierE_2013</option>
+            <option value="YeZ_2018">YeZ_2018</option>
+            <option value="LouisS_2016">LouisS_2016</option>
+            <option value="PasolliE_2018">PasolliE_2018</option>
+            <option value="QinN_2014">QinN_2014</option>
+            <option value="HansenLBS_2018">HansenLBS_2018</option>
+            <option value="VogtmannE_2016">VogtmannE_2016</option>
+            <option value="DavidLA_2015">DavidLA_2015</option>
+            <option value="NielsenHB_2014">NielsenHB_2014</option>
+            <option value="TettAJ_2016">TettAJ_2016</option>
+            <option value="YuJ_2015">YuJ_2015</option>
+            <option value="SchirmerM_2016">SchirmerM_2016</option>
+            <option value="ShiB_2015">ShiB_2015</option>
+            <option value="ZeeviD_2015">ZeeviD_2015</option>
+            <option value="OlmMR_2017">OlmMR_2017</option>
+            <option value="Bengtsson-PalmeJ_2015">Bengtsson-PalmeJ_2015</option>
+            <option value="LiSS_2016">LiSS_2016</option>
+            <option value="LomanNJ_2013">LomanNJ_2013</option>
+            <option value="Castro-NallarE_2015">Castro-NallarE_2015</option>
+            <option value="HMP_2012">HMP_2012</option>
+            <option value="Heitz-BuschartA_2016">Heitz-BuschartA_2016</option>
+            <option value="FengQ_2015">FengQ_2015</option>
+            <option value="AsnicarF_2017">AsnicarF_2017</option>
+            <option value="BritoIL_2016">BritoIL_2016</option>
+            <option value="KieserS_2018">KieserS_2018</option>
+        </param>
+    </inputs>
+
+    <outputs>
+        <data name="count_data" format="tsv" label="${name}_relative_abundance.tsv"/>
+        <data name="metadata" format="tsv" label="${name}_MetaData.tsv"/>
+    </outputs>
+
+    <tests>
+        <test>
+            <param name="name" value="OhJ_2014" />
+            <output name="count_data" file="relative_abundance.tsv"/>
+            <output name="metadata" file="metadata.tsv"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+
+        Tool return the microbiom data as TSV file  
+
+    ]]></help>
+      <citations>
+<citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}
+
+</citation>
+</citations>
+
+</tool>

@@ -1,0 +1,100 @@
+<tool id="plot_tool" name="Custom Plot Tool" version="1.0.0">
+    <description>Generates a plot based on user-defined parameters</description>
+
+  <requirements>
+    <requirement type="package" version="2.2.3">pandas</requirement>
+    <requirement type="package" version="5.24.0">plotly</requirement> 
+    <requirement type="package" version="0.2.1">kaleido</requirement>
+  </requirements>
+
+
+    <command detect_errors="exit_code"><![CDATA[
+
+     
+        python '$__tool_directory__/result_heatmap.py' 
+            --column_list '${clm1}'
+            --input_file '${input_file}'
+            --figure_size '${figure_size_width}' '${figure_size_height}'
+            --color_labels '${color_labels}'
+            --font_size '${font_size}'
+            --tick_font '${tick_font}'
+            --tick_angle '${tick_angle}'
+            --threshold '${threshold}'
+            --output '${output}'
+        ]]>
+    </command>
+
+    <inputs>
+        <param name="input_file" type="data" format="tabular" label="Dataset" />
+
+        <param name="clm1" label="Select column containing data from instrument under test (sensors)" type="data_column" data_ref="input_file" numerical="True" multiple="true" use_header_names="true">
+            <validator type="no_options" message="Please select any one column."/>
+        </param>
+
+        <param name="figure_size_width" type="integer" label="Figure Width (px)" value="2460"/>
+        <param name="figure_size_height" type="integer" label="Figure Height (px)" value="800"/>
+        <param name="color_labels" type="text" label="Color Labels Palette" value="emrld"/>
+        <param name="font_size" type="integer" label="Font Size" value="22"/>
+        <param name="tick_font" type="integer" label="Tick Font Size" value="26"/>
+        <param name="tick_angle" type="integer" label="Tick Angle" value="-80"/>
+        <param name="threshold" type="float" label="Threshold" value="0.05"/>
+    </inputs>
+
+    <outputs>
+        <data name='output' format='html' label="${tool.name}" >
+        </data>
+    </outputs>
+
+<tests>
+    <test>
+        <param name="input_file" value="example_input.tsv"/>
+        <param name="clm1" value=""/>
+        <param name="figure_size_width" value="1200"/>
+        <param name="figure_size_height" value="600"/>
+        <param name="color_labels" value="viridis"/>
+        <param name="font_size" value="18"/>
+        <param name="tick_font" value="20"/>
+        <param name="tick_angle" value="-45"/>
+        <param name="threshold" value="0.01"/>
+        <output name="output" file="expected_output.tsv"/>
+    </test>
+</tests>
+
+    <help><![CDATA[
+
+
+-----
+    **This tool generates a plot using specified parameters.**
+
+    **Parameters:**
+
+    - **Category Index**: Integer for category index.
+    - **Figure Size**: Width and Height in pixels.
+    - **Save as SVG**: Option to save output as SVG.
+    - **File Type**: Output file format (SVG/PNG/PDF).
+    - **Color Labels**: Color scheme to apply.
+    - **Font Size**: Text font size.
+    - **Tick Font Size**: Size of axis tick labels.
+    - **Tick Angle**: Rotation angle of tick labels.
+    - **Threshold**: Numeric threshold value.
+-----
+
+Example command:
+
+   ]]></help>
+     <citations>
+<citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+</citations>
+</tool>
+
+

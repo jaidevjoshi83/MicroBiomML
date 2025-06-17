@@ -1,0 +1,978 @@
+<tool id="ml_tool" name="ML Tool" version="0.1.0" python_template_version="3.10">
+	<description> Tool to create ML models </description>
+    <requirements>
+      <requirement type="package" version="3.10">Python</requirement>
+      <requirement type="package" version="3.3">pycaret</requirement>
+      <requirement type="package" version="2.1.1">xgboost</requirement>
+      <requirement type="package" version="0.1.18">hdlib</requirement>
+    </requirements>
+
+    <command detect_errors="exit_code"><![CDATA[
+
+          python '$__tool_directory__/ml_tool.py'  
+
+          --algo $SelMLAlgo.MLAlgo
+          --data_file $input1
+
+          #if $setup.advanced_setup == 'settings'
+              --setup '{"target":"$setup.target", "session_id":$setup.session_id, "fold":$setup.fold, "log_experiment":$setup.log_experiment, "train_size":$setup.train_size, "data_split_shuffle":$setup.data_split_shuffle, "data_split_stratify":$setup.data_split_stratify, "normalize":$setup.normalize, "transformation":$setup.transformation, "remove_outliers":$setup.remove_outliers, "outliers_threshold":$setup.outliers_threshold, "pca":$setup.pca}'
+          #end if
+
+          #if $setup.advanced_setup == 'default'
+              --setup  '{"target":"$setup.column_label"}'
+          #end if 
+
+          #if $index_column.advanced_setup == 'settings'
+              --index_clm_name $index_column.column_label
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'rbfsvm'
+            #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                    --custom_para '{"C": $SelMLAlgo.settings.settings.C, "break_ties":$SelMLAlgo.settings.settings.break_ties, "cache_size":$SelMLAlgo.settings.settings.cache_size, "class_weight":$SelMLAlgo.settings.settings.class_weight, "coef0":$SelMLAlgo.settings.settings.coef0, "decision_function_shape":"$SelMLAlgo.settings.settings.decision_function_shape", "degree":$SelMLAlgo.settings.settings.degree, "gamma":"$SelMLAlgo.settings.settings.gamma", "kernel":"$SelMLAlgo.settings.settings.kernel", "max_iter":$SelMLAlgo.settings.settings.max_iter, "probability":$SelMLAlgo.settings.settings.probability, "random_state":$SelMLAlgo.settings.settings.random_state, "shrinking":$SelMLAlgo.settings.settings.shrinking,"tol":$SelMLAlgo.settings.settings.tol, "verbose":$SelMLAlgo.settings.settings.verbose}'
+                #end if 
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                    --tune_para "$tune_param_file"
+                #end if 
+            #end if
+          #end if  
+
+          #if $SelMLAlgo.MLAlgo == 'gbc'
+              #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                    --custom_para '{"ccp_alpha":$SelMLAlgo.settings.ccp_alpha, "criterion":"$SelMLAlgo.settings.criterion", "init":$SelMLAlgo.settings.init, "learning_rate":$SelMLAlgo.settings.learning_rate, "loss":"$SelMLAlgo.settings.loss", "max_depth":$SelMLAlgo.settings.max_depth, "max_features":$SelMLAlgo.settings.max_features, "max_leaf_nodes":$SelMLAlgo.settings.max_leaf_nodes, "min_impurity_decrease":$SelMLAlgo.settings.min_impurity_decrease, "min_samples_leaf":$SelMLAlgo.settings.min_samples_leaf, "min_samples_split":$SelMLAlgo.settings.min_samples_split, "min_weight_fraction_leaf":$SelMLAlgo.settings.min_weight_fraction_leaf, "n_estimators":$SelMLAlgo.settings.n_estimators, "n_iter_no_change":$SelMLAlgo.settings.n_iter_no_change, "random_state":$SelMLAlgo.settings.random_state, "subsample":$SelMLAlgo.settings.subsample, "tol":$SelMLAlgo.settings.tol, "validation_fraction":$SelMLAlgo.settings.validation_fraction, "verbose":$SelMLAlgo.settings.verbose, "warm_start":$SelMLAlgo.settings.warm_start}'
+                #end if
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                    --tune_para "$tune_param_file"
+                #end if
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'dt'
+            #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para  '{"ccp_alpha": $SelMLAlgo.settings.settings.ccp_alpha, "class_weight": $SelMLAlgo.settings.settings.class_weight, "criterion":"$SelMLAlgo.settings.settings.criterion", "max_depth":$SelMLAlgo.settings.settings.max_depth, "max_features":$SelMLAlgo.settings.settings.max_features, "max_leaf_nodes":$SelMLAlgo.settings.settings.max_leaf_nodes, "min_impurity_decrease":$SelMLAlgo.settings.settings.min_impurity_decrease, "min_samples_leaf":$SelMLAlgo.settings.settings.min_samples_leaf, "min_samples_split":$SelMLAlgo.settings.settings.min_samples_split, "min_weight_fraction_leaf":$SelMLAlgo.settings.settings.min_weight_fraction_leaf, "monotonic_cst":$SelMLAlgo.settings.settings.monotonic_cst, "random_state":$SelMLAlgo.settings.settings.random_state, "splitter":"$SelMLAlgo.settings.settings.splitter"}'
+                #end if
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                  --tune_para "$tune_param_file"
+                #end if
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'rf'
+              #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para '{"bootstrap": $SelMLAlgo.settings.settings.bootstrap, "ccp_alpha": $SelMLAlgo.settings.settings.ccp_alpha, "class_weight": $SelMLAlgo.settings.settings.class_weight, "criterion": "$SelMLAlgo.settings.settings.criterion", "max_depth": $SelMLAlgo.settings.settings.max_depth, "max_features": "$SelMLAlgo.settings.settings.max_features", "max_leaf_nodes": $SelMLAlgo.settings.settings.max_leaf_nodes, "max_samples": $SelMLAlgo.settings.settings.max_samples, "min_impurity_decrease": $SelMLAlgo.settings.settings.min_impurity_decrease, "min_samples_leaf": $SelMLAlgo.settings.settings.min_samples_leaf, "min_samples_split": $SelMLAlgo.settings.settings.min_samples_split, "min_weight_fraction_leaf": $SelMLAlgo.settings.settings.min_weight_fraction_leaf, "monotonic_cst": $SelMLAlgo.settings.settings.monotonic_cst, "n_estimators": $SelMLAlgo.settings.settings.n_estimators,  "oob_score": $SelMLAlgo.settings.settings.oob_score, "random_state": $SelMLAlgo.settings.settings.random_state, "verbose": $SelMLAlgo.settings.settings.verbose, "warm_start": $SelMLAlgo.settings.settings.warm_start }'
+                #end if
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                  --tune_para "$tune_param_file"
+                #end if
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'lr'
+            #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para '{"C":$SelMLAlgo.settings.settings.C,  "dual":$SelMLAlgo.settings.settings.dual, "fit_intercept":$SelMLAlgo.settings.settings.fit_intercept, "intercept_scaling":$SelMLAlgo.settings.settings.intercept_scaling, "l1_ratio":$SelMLAlgo.settings.settings.l1_ratio, "max_iter":$SelMLAlgo.settings.settings.max_iter, "multi_class":"$SelMLAlgo.settings.settings.multi_class",  "penalty":"$SelMLAlgo.settings.settings.penalty", "random_state":$SelMLAlgo.settings.settings.random_state, "solver":"$SelMLAlgo.settings.settings.solver", "tol":$SelMLAlgo.settings.settings.tol, "verbose":$SelMLAlgo.settings.settings.verbose, "warm_start":$SelMLAlgo.settings.settings.warm_start}' 
+                #end if
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                  --tune_para "$tune_param_file"
+                #end if
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'knn'
+            #if $SelMLAlgo.settings.advanced == "settings"
+                #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para '{"algorithm": "$SelMLAlgo.settings.settings.algorithm", "leaf_size":$SelMLAlgo.settings.settings.leaf_size, "metric": "$SelMLAlgo.settings.settings.metric",  "n_neighbors": $SelMLAlgo.settings.settings.n_neighbors, "p":$SelMLAlgo.settings.settings.p, "weights":"$SelMLAlgo.settings.settings.weights"}'
+                #end if 
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                  --tune_para "$tune_param_file"
+                #end if 
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'nb'
+            #if $SelMLAlgo.settings.advanced == "settings"
+               #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para '{"priors": $SelMLAlgo.settings.settings.priors, "var_smoothing":$SelMLAlgo.settings.settings.var_smoothing}'
+                #end if
+                #if $SelMLAlgo.settings.settings.advanced == "tune"
+                 --tune_para "$tune_param_file"
+                #end if
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'xgboost'
+            #if $SelMLAlgo.settings.advanced == "settings"
+              #if $SelMLAlgo.settings.settings.advanced == "custom"
+                  --custom_para '{"objective": "$SelMLAlgo.settings.settings.objective", "base_score": $SelMLAlgo.settings.settings.base_score, "booster": "$SelMLAlgo.settings.settings.booster", "colsample_bylevel": $SelMLAlgo.settings.settings.colsample_bylevel, "colsample_bynode": $SelMLAlgo.settings.settings.colsample_bynode, "colsample_bytree": $SelMLAlgo.settings.settings.colsample_bytree,  "early_stopping_rounds": $SelMLAlgo.settings.settings.early_stopping_rounds, "enable_categorical": $SelMLAlgo.settings.settings.enable_categorical, "eval_metric": $SelMLAlgo.settings.settings.eval_metric, "feature_types": $SelMLAlgo.settings.settings.feature_types, "gamma": $SelMLAlgo.settings.settings.gamma, "grow_policy": $SelMLAlgo.settings.settings.grow_policy, "importance_type":$SelMLAlgo.settings.settings.importance_type, "interaction_constraints":$SelMLAlgo.settings.settings.interaction_constraints, "learning_rate":$SelMLAlgo.settings.settings.learning_rate, "max_bin":$SelMLAlgo.settings.settings.max_bin, "max_cat_threshold":$SelMLAlgo.settings.settings.max_cat_threshold, "max_cat_to_onehot":$SelMLAlgo.settings.settings.max_cat_to_onehot, "max_delta_step":$SelMLAlgo.settings.settings.max_delta_step, "max_depth":$SelMLAlgo.settings.settings.max_depth, "max_leaves":$SelMLAlgo.settings.settings.max_leaves, "min_child_weight":$SelMLAlgo.settings.settings.min_child_weight,  "monotone_constraints":$SelMLAlgo.settings.settings.monotone_constraints, "multi_strategy":$SelMLAlgo.settings.settings.multi_strategy, "n_estimators":$SelMLAlgo.settings.settings.n_estimators, "num_parallel_tree":$SelMLAlgo.settings.settings.num_parallel_tree, "random_state":$SelMLAlgo.settings.settings.random_state, "reg_alpha":$SelMLAlgo.settings.settings.reg_alpha, "reg_lambda":$SelMLAlgo.settings.settings.reg_lambda, "sampling_method":"$SelMLAlgo.settings.settings.sampling_method", "scale_pos_weight":$SelMLAlgo.settings.settings.scale_pos_weight, "subsample":$SelMLAlgo.settings.settings.subsample, "tree_method":"$SelMLAlgo.settings.settings.tree_method", "validate_parameters":$SelMLAlgo.settings.settings.validate_parameters, "verbosity":$SelMLAlgo.settings.settings.verbosity}'
+              #end if 
+              #if $SelMLAlgo.settings.settings.advanced == "tune"
+                  --tune_para "$tune_param_file"
+              #end if 
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'lightgbm'
+            #if $SelMLAlgo.settings.advanced == "settings"
+              #if $SelMLAlgo.settings.settings.advanced == "custom"
+                --custom_para '{"boosting_type":"$SelMLAlgo.settings.settings.boosting_type", "class_weight":$SelMLAlgo.settings.settings.class_weight, "colsample_bytree":$SelMLAlgo.settings.settings.colsample_bytree, "importance_type":"$SelMLAlgo.settings.settings.importance_type", "learning_rate":$SelMLAlgo.settings.settings.learning_rate, "max_depth":$SelMLAlgo.settings.settings.max_depth, "min_child_samples":$SelMLAlgo.settings.settings.min_child_samples, "min_child_weight":$SelMLAlgo.settings.settings.min_child_weight, "min_split_gain":$SelMLAlgo.settings.settings.min_split_gain, "n_estimators":$SelMLAlgo.settings.settings.n_estimators,  "num_leaves":$SelMLAlgo.settings.settings.num_leaves, "objective":"$SelMLAlgo.settings.settings.objective", "random_state":$SelMLAlgo.settings.settings.random_state, "reg_alpha":$SelMLAlgo.settings.settings.reg_alpha, "reg_lambda":$SelMLAlgo.settings.settings.reg_lambda, "subsample":$SelMLAlgo.settings.settings.subsample, "subsample_for_bin":$SelMLAlgo.settings.settings.subsample_for_bin, "subsample_freq":$SelMLAlgo.settings.settings.subsample_freq}'
+              #end if
+              #if $SelMLAlgo.settings.settings.advanced == "tune"
+                --tune_para "$tune_param_file"
+              #end if
+            #end if
+          #end if 
+
+          ## #if $SelMLAlgo.MLAlgo == 'ada'
+          ##   --model_type $SelMLAlgo.settings.settings.advanced 
+          ##   #if $SelMLAlgo.settings.advanced == "advanced"
+          ##     --user_define_hyper_para '{"algorithm":[$SelMLAlgo.settings.algorithm,  "learning_rate":[$SelMLAlgo.settings.learning_rate, "n_estimators":[$SelMLAlgo.settings.n_estimators, "random_state":[$SelMLAlgo.settings.random_state]}'
+          ##   #end if
+          ## #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'svm'
+            #if $SelMLAlgo.settings.advanced == "settings"
+              #if $SelMLAlgo.settings.settings.advanced == "custom"
+                --custom_para '{"alpha":$SelMLAlgo.settings.settings.alpha, "average":$SelMLAlgo.settings.settings.average, "early_stopping":$SelMLAlgo.settings.settings.early_stopping, "epsilon":$SelMLAlgo.settings.settings.epsilon, "eta0":$SelMLAlgo.settings.settings.eta0, "fit_intercept":$SelMLAlgo.settings.settings.fit_intercept, "l1_ratio":$SelMLAlgo.settings.settings.l1_ratio, "learning_rate":"$SelMLAlgo.settings.settings.learning_rate", "loss":"$SelMLAlgo.settings.settings.loss", "max_iter":$SelMLAlgo.settings.settings.max_iter, "n_iter_no_change":$SelMLAlgo.settings.settings.n_iter_no_change,  "penalty":"$SelMLAlgo.settings.settings.penalty", "power_t":$SelMLAlgo.settings.settings.power_t, "random_state":$SelMLAlgo.settings.settings.random_state, "shuffle":$SelMLAlgo.settings.settings.shuffle, "tol":$SelMLAlgo.settings.settings.tol, "validation_fraction":$SelMLAlgo.settings.settings.validation_fraction, "verbose":$SelMLAlgo.settings.settings.verbose, "warm_start":$SelMLAlgo.settings.settings.warm_start}'
+              #end if 
+              #if $SelMLAlgo.settings.settings.advanced == "tune"
+                --tune_para "$tune_param_file"
+              #end if 
+            #end if
+          #end if 
+
+          #if $SelMLAlgo.MLAlgo == 'hdc'
+            #if $SelMLAlgo.settings.advanced == "settings"
+              #if $SelMLAlgo.settings.settings.advanced == "custom"
+                --custom_para '{"dimensionality":$SelMLAlgo.settings.settings.dimensionality, "levels":$SelMLAlgo.settings.settings.levels, "retrain":$SelMLAlgo.settings.settings.retrain}'
+              #end if 
+              #if $SelMLAlgo.settings.settings.advanced == "tune"
+                --tune_para "$tune_param_file"
+              #end if 
+            #end if
+          #end if 
+
+    ]]></command>
+
+    <inputs>
+      <param name="input1" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+
+      <conditional name='index_column' >
+        <param name="advanced_setup" type="select" label="Index Column">
+          <option value="default" selected="true">Use default setup</option>
+          <option value="settings">Use advance setup</option>
+        </param>
+                
+        <when value="default">
+           
+        </when>
+
+        <when value="settings">
+          <param name="column_label" type="text" optional="false" label="Index Column" />
+        </when>
+      </conditional>
+
+      <conditional name='setup' >
+        <param name="advanced_setup" type="select" label="Avance Setup (Advance Setup does not require for HDC classifier)">
+          <option value="default" selected="true">Use default setup</option>
+          <option value="settings">Use advance setup</option>
+        </param>
+                
+        <when value="default">
+           <param name="column_label" type="text" optional="false"  label="Target column for prediction" />
+        </when>
+
+        <when value="settings">
+              <!-- Target Column -->
+              <param name="target" type="text" label="Target column for prediction" help="Target column for prediction" />
+              <!-- Session ID (Optional) -->
+              <param name="session_id" type="integer" value="123" label="Session ID for reproducibility" help="Session ID for reproducibility" optional="true" />
+              <!-- Feature Selection (Optional) -->
+              <!-- Number of Folds (Optional) -->
+              <param name="fold" type="integer" value="10" label="Number of folds for cross-validation" help="Number of folds for cross-validation" optional="true" />
+              <!-- Log Experiment (Optional) -->
+              <param name="log_experiment" type="boolean" value="false" label="Log Experiment" help="Whether to log experiment" optional="true" />
+              <!-- Train Size (Optional) -->
+              <param name="train_size" type="float" value="0.7" label="Train size" help="Proportion of dataset to include in the train split" optional="true" />
+              <!-- Data Split Shuffle (Optional) -->
+              <param name="data_split_shuffle" type="boolean" value="True" label="Shuffle Data" help="Whether to shuffle data before splitting" optional="true" />
+              <!-- Data Split Stratify (Optional) -->
+              <param name="data_split_stratify" type="boolean" value="False" label="Stratify Data" help="Whether to stratify data during splitting" optional="true" />
+              <!-- Normalize Data (Optional) -->
+              <param name="normalize" type="boolean" value="false" label="Normalize Data" help="Whether to normalize the data" optional="true" />
+              <!-- Power Transformation (Optional) -->
+              <param name="transformation" type="boolean" value="false" label="Power Transformation" help="Whether to apply power transformation" optional="true" />
+              <!-- Remove Outliers (Optional) -->
+              <param name="remove_outliers" type="boolean" value="false" label="Remove Outliers" help="Whether to remove outliers from the data" optional="true" />
+              <!-- Outliers Threshold (Optional) -->
+              <param name="outliers_threshold" type="float" value="0.05" label="Outliers Threshold" help="Threshold for removing outliers" optional="true" />
+              <!-- PCA -->
+              <param name="pca" type="boolean" label="Apply PCA" help="Whether to apply PCA for dimensionality reduction" />
+        </when>
+      </conditional>
+
+      <conditional name='SelMLAlgo' >
+        <param name="MLAlgo" type="select" label="MLAlgo" argument="">
+          <option value="lr">LogisticRegression Classifier</option>
+          <option value="knn">KNeighbors Classifier</option>
+          <option value="nb">GaussianNB Classifier</option>
+          <option value="dt">DecisionTree Classifier</option>
+          <option value="svm">Stochastic gradient Classifier</option>
+          <option value="rbfsvm">Support Vector Machine Classifier</option>
+          <option value="rf">RandomForest Classifier</option>
+          <option value="gbc">GradientBoosting Classifier</option>
+          <option value="xgboost">XGB Classifier</option>
+          <option value="lightgbm">LGBM Classifier</option>
+          <option value="hdc">Vector Symbolic Architecture Based  Classifier</option>
+        </param>
+
+        <when value="lr">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+
+                      <param name="C" type="float" value="1.0" label="Inverse Regularization Strength"/>
+                      <param name="class_weight" type="text" value="null" label="Class Weight" optional="true"/>
+                      <param name="dual" type="boolean" value="false" label="Dual Formulation"/>
+                      <param name="fit_intercept" type="boolean" value="True" label="Fit Intercept"/>
+                      <param name="intercept_scaling" type="float" value="1" label="Intercept Scaling"/>
+                      <param name="l1_ratio" type="text" value="null" label="L1 Ratio" optional="true"/>
+                      <param name="max_iter" type="integer" value="1000" label="Max Iterations"/>
+                      <param name="multi_class" type="select" label="Multi-Class">
+                          <option value="auto">Auto</option>
+                          <option value="ovr">One-vs-Rest</option>
+                          <option value="multinomial">Multinomial</option>
+                      </param>
+                      <param name="n_jobs" type="text" value="null" label="Number of Jobs" optional="true"/>
+                      <param name="penalty" type="select" label="Penalty">
+                          <option value="l2">L2</option>
+                          <option value="l1">L1</option>
+                          <option value="elasticnet">Elastic Net</option>
+                          <option value="null">None</option>
+                      </param>
+                      <param name="random_state" type="integer" value="4131" label="Random State"/>
+                      <param name="solver" type="select" label="Solver">
+                          <option value="lbfgs">LBFGS</option>
+                          <option value="liblinear">Liblinear</option>
+                          <option value="newton-cg">Newton-CG</option>
+                          <option value="sag">SAG</option>
+                          <option value="saga">SAGA</option>
+                      </param>
+                      <param name="tol" type="float" value="0.0001" label="Tolerance"/>
+                      <param name="verbose" type="boolean" value="false" label="Verbose"/>
+                      <param name="warm_start" type="boolean" value="false" label="Warm Start"/>
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="knn">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                      <param name="algorithm" type="select" label="Algorithm">
+                          <option value="auto" selected='true'  >Auto</option>
+                          <option value="ball_tree">Ball Tree</option>
+                          <option value="kd_tree">KD Tree</option>
+                          <option value="brute">Brute</option>
+                      </param>
+                      <param name="leaf_size" type="integer" value="30" label="Leaf Size"/>
+                      <param name="metric" type="select" label="Metric">
+                          <option value="minkowski" selected='true' >Minkowski</option>
+                          <option value="euclidean">Euclidean</option>
+                          <option value="manhattan">Manhattan</option>
+                          <option value="chebyshev">Chebyshev</option>
+                          <option value="cosine">Cosine</option>
+                      </param>
+                      <param name="n_neighbors" type="integer" value="5" label="Number of Neighbors"/>
+                      <param name="p" type="integer" value="2" label="Power Parameter for Minkowski"/>
+                      <param name="weights" type="select" label="Weight Function">
+                          <option value="uniform" selected='true'>Uniform</option>
+                          <option value="distance">Distance</option>
+                      </param>
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="nb">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                        <param name="priors" type="text" value="null" label="Class Priors" optional="true"/>
+                        <param name="var_smoothing" type="float" value="1e-09" label="Variance Smoothing"/>
+                    </when>
+                    <when value="tune">
+   
+
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="dt">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                      <param name="ccp_alpha" type="float" value="0.0" label="Complexity Parameter Alpha"/>
+                      <param name="class_weight" type="text" value="null" label="Class Weight" optional="true"/>
+                      <param name="criterion" type="select" label="Criterion">
+                          <option value="gini">Gini</option>
+                          <option value="entropy">Entropy</option>
+                      </param>
+                      <param name="max_depth" type="text" value="null" label="Max Depth" optional="true"/>
+                      <param name="max_features" type="text" value="null" label="Max Features" optional="true"/>
+                      <param name="max_leaf_nodes" type="text" value="null" label="Max Leaf Nodes" optional="true"/>
+                      <param name="min_impurity_decrease" type="float" value="0.0" label="Min Impurity Decrease"/>
+                      <param name="min_samples_leaf" type="integer" value="1" label="Min Samples Leaf"/>
+                      <param name="min_samples_split" type="integer" value="2" label="Min Samples Split"/>
+                      <param name="min_weight_fraction_leaf" type="float" value="0.0" label="Min Weight Fraction Leaf"/>
+                      <param name="monotonic_cst" type="text" value="null" label="Monotonic Constraints" optional="true"/>
+                      <param name="random_state" type="integer" value="4131" label="Random State"/>
+                      <param name="splitter" type="select" label="Splitter">
+                          <option value="best">Best</option>
+                          <option value="random">Random</option>
+                      </param>
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="svm">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                  <when value="custom">
+                    <param name="alpha" type="float" value="0.0001" label="Alpha" />
+                    <param name="average" type="boolean" value="False" label="Average" />
+                    <param name="early_stopping" type="boolean" value="False" label="Early Stopping" />
+                    <param name="epsilon" type="float" value="0.1" label="Epsilon" />
+                    <param name="eta0" type="float" value="0.001" label="Eta0" />
+                    <param name="fit_intercept" type="boolean" value="True" label="Fit Intercept" />
+                    <param name="l1_ratio" type="float" value="0.15" label="L1 Ratio" />
+                    <param name="learning_rate" type="select" multiple="true" label="Learning Rate">
+                        <option value="constant">Constant</option>
+                        <option value="optimal" selected="true"  >Optimal</option>
+                        <option value="invscaling">Invscaling</option>
+                    </param>
+                    <param name="loss" type="select" multiple="true"   label="Loss">
+                        <option selected="true" value="hinge">Hinge</option>
+                        <option value="log">Log</option>
+                        <option value="modified_huber">Modified Huber</option>
+                        <option value="squared_hinge">Squared Hinge</option>
+                        <option value="perceptron">Perceptron</option>
+                    </param>
+                    <param name="max_iter" type="integer" value="1000" label="Max Iterations" />
+                    <param name="n_iter_no_change" type="integer" value="5" label="Number of Iterations without Change" />
+                    <param name="n_jobs" type="integer" value="-1" label="Number of Jobs" />
+                    <param name="penalty" type="select" multiple="true"  label="Penalty">
+                        <option selected="true" value="l2">L2</option>
+                        <option value="l1">L1</option>
+                        <option value="elasticnet">Elastic Net</option>
+                    </param>
+                    <param name="power_t" type="float" value="0.5" label="Power T" />
+                    <param name="random_state" type="integer" value="4286" label="Random State" />
+                    <param name="shuffle" type="boolean" value="True" label="Shuffle" />
+                    <param name="tol" type="float" value="0.001" label="Tolerance" />
+                    <param name="validation_fraction" type="float" value="0.1" label="Validation Fraction" />
+                    <param name="verbose" type="boolean" value="False" label="Verbose" />
+                    <param name="warm_start" type="boolean" value="False" label="Warm Start" />
+                </when>
+
+                <when value="tune">
+                  <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="rbfsvm">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                  <when value="custom">
+                    <param name="C" type="float" value="1.0" />
+                    <param name="break_ties" type="boolean" value="False" />
+                    <param name="cache_size" type="float" value="200" />
+                    <param name="class_weight" type="text" value="null" />
+                    <param name="coef0" type="float" value="0.0" />
+                    <param name="decision_function_shape" type="select" value="ovr">
+                        <option value="ovr">ovr</option>
+                        <option value="ovo">ovo</option>
+                    </param>
+                    <param name="degree" type="integer" value="3" />
+                    <param name="gamma" type="select" value="auto">
+                        <option value="auto">auto</option>
+                        <option value="scale">scale</option>
+                    </param>
+                    <param name="kernel" type="select" value="rbf">
+                        <option value="linear">linear</option>
+                        <option value="poly">poly</option>
+                        <option value="rbf">rbf</option>
+                        <option value="sigmoid">sigmoid</option>
+                    </param>
+                    <param name="max_iter" type="integer" value="-1" />
+                    <param name="probability" type="boolean" value="True" />
+                    <param name="random_state" type="integer" value="4131" />
+                    <param name="shrinking" type="boolean" value="True" />
+                    <param name="tol" type="float" value="0.001" />
+                    <param name="verbose" type="boolean" value="False" />
+                  </when>
+
+                  <when value="tune">
+                    <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                  </when>
+
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="rf">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                        <param name="bootstrap" type="boolean" value="True" label="Bootstrap Samples"/>
+                        <param name="ccp_alpha" type="float" value="0.0" label="Complexity Parameter Alpha"/>
+                        <param name="class_weight" type="text" value="null" label="Class Weight" optional="true"/>
+                        <param name="criterion" type="select" label="Criterion">
+                            <option value="gini">Gini</option>
+                            <option value="entropy">Entropy</option>
+                        </param>
+                        <param name="max_depth" type="text" value="null" label="Max Depth" optional="true"/>
+                        <param name="max_features" type="select" label="Max Features">
+                            <option value="sqrt">Sqrt</option>
+                            <option value="log2">Log2</option>
+                            <option value="null">None</option>
+                        </param>
+                        <param name="max_leaf_nodes" type="text" value="null" label="Max Leaf Nodes" optional="true"/>
+                        <param name="max_samples" type="text" value="null" label="Max Samples" optional="true"/>
+                        <param name="min_impurity_decrease" type="float" value="0.0" label="Min Impurity Decrease"/>
+                        <param name="min_samples_leaf" type="integer" value="1" label="Min Samples Leaf"/>
+                        <param name="min_samples_split" type="integer" value="2" label="Min Samples Split"/>
+                        <param name="min_weight_fraction_leaf" type="float" value="0.0" label="Min Weight Fraction Leaf"/>
+                        <param name="monotonic_cst" type="text" value="null" label="Monotonic Constraints" optional="true"/>
+                        <param name="n_estimators" type="integer" value="100" label="Number of Estimators"/>
+                        <param name="oob_score" type="boolean" value="False" label="Out-of-Bag Score"/>
+                        <param name="random_state" type="integer" value="4131" label="Random State"/>
+                        <param name="verbose" type="boolean" value="True" label="Verbose"/>
+                        <param name="warm_start" type="boolean" value="False" label="Warm Start"/>
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="gbc">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+              <when value="custom">
+                <param name="ccp_alpha" type="float" value="0.0" label="Complexity Parameter (ccp_alpha)"/>
+                <param name="criterion" type="select" label="Criterion">
+                    <option value="friedman_mse">Friedman MSE</option>
+                    <option value="squared_error">Squared Error</option>
+                    <option value="mae">Mean Absolute Error</option>
+                </param>
+                <param name="init" type="text" value="null" label="Init" optional="true"/>
+                <param name="learning_rate" type="float" value="0.1" label="Learning Rate"/>
+                <param name="loss" type="select" label="Loss Function">
+                    <option value="log_loss">Log Loss</option>
+                    <option value="deviance">Deviance</option>
+                    <option value="exponential">Exponential</option>
+                </param>
+                <param name="max_depth" type="integer" value="3" label="Max Depth"/>
+                <param name="max_features" type="text" value="null" label="Max Features" optional="true"/>
+                <param name="max_leaf_nodes" type="text" value="null" label="Max Leaf Nodes" optional="true"/>
+                <param name="min_impurity_decrease" type="float" value="0.0" label="Min Impurity Decrease"/>
+                <param name="min_samples_leaf" type="integer" value="1" label="Min Samples Leaf"/>
+                <param name="min_samples_split" type="integer" value="2" label="Min Samples Split"/>
+                <param name="min_weight_fraction_leaf" type="float" value="0.0" label="Min Weight Fraction Leaf"/>
+                <param name="n_estimators" type="integer" value="100" label="Number of Estimators"/>
+                <param name="n_iter_no_change" type="text" value="null" label="Number of Iterations with No Change" optional="true"/>
+                <param name="random_state" type="integer" value="4131" label="Random State"/>
+                <param name="subsample" type="float" value="1.0" label="Subsample"/>
+                <param name="tol" type="float" value="0.0001" label="Tolerance"/>
+                <param name="validation_fraction" type="float" value="0.1" label="Validation Fraction"/>
+                <param name="verbose" type="boolean" value="True" label="Verbose"/>
+                <param name="warm_start" type="boolean" value="False" label="Warm Start"/>
+              </when>
+
+              <when value="tune">
+                  <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+              </when>
+            </conditional>
+          </when>
+        </conditional>
+        </when>
+
+        <when value="xgboost">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                      <param name="objective" type="select" value="reg:squarederror"   label="Objective Function">
+                        <option value="reg:squarederror">Regression with squared loss</option>
+                        <option value="reg:squaredlogerror">Regression with squared log loss</option>
+                        <option value="reg:logistic">Logistic regression, output probability</option>
+                        <option value="reg:pseudohubererror">Regression with Pseudo Huber loss</option>
+                        <option value="reg:absoluteerror">Regression with L1 error</option>
+                        <option value="reg:quantileerror">Quantile loss (pinball loss)</option>
+                        <option value="binary:logistic">Logistic regression for binary classification (probability)</option>
+                        <option value="binary:logitraw">Logistic regression for binary classification (score before transformation)</option>
+                        <option value="binary:hinge">Hinge loss for binary classification (0 or 1 predictions)</option>
+                        <option value="count:poisson">Poisson regression for count data</option>
+                        <option value="survival:cox">Cox regression for right censored survival time data</option>
+                        <option value="survival:aft">Accelerated failure time model for censored survival time data</option>
+                        <option value="multi:softmax">Multiclass classification using softmax</option>
+                        <option value="multi:softprob">Multiclass classification with probability output</option>
+                        <option value="rank:ndcg">Pair-wise ranking using LambdaMART to maximize NDCG</option>
+                        <option value="rank:map">Pair-wise ranking using LambdaMART to maximize MAP</option>
+                        <option value="rank:pairwise">Pair-wise ranking using LambdaRank</option>
+                        <option value="reg:gamma">Gamma regression with log-link</option>
+                        <option value="reg:tweedie">Tweedie regression with log-link</option>
+                      </param>
+
+                      <param name="booster" type="select"  label="Booster Type" >
+                          <option value="gbtree">GBTree</option>
+                          <option value="gblinear">GBLinear</option>
+                          <option value="dart">DART</option>
+                      </param>
+
+                      <param name="base_score" type="float" label="Base Score" value="0.1" optional="true" />
+                      <param name="colsample_bylevel" type="float" label="Base Score" value="0.5" />
+                      <param name="c" type="float" label="Base Score" value="0.5" />
+                      <param name="colsample_bynode" type="float" label="Colsample by Level" value="0.0" optional="true" />
+                      <param name="colsample_bytree" type="float" label="Colsample by Tree" value="0.0" optional="true" />
+                      <param name="early_stopping_rounds" type="integer" label="Early Stopping Rounds" value="0" optional="true" />
+                      <param name="enable_categorical" type="boolean" label="Enable Categorical" value="False" />
+                      <param name="eval_metric" type="text" label="Eval Metric" value="null" optional="true" />
+                      <param name="feature_types" type="text" label="Feature Types" value="null" optional="true" />
+                      <param name="gamma" type="float" label="Gamma" value="0.0" optional="true" />
+                      <param name="grow_policy" type="text" label="Grow Policy" value="null" optional="true" />
+                      <param name="importance_type" type="text" label="Importance Type" value="null" optional="true" />
+                      <param name="interaction_constraints" type="text" label="Interaction Constraints" value="null" optional="true" />
+                      <param name="learning_rate" type="float" label="Learning Rate" value="0.0" optional="true" />
+                      <param name="max_bin" type="integer" label="Max Bin" value="256" optional="true" />
+                      <param name="max_cat_threshold" type="integer" label="Max Cat Threshold" value="1" optional="true" />
+                      <param name="max_cat_to_onehot" type="integer" label="Max Cat to Onehot" value="1" optional="true" />
+                      <param name="max_delta_step" type="float" label="Max Delta Step" value="0.0" optional="true" />
+                      <param name="max_depth" type="integer" label="Max Depth" value="0" optional="true" />
+                      <param name="max_leaves" type="integer" label="Max Leaves" value="0" optional="true" />
+                      <param name="min_child_weight" type="float" label="Min Child Weight" value="0.0" optional="true" />
+                      <param name="monotone_constraints" type="text" label="Monotone Constraints" value="null" optional="true" />
+                      <param name="multi_strategy" type="text" label="Multi Strategy" value="null" optional="true" />
+                      <param name="n_estimators" type="integer" label="Number of Estimators" value="0" optional="true" />
+                      <param name="num_parallel_tree" type="integer" label="Number of Parallel Trees" value="1" optional="true" />
+                      <param name="random_state" type="integer" label="Random State" value="4131" />
+                      <param name="reg_alpha" type="float" label="Reg Alpha" value="0.0" optional="true" />
+                      <param name="reg_lambda" type="float" label="Reg Lambda" value="0.0" optional="true" />
+                      <param name="sampling_method" type="select" label="Tree Method" value="uniform">
+                        <option value="uniform" selected="true" >Uniform"</option>
+                        <option value="weighted">Weighted</option>
+                        <option value="random">Random</option>
+                      </param>
+                      <param name="scale_pos_weight" type="float" label="Scale Pos Weight" value="0.0" optional="true" />
+                      <param name="subsample" type="float" label="Subsample" value="0.0" optional="true" />
+                      <param name="tree_method" type="select" label="Tree Method" value="auto">
+                          <option value="auto" selected="true" >Auto</option>
+                          <option value="exact">Exact</option>
+                          <option value="approx">Approximate</option>
+                          <option value="hist">Histogram-based</option>
+                          <option value="gpu_hist">GPU Histogram-based</option>
+                      </param>
+                      <param name="validate_parameters" type="boolean" label="Validate Parameters" value="null" optional="true" />
+                      <param name="verbosity" type="integer" label="Verbosity" value="0" />
+                    </when>
+                    
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="lightgbm">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                        <param name="boosting_type" type="select" label="Boosting Type">
+                            <option value="gbdt">GBDT</option>
+                            <option value="dart">DART</option>
+                            <option value="goss">GOSS</option>
+                            <option value="rf">RF</option>
+                        </param>
+                        <param name="class_weight" type="text" value="null" label="Class Weight" optional="true"/>
+                        <param name="colsample_bytree" type="float" value="1.0" label="Column Sample by Tree"/>
+                        <param name="importance_type" type="select" label="Importance Type">
+                            <option value="split" selected="true" >Split</option>
+                            <option value="gain">Gain</option>
+                        </param>
+                        <param name="learning_rate" type="float" value="0.1" label="Learning Rate"/>
+                        <param name="max_depth" type="integer" value="-1" label="Max Depth"/>
+                        <param name="min_child_samples" type="integer" value="20" label="Min Child Samples"/>
+                        <param name="min_child_weight" type="float" value="0.001" label="Min Child Weight"/>
+                        <param name="min_split_gain" type="float" value="0.0" label="Min Split Gain"/>
+                        <param name="n_estimators" type="integer" value="100" label="Number of Estimators"/>
+                        <param name="n_jobs" type="integer" value="-1" label="Number of Jobs"/>
+                        <param name="num_leaves" type="integer" value="31" label="Number of Leaves"/>
+                        <param  name="objective" type="select" label="Objective">
+                            <option  selected='true' value="regression">regression</option>
+                              <option value="regression_l1">regression_l1</option>
+                              <option value="huber">huber</option>
+                              <option value="fair">fair</option>
+                              <option value="poisson">poisson</option>
+                              <option value="quantile">quantile</option>
+                              <option value="mape">mape</option>
+                              <option value="gamma">gamma</option>
+                              <option value="tweedie">tweedie</option>
+                              <option value="binary" >binary</option>
+                              <option value="multiclass">multiclass</option>
+                              <option value="multiclassova">multiclassova</option>
+                              <option value="cross_entropy">cross_entropy</option>
+                              <option value="cross_entropy_lambda">cross_entropy_lambda</option>
+                              <option value="lambdarank">lambdarank</option>
+                              <option value="rank_xendcg">rank_xendcg</option>
+                            
+                        </param>
+
+                        <param name="random_state" type="integer" value="4131" label="Random State"/>
+                        <param name="reg_alpha" type="float" value="0.0" label="Regularization Alpha"/>
+                        <param name="reg_lambda" type="float" value="0.0" label="Regularization Lambda"/>
+                        <param name="subsample" type="float" value="1.0" label="Subsample"/>
+                        <param name="subsample_for_bin" type="integer" value="200000" label="Subsample for Bin"/>
+                        <param name="subsample_freq" type="integer" value="0" label="Subsample Frequency"/>
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+
+        <when value="hdc">
+          <conditional name="settings">
+              <param name="advanced" type="select" label="Use advance settings to create model">
+                  <option value="default" selected="true">Use default setup</option>
+                  <option value="settings">Use advance setup</option>
+              </param>
+
+              <when value="default">
+              </when>
+
+              <when value="settings">
+                <conditional name="settings">
+                    <param name="advanced" type="select" label="Specify advanced parameters">
+                        <option value="custom" selected="true">Create Model with Custom Parameters</option>
+                        <option value="tune">Tune model</option>
+                    </param>
+
+                    <when value="custom">
+                        <param name="dimensionality" type="integer" label="Dimensionality" value="10000" />
+                        <param name="levels" type="integer" label="Levels" value="100" />
+                        <param name="retrain" type="integer" label="Retrain" value="0" />
+                    </when>
+
+                    <when value="tune">
+                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    </when>
+                </conditional>
+              </when>
+          </conditional>
+        </when>
+      </conditional>
+    </inputs>
+
+    <outputs>
+        <data name='output1' format='tabular' label="out.tsv" />    
+        <data name='output2' format='html' label="repot.html" />
+    </outputs>
+
+    <tests>
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="lr"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="knn"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="nb"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="dt"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="svm"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="rbfsvm"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="rf"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="gbc"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="xboost"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="lightgbm"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test.tsv"/>
+        <param name="SelMLAlgo|MLAlgo" value="hdc"/>
+        <param name="index_column|advanced_setup" value="default"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <param name="setup|column_label" value="label" />
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+    </tests>
+ 
+    <help><![CDATA[
+      usage: ML.py [-h] {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP}
+
+      Deployment tool
+
+      positional arguments:
+        {SVMC,SGDC,DTC,GBC,RFC,LRC,KNC,GNBC,MLP}
+
+      optional arguments:
+        -h, --help            show this help message and exit
+
+    ]]></help>
+  <citations>
+<citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+</citations>
+</tool>

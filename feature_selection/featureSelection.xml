@@ -1,0 +1,100 @@
+<tool id="feature_selector" name="Sequential Feature Selector" version="1.0.0">
+    <description>Feature selection using SequentialFeatureSelector on a single TSV file</description>
+
+    <requirements>
+        <requirement type="package" version="2.2.3">pandas</requirement>
+        <requirement type="package" version="1.4.2">scikit-learn</requirement> 
+    </requirements>
+
+    <command detect_errors="exit_code">
+        <![CDATA[
+        python3 '$__tool_directory__/featureSelection.py' 
+            --input '$input'
+            --threads '$threads'
+            --classifier '$classifier'
+            --label '$label'
+            --tol '$tol'
+            --index_clm '$index'
+            --log '$log_file'
+            --feature_out '$selected_features'
+        ]]>
+    </command>
+
+    <inputs>
+        <param name="input" type="data" format="tabular" label="Input TSV file" help="A TSV file containing your data with a header row." />
+
+        <param name="threads" type="integer" value="4" label="Number of Threads"
+               help="Number of threads to use for SequentialFeatureSelector." />
+
+        <param name="classifier" type="select" label="Classifier"
+               help="Classifier to use for feature selection.">
+            <option value="lr">Logistic Regression</option>
+            <option value="dt">Decision Tree</option>
+            <option value="sv">Support Vector Classifier</option>
+            <option value="rf">Random Forest</option>
+        </param>
+
+        <param name="label" type="text" label="Label Column Name"
+               help="Name of the column in your TSV file that contains class labels." />
+
+        <param name="index" type="text" label="Index Column Name" optional="true" value='None'
+               help="Name of the column in your TSV file that contains class labels." />
+
+        <param name="tol" type="float" value="0.00001" label="Tolerance"
+               help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
+    </inputs>
+
+    <outputs>
+        <data name="log_file" format="txt" label="Feature Selection Log"/>
+        <data name="selected_features" format="tsv" label="Selected Features"/>
+    </outputs>
+
+    <tests>
+    <test expect_exit_code="0">
+        <param name="input" value="test.tsv"/>
+        <param name="threads" value="2"/>
+        <param name="classifier" value="rf"/>
+        <param name="label" value="target"/>
+        <param name="index" value="ID"/>
+        <param name="tol" value="0.001"/>
+        <output name="log_file" file="out.tsv"/>
+    </test>
+    </tests>
+
+    <help><![CDATA[
+
+        -----
+        **Sequential Feature Selector**
+
+        This tool performs feature selection on a single TSV file using scikit-learn's `SequentialFeatureSelector`.
+        You can choose from multiple classifiers and configure parameters like tolerance and number of threads.
+
+        **Inputs**
+        **A TSV file with features and a class label column**
+        **Name of the class label column**
+        **Classifier type**
+        **Number of threads**
+        **Tolerance (optional)**
+
+        **Outputs**
+        **A text file listing the selected feature names**
+        **A log file summarizing the run details and timing**
+
+        -----
+
+    ]]></help>
+      <citations>
+<citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+</citations>
+
+</tool>

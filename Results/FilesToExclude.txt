@@ -1,4 +1,0 @@
-./SVC/2021-03-31.OhJ_2014.relative_abundance.gender.tsv
-./SVC/2021-03-31.YuJ_2015.relative_abundance.ever_smoker.tsv
-./SVC/2022-04-13.FrankelAE_2017.relative_abundance.age_category.tsv
-./LRC/2021-03-31.WirbelJ_2018.relative_abundance.age_category.tsv

@@ -1,0 +1,91 @@
+<tool id="balance_plot" name="Class Imbalance Boxplot" version="1.0.0" python_template_version="3.10">
+    <description>Visualize class imbalance across multiple datasets</description>
+
+    <requirements>
+        <requirement type="package" version="2.2.3">pandas</requirement>
+        <requirement type="package" version="5.24.0">plotly</requirement> 
+    </requirements>
+
+    <command detect_errors="exit_code">
+        <![CDATA[
+
+        python3 '$__tool_directory__/class_imbalance.py' 
+
+            --input_files 
+
+            #for $i, $f in enumerate($input_files)
+            $f 
+            #end for
+
+            --label_column '${label_column}'
+            --min_rows '${min_rows}'
+            --plot_title '${plot_title}'
+            --output_html '${output_html}'
+            --figure_size '${figure_width}' '${figure_height}'
+            --x_axis_title '${x_axis_title}'
+            --y_axis_title '${y_axis_title}'
+            --output_html '${output_html}'
+        ]]>
+    </command>
+
+    <inputs>
+        <param name="input_files" type="data_collection" format="tabular" collection_type="list" label="Input Tab-delimited Files"/>
+   
+        <param name="label_column" type="text" label="Label Column Name" value="label"/>
+        <param name="min_rows" type="integer" label="Minimum Number of Rows per File" value="100"/>
+        <param name="plot_title" type="text" label="Box Plot Title" value="Distribution of Class Imbalance Across Datasets"/>
+        <param name="figure_width" type="integer" label="Figure Width (pixels)" value="2460"/>
+        <param name="figure_height" type="integer" label="Figure Height (pixels)" value="800"/>
+        <param name="x_axis_title" type="text" label="X-axis Title" value="Datasets"/>
+        <param name="y_axis_title" type="text" label="Y-axis Title" value="Class imbalance score"/>
+
+    </inputs>
+
+    <outputs>
+        <data name='output_html' format='html' label="${tool.name}" ></data>
+    </outputs>
+
+    <tests>
+        <test expect_exit_code="0">
+            <param name="input_files">
+                <collection type="list">
+                    <element name="file1" value="dataset1.tsv"/>
+                    <element name="file2" value="dataset2.tsv"/>
+                </collection>
+            </param>
+            <param name="label_column" value="label"/>
+            <param name="min_rows" value="50"/>
+            <param name="plot_title" value="Test Class Imbalance Distribution"/>
+            <param name="figure_width" value="1200"/>
+            <param name="figure_height" value="600"/>
+            <param name="x_axis_title" value="Test Datasets"/>
+            <param name="y_axis_title" value="Imbalance Score"/>
+            <output name="output_html" file="expected_plot.png" ftype="png"/>
+        </test>
+    </tests>
+
+    <help><![CDATA[
+This tool visualizes the distribution of class imbalance across multiple datasets as a box plot.
+
+**Inputs:**
+- **Input Files**: One or more tab-delimited files containing a label column.
+- **Label Column**: The name of the column containing class labels.
+- **Minimum Rows**: Files with fewer rows than this value will be skipped.
+- **Plot Title, Axis Titles, and Figure Size**: Customizable text labels and dimensions for the plot.
+- **Output HTML File Nam**
+
+   ]]></help>
+     <citations>
+<citation type="bibtex">
+
+@misc{githubseqtk,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {seqtk},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/lh3/seqtk},
+
+}</citation>
+</citations>
+</tool>

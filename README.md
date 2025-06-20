@@ -1,1 +1,2 @@
 # MicroBiomML
+This Galaxy toolset integrates the tools we used to investigate hyperdimensional computing (HDC) — a brain-inspired computational approach — as an alternative to classical machine learning techniques for bioinformatics applications involving high-dimensional data. A comparative analysis was performed between HDC and traditional methods across various classification tasks, with a particular focus on classifying metagenomic samples using publicly available microbiome datasets. All the tools are available for download and installation through the Galaxy ToolShed.

@@ -83,18 +83,29 @@
         -----
 
     ]]></help>
-      <citations>
-<citation type="bibtex">
-
-@misc{githubseqtk,
-  author = {LastTODO, FirstTODO},
-  year = {TODO},
-  title = {seqtk},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  url = {https://github.com/lh3/seqtk},
-
-}</citation>
-</citations>
-
+     <citations>
+          <citation type="bibtex">
+               @article{cumbo2023hdlib,
+                    title={hdlib: A Python library for designing Vector-Symbolic Architectures},
+                    author={Cumbo, Fabio and Weitschek, Emanuel and Blankenberg, Daniel},
+                    journal={Journal of Open Source Software},
+                    volume={8},
+                    number={89},
+                    pages={5704},
+                    year={2023}
+               }
+          </citation>
+          <citation type="bibtex">
+               @article{cumbo2025feature,
+                    title={Feature selection with vector-symbolic architectures: a case study on microbial profiles of shotgun metagenomic samples of colorectal cancer},
+                    author={Cumbo, Fabio and Truglia, Simone and Weitschek, Emanuel and Blankenberg, Daniel},
+                    journal={Briefings in Bioinformatics},
+                    volume={26},
+                    number={2},
+                    pages={bbaf177},
+                    year={2025},
+                    publisher={Oxford University Press}
+               }
+          </citation>
+     </citations>
 </tool>

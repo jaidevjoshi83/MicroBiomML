@@ -11,16 +11,9 @@ metaData <- args[3]
 
 
 # Fetch and merge datasets
-
 #data_name <- paste0(data_name+".+.relative_abundance")
-
 # author_year <- "JieZ_2017"
 pattern <- paste0(author_year, "+.relative_abundance")
-
-# merged_data <- curatedMetagenomicData(data_name, dryrun = FALSE) |> mergeData()
-
-# merged_data  <- curatedMetagenomicData("LiJ_2017+.marker_abundance", dryrun = FALSE) |>
-# mergeData()
 
 merged_data  <- curatedMetagenomicData(pattern, dryrun = FALSE) |>
 mergeData()
@@ -35,12 +28,23 @@ metadata_df <- as.data.frame(colData(merged_data))
 dim(abundance_df)
 dim(metadata_df)
 
-# Save abundance data to TSV
-# write.table(abundance_df, file = "relative_abundance.tsv", sep = "\t", quote = FALSE, col.names = NA)
-
-# Save metadata to TSV
-write.table(metadata_df, file = metaData, sep = "\t", quote = FALSE, row.names = TRUE)
-
-# Optionally, transpose and save abundance data
+# # Transpose abundance data for sample-wise organization
 abundance_t_df <- as.data.frame(t(assay(merged_data)))
-write.table(abundance_t_df, file = countData, sep = "\t", quote = FALSE, col.names = NA)
+
+# # Merge metadata and transposed abundance data by row names (sample IDs)
+# # Ensure row names match between both dataframes
+# merged_df <- cbind(metadata_df, abundance_t_df)
+
+# Save merged data to a single TSV file
+
+# Add sample_id column to abundance_t_df
+abundance_t_df$sample_id <- rownames(abundance_t_df)
+abundance_t_df <- abundance_t_df[, c("sample_id", setdiff(names(abundance_t_df), "sample_id"))]
+write.table(abundance_t_df, file = countData, sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
+
+# Optional: Also save the metadata separately if needed
+
+# Add sample_id column to metadata and write with proper header
+metadata_df$sample_id <- rownames(metadata_df)
+metadata_df <- metadata_df[, c("sample_id", setdiff(names(metadata_df), "sample_id"))]
+write.table(metadata_df, file = metaData, sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)

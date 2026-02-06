@@ -77,14 +77,14 @@
     </inputs>
 
     <outputs>
-        <data name="count_data" format="tsv" label="${name}_relative_abundance.tsv"/>
-        <data name="metadata" format="tsv" label="${name}_MetaData.tsv"/>
+        <data name="count_data" format="tabular" label="${name}_merged_data.tsv"/>
+        <data name="metadata" format="tabular" label="${name}_metadata.tsv"/>
     </outputs>
 
     <tests>
         <test>
             <param name="name" value="OhJ_2014" />
-            <output name="count_data" file="relative_abundance.tsv"/>
+            <output name="count_data" file="merged_data.tsv"/>
             <output name="metadata" file="metadata.tsv"/>
         </test>
     </tests>

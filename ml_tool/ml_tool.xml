@@ -13,18 +13,24 @@
 
           --algo $SelMLAlgo.MLAlgo
           --data_file $input1
+          --metadata_file $input2
+   
+          --output_tabular $output1
+          --output_html $output2
+
+          --target_label $column_label
 
           #if $setup.advanced_setup == 'settings'
-              --setup '{"target":"$setup.target", "session_id":$setup.session_id, "fold":$setup.fold, "log_experiment":$setup.log_experiment, "train_size":$setup.train_size, "data_split_shuffle":$setup.data_split_shuffle, "data_split_stratify":$setup.data_split_stratify, "normalize":$setup.normalize, "transformation":$setup.transformation, "remove_outliers":$setup.remove_outliers, "outliers_threshold":$setup.outliers_threshold, "pca":$setup.pca}'
+              --setup '{"session_id":$setup.session_id, "fold":$setup.fold, "log_experiment":$setup.log_experiment, "train_size":$setup.train_size, "data_split_shuffle":$setup.data_split_shuffle, "data_split_stratify":$setup.data_split_stratify, "normalize":$setup.normalize, "transformation":$setup.transformation, "remove_outliers":$setup.remove_outliers, "outliers_threshold":$setup.outliers_threshold, "pca":$setup.pca}'
           #end if
 
           #if $setup.advanced_setup == 'default'
-              --setup  '{"target":"$setup.column_label"}'
+              --setup  '{}'
           #end if 
 
-          #if $index_column.advanced_setup == 'settings'
-              --index_clm_name $index_column.column_label
-          #end if 
+          #if $drop_columns.advanced_setup == 'settings'
+              --dp_columns '$drop_columns.columns_to_drop'
+          #end if
 
           #if $SelMLAlgo.MLAlgo == 'rbfsvm'
             #if $SelMLAlgo.settings.advanced == "settings"
@@ -157,82 +163,88 @@
     ]]></command>
 
     <inputs>
-      <param name="input1" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+  <param name="input1" type="data" format="tabular"  label="Training Data" optional="false"  argument= "--data_file"/>
+  <param name="input2" type="data" format="tabular"  label="Metadata" optional="false"  argument= "--metadata_file"/>
+    <param name="column_label" type='data_column' data_ref="input2" label="Target Column (Class Label)" multiple="False" use_header_names="true" help="Select the target column for classification (e.g., phenotype, class, label)">
+      </param>
 
-      <conditional name='index_column' >
-        <param name="advanced_setup" type="select" label="Index Column">
-          <option value="default" selected="true">Use default setup</option>
-          <option value="settings">Use advance setup</option>
+  <!-- Index column options removed -->
+
+      <conditional name='drop_columns' >
+
+        <param name="advanced_setup" type="select" label="Drop Columns from Training Data">
+          <option value="default" selected="true">Do Not Drop Columns</option>
+          <option value="settings">Drop Columns</option>
         </param>
-                
+
         <when value="default">
-           
         </when>
 
         <when value="settings">
-          <param name="column_label" type="text" optional="false" label="Index Column" />
+          <param name="columns_to_drop" type='data_column' data_ref="input1"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select columns to drop from training data">
+          </param>
         </when>
+
       </conditional>
 
       <conditional name='setup' >
-        <param name="advanced_setup" type="select" label="Avance Setup (Advance Setup does not require for HDC classifier)">
-          <option value="default" selected="true">Use default setup</option>
-          <option value="settings">Use advance setup</option>
+        <param name="advanced_setup" type="select" label="Advanced Setup (Advanced setup is not required for HDC classifier)">
+          <option value="default" selected="true">Use Default Setup</option>
+          <option value="settings">Use Advanced Setup</option>
         </param>
                 
         <when value="default">
-           <param name="column_label" type="text" optional="false"  label="Target column for prediction" />
+
         </when>
 
         <when value="settings">
-              <!-- Target Column -->
-              <param name="target" type="text" label="Target column for prediction" help="Target column for prediction" />
+              <!-- Target Column selector removed as requested -->
               <!-- Session ID (Optional) -->
-              <param name="session_id" type="integer" value="123" label="Session ID for reproducibility" help="Session ID for reproducibility" optional="true" />
+              <param name="session_id" type="integer" value="123" label="Session ID (for reproducibility)" help="Session ID (for reproducibility)" optional="true" />
               <!-- Feature Selection (Optional) -->
               <!-- Number of Folds (Optional) -->
-              <param name="fold" type="integer" value="10" label="Number of folds for cross-validation" help="Number of folds for cross-validation" optional="true" />
+              <param name="fold" type="integer" value="10" label="Number of Folds for Cross-Validation" help="Number of folds for cross-validation" optional="true" />
               <!-- Log Experiment (Optional) -->
-              <param name="log_experiment" type="boolean" value="false" label="Log Experiment" help="Whether to log experiment" optional="true" />
-              <!-- Train Size (Optional) -->
-              <param name="train_size" type="float" value="0.7" label="Train size" help="Proportion of dataset to include in the train split" optional="true" />
-              <!-- Data Split Shuffle (Optional) -->
+              <param name="log_experiment" type="boolean" value="false" label="Log Experiment" help="Whether to log the experiment" optional="true" />
+              <!-- Training Set Size (Optional) -->
+              <param name="train_size" type="float" value="0.7" label="Training Set Size" help="Proportion of dataset to include in the training split" optional="true" />
+              <!-- Shuffle Data (Optional) -->
               <param name="data_split_shuffle" type="boolean" value="True" label="Shuffle Data" help="Whether to shuffle data before splitting" optional="true" />
-              <!-- Data Split Stratify (Optional) -->
+              <!-- Stratify Data (Optional) -->
               <param name="data_split_stratify" type="boolean" value="False" label="Stratify Data" help="Whether to stratify data during splitting" optional="true" />
               <!-- Normalize Data (Optional) -->
               <param name="normalize" type="boolean" value="false" label="Normalize Data" help="Whether to normalize the data" optional="true" />
               <!-- Power Transformation (Optional) -->
-              <param name="transformation" type="boolean" value="false" label="Power Transformation" help="Whether to apply power transformation" optional="true" />
+              <param name="transformation" type="boolean" value="false" label="Apply Power Transformation" help="Whether to apply power transformation" optional="true" />
               <!-- Remove Outliers (Optional) -->
               <param name="remove_outliers" type="boolean" value="false" label="Remove Outliers" help="Whether to remove outliers from the data" optional="true" />
-              <!-- Outliers Threshold (Optional) -->
-              <param name="outliers_threshold" type="float" value="0.05" label="Outliers Threshold" help="Threshold for removing outliers" optional="true" />
+              <!-- Outlier Threshold (Optional) -->
+              <param name="outliers_threshold" type="float" value="0.05" label="Outlier Threshold" help="Threshold for removing outliers" optional="true" />
               <!-- PCA -->
               <param name="pca" type="boolean" label="Apply PCA" help="Whether to apply PCA for dimensionality reduction" />
         </when>
       </conditional>
 
       <conditional name='SelMLAlgo' >
-        <param name="MLAlgo" type="select" label="MLAlgo" argument="">
-          <option value="lr">LogisticRegression Classifier</option>
-          <option value="knn">KNeighbors Classifier</option>
-          <option value="nb">GaussianNB Classifier</option>
-          <option value="dt">DecisionTree Classifier</option>
-          <option value="svm">Stochastic gradient Classifier</option>
+  <param name="MLAlgo" type="select" label="Machine Learning Algorithm" argument="">
+          <option value="lr">Logistic Regression Classifier</option>
+          <option value="knn">K-Nearest Neighbors Classifier</option>
+          <option value="nb">Gaussian Naive Bayes Classifier</option>
+          <option value="dt">Decision Tree Classifier</option>
+          <option value="svm">Stochastic Gradient Classifier</option>
           <option value="rbfsvm">Support Vector Machine Classifier</option>
-          <option value="rf">RandomForest Classifier</option>
-          <option value="gbc">GradientBoosting Classifier</option>
-          <option value="xgboost">XGB Classifier</option>
-          <option value="lightgbm">LGBM Classifier</option>
-          <option value="hdc">Vector Symbolic Architecture Based  Classifier</option>
+          <option value="rf">Random Forest Classifier</option>
+          <option value="gbc">Gradient Boosting Classifier</option>
+          <option value="xgboost">XGBoost Classifier</option>
+          <option value="lightgbm">LightGBM Classifier</option>
+          <option value="hdc">Vector Symbolic Architecture-based Classifier</option>
         </param>
 
         <when value="lr">
           <conditional name="settings">
               <param name="advanced" type="select" label="Use advance settings to create model">
-                  <option value="default" selected="true">Use default setup</option>
-                  <option value="settings">Use advance setup</option>
+                  <option value="default" selected="true">Use Default Setup</option>
+                  <option value="settings">Use Advanced Setup</option>
               </param>
 
               <when value="default">
@@ -242,7 +254,7 @@
                 <conditional name="settings">
                     <param name="advanced" type="select" label="Specify advanced parameters">
                         <option value="custom" selected="true">Create Model with Custom Parameters</option>
-                        <option value="tune">Tune model</option>
+                        <option value="tune">Tune Model</option>
                     </param>
 
                     <when value="custom">
@@ -359,8 +371,7 @@
                     </when>
                     <when value="tune">
    
-
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
 
                     </when>
                 </conditional>
@@ -988,3 +999,5 @@
           </citation>
      </citations>
 </tool>
+   
+   

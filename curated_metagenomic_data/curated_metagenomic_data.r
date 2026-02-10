@@ -32,9 +32,6 @@ dim(metadata_df)
 abundance_t_df <- as.data.frame(t(assay(merged_data)))
 
 # # Merge metadata and transposed abundance data by row names (sample IDs)
-# # Ensure row names match between both dataframes
-# merged_df <- cbind(metadata_df, abundance_t_df)
-
 # Save merged data to a single TSV file
 
 # Add sample_id column to abundance_t_df

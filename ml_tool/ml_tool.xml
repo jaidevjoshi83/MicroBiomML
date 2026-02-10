@@ -868,7 +868,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="lr"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -876,7 +875,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="knn"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -885,7 +883,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="nb"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -894,7 +891,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="dt"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -902,7 +898,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="svm"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -911,7 +906,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="rbfsvm"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -919,7 +913,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="rf"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -927,7 +920,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="gbc"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -936,7 +928,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="xboost"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -945,7 +936,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="lightgbm"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
@@ -954,7 +944,6 @@
       <test>
         <param name="input1" value="test.tsv"/>
         <param name="SelMLAlgo|MLAlgo" value="hdc"/>
-        <param name="index_column|advanced_setup" value="default"/>
         <param name="setup|advanced_setup" value="default"/>
         <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 

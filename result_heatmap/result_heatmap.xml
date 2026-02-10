@@ -5,12 +5,11 @@
     <requirement type="package" version="2.2.3">pandas</requirement>
     <requirement type="package" version="5.24.0">plotly</requirement> 
     <requirement type="package" version="0.2.1">kaleido</requirement>
-  </requirements>
+  </requirements> pip install -U kaleido
 
 
     <command detect_errors="exit_code"><![CDATA[
 
-     
         python '$__tool_directory__/result_heatmap.py' 
             --column_list '${clm1}'
             --input_file '${input_file}'

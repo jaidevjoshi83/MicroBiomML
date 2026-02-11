@@ -8,6 +8,34 @@ import json
 import io
 
 
+
+def retrieve_results_from_hdc_folds(n_folds, text):
+    
+    split_text = text.splitlines()
+    n_folds = n_folds
+    df_list = []
+    for i in range(n_folds):
+        for n, line in enumerate(split_text):
+            if f"Fold {i}" in split_text[n]:
+                df_list.append([float(split_text[n+2].split(":")[1]), 'NaN', float(split_text[n+5].split(":")[1]), float(split_text[n+4].split(":")[1]), float(split_text[n+3].split(":")[1]), "NaN", float(split_text[n+6].split(":")[1])])
+
+    df = pd.DataFrame(df_list, columns=["Accuracy", "AUC", "Recall", "Prec.", "F1", "Kappa", "MCC"])
+
+    mean_row = df.mean(numeric_only=True)
+    std_row = df.std(numeric_only=True)
+
+    mean_df = mean_row.to_frame().T
+    mean_df['Fold'] = 'Mean'
+
+    std_df = std_row.to_frame().T
+    std_df['Fold'] = 'Std'
+
+    df = df.reset_index().rename(columns={'index': 'Fold'})
+
+    df_with_stats = pd.concat([df, mean_df, std_df], ignore_index=True)
+
+    return df_with_stats
+
 def convert_value(val):
     """Convert string to appropriate Python type."""
     val = val.strip()
@@ -53,6 +81,9 @@ def tune_hdc(tune_param, data):
         result = subprocess.run(command, capture_output=True, text=True)
         text = result.stdout
 
+
+        print("##########################")
+
         scores, f1 = {}, []
         for i, line in enumerate(text.split("\n")):
             if "Total elapsed time" in line:
@@ -74,28 +105,12 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
 
     # print(target_label)
     df = pd.read_csv(file_path, sep='\t')
-    dp_column_list = [df.columns.tolist()[int(i)] for i in dp_columns.split(',')] if dp_columns else []
+    df_metadata = pd.read_csv(metadata_file, sep='\t')  
+
+    dp_column_list = [df.columns.tolist()[int(i)-1] for i in dp_columns.split(',')] if dp_columns else []
 
     if dp_column_list:
         df = df.drop(columns=dp_column_list)
-
-    # print(df)
-    file = open(metadata_file)
-    lines = file.readlines()
-
-    if len(lines[0].strip().split('\t')) < len(lines[1].strip().split('\t')):
-        
-        # Fix header
-        column_names = lines[0].strip().split('\t')
-        column_names.insert(0, 'sample_name')
-        
-        # Rebuild the corrected file as a string
-        new_content = "\t".join(column_names) + "\n" + "".join(lines[1:])
-        df_metadata = pd.read_csv(io.StringIO(new_content), sep="\t")
-        # print("OK1")
-        # print(df_metadata)
-    else:
-        df_metadata = pd.read_csv(metadata_file, sep='\t')
 
     # Index column drop removed
     setup_dict = json.loads(setup_param)
@@ -108,29 +123,19 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
         setup_dict['target'] = target_label
 
     combine_df = pd.concat([df, df_metadata[setup_dict['target']]], axis=1)
-    combine_df.to_csv("combined_data.tsv", sep='\t', index=False)
-    
-    # Filter out classes with only 1 sample to avoid split errors
-    if 'target' in setup_dict:
-        target_col = setup_dict['target']
-        # Ensure target is treated as string/object if it's categorical 
-        # (though value_counts works on numbers too)
-        vc = combine_df[target_col].value_counts()
-        valid_classes = vc[vc >= 2].index
-        rows_before = len(combine_df)
-        combine_df = combine_df[combine_df[target_col].isin(valid_classes)]
-        rows_after = len(combine_df)
-        if rows_after < rows_before:
-            print(f"Removed {rows_before - rows_after} samples with rare target classes (count < 2).")
+
+    combine_df.to_csv("./training_data_with_target_columns.tsv", sep='\t', index=False)
 
     # Check for empty or too small dataframe before setup
     if combine_df.empty or len(combine_df) < 2:
         print("Error: Not enough samples after filtering for PyCaret setup. Please check your input data and parameters.")
         sys.exit(1)
-    clf = setup(data=combine_df, **setup_dict)
 
     if algo == 'hdc':
+
+        file_path = "./training_data_with_target_columns.tsv"
         if custom_para and not tune_para:
+          
             custom_params = json.loads(custom_para)
             command = ['chopin2.py', "--input", file_path, "--kfolds", "5"]
 
@@ -139,26 +144,23 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
                 command.append(str(v))
 
             result = subprocess.run(command, capture_output=True, text=True)
+            print("--- HDC (chopin2.py) STDOUT ---")
+            print(result.stdout)
+            print("--- HDC (chopin2.py) STDERR ---")
+            print(result.stderr)
+            print("--- End HDC Output ---")
             if result.returncode == 0:
                 text = result.stdout
-                scores = {}
-                for i, line in enumerate(text.split("\n")):
-                    if "Total elapsed time" in line:
-                        scores["MCC"] = [text.split("\n")[i-1].split(' ')[3]]
-                        scores["Recall"] = [text.split("\n")[i-2].split(' ')[1]]
-                        scores["Prec."] = [text.split("\n")[i-3].split(' ')[1]]
-                        scores["F1"] = [text.split("\n")[i-4].split(' ')[1]]
-                        scores["Accuracy"] = [text.split("\n")[i-5].split(' ')[1]]
-                df_scores = pd.DataFrame(scores)
-                print(df_scores)
+                df_scores = retrieve_results_from_hdc_folds(4, text)
                 if output_tabular:
                     df_scores.to_csv(output_tabular, sep='\t', index=False)
                 if output_html:
-                    df_scores.to_html(output_html)
+                    df_scores.to_html(output_html, index=False)
             else:
                 print("Command failed:", result.stderr)
 
         elif tune_para:
+            
             params = read_params('params.txt')
             result = tune_hdc(params, file_path)
             print("Best Tune Result:\n", result)
@@ -166,27 +168,18 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
         else:
             command = ["chopin2.py", "--input", file_path, "--levels", "100", "--kfolds", "5"]
             result = subprocess.run(command, capture_output=True, text=True)
-
             if result.returncode == 0:
                 text = result.stdout
-                scores = {}
-                for i, line in enumerate(text.split("\n")):
-                    if "Total elapsed time" in line:
-                        scores["MCC"] = [text.split("\n")[i-1].split(' ')[3]]
-                        scores["Recall"] = [text.split("\n")[i-2].split(' ')[1]]
-                        scores["Prec."] = [text.split("\n")[i-3].split(' ')[1]]
-                        scores["F1"] = [text.split("\n")[i-4].split(' ')[1]]
-                        scores["Accuracy"] = [text.split("\n")[i-5].split(' ')[1]]
-                df_scores = pd.DataFrame(scores)
-                print(df_scores)
+                df_scores =retrieve_results_from_hdc_folds(4, text)
                 if output_tabular:
                     df_scores.to_csv(output_tabular, sep='\t', index=False)
                 if output_html:
-                    df_scores.to_html(output_html)
+                    df_scores.to_html(output_html, index=False)
             else:
                 print("Command failed:", result.stderr)
 
     else:
+        clf = setup(data=combine_df, **setup_dict)
         if custom_para:
             custom_params = json.loads(custom_para)
             model = create_model(algo, **custom_params)
@@ -195,7 +188,9 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
             print(res)
             with open('logs.log', 'a') as f:
                 f.write(str(res) + '\n')
-            
+            # Add three-letter classifier suffix (algorithm + 'C') to columns except 'Fold'
+            algo_abbr = (str(algo).upper()[:2] + 'C') if algo else "ALC"
+            df_result.columns = [col if col == 'Fold' else f"{col}_{algo_abbr}" for col in df_result.columns]
             if output_tabular:
                 df_result.to_csv(output_tabular, sep='\t')
             if output_html:
@@ -210,7 +205,9 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
             print(res)
             with open('logs.log', 'a') as f:
                 f.write(str(res) + '\n')
-            
+            # Add three-letter classifier suffix (algorithm + 'C') to columns except 'Fold'
+            algo_abbr = (str(algo).upper()[:2] + 'C') if algo else "ALC"
+            df_result.columns = [col if col == 'Fold' else f"{col}_{algo_abbr}" for col in df_result.columns]
             if output_tabular:
                 df_result.to_csv(output_tabular, sep='\t')
             if output_html:
@@ -220,10 +217,12 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
             model = create_model(algo)
             df_result = pull()
             res = df_result.T['Mean']
-            print(res)
+      
             with open('logs.log', 'a') as f:
                 f.write(str(res) + '\n')
-            
+            # Add three-letter classifier suffix (algorithm + 'C') to columns except 'Fold'
+            algo_abbr = (str(algo).upper()[:2] + 'C') if algo else "ALC"
+            df_result.columns = [col if col == 'Fold' else f"{col}_{algo_abbr}" for col in df_result.columns]
             if output_tabular:
                 df_result.to_csv(output_tabular, sep='\t')
             if output_html:

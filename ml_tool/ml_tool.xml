@@ -850,7 +850,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="tabular"  label="Tune parameter file" optional="false"  argument= "--tune_para"/>
                     </when>
                 </conditional>
               </when>

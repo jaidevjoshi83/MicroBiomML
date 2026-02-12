@@ -9,6 +9,8 @@
 
     <command detect_errors="exit_code"><![CDATA[
 
+
+
           python '$__tool_directory__/ml_tool.py'  
 
           --algo $SelMLAlgo.MLAlgo
@@ -155,7 +157,7 @@
                 --custom_para '{"dimensionality":$SelMLAlgo.settings.settings.dimensionality, "levels":$SelMLAlgo.settings.settings.levels, "retrain":$SelMLAlgo.settings.settings.retrain}'
               #end if 
               #if $SelMLAlgo.settings.settings.advanced == "tune"
-                --tune_para "$tune_param_file"
+                --param_file "$tune_param_file"
               #end if 
             #end if
           #end if 
@@ -292,7 +294,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="text"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
 
                 </conditional>
@@ -341,7 +343,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="text"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -371,7 +373,7 @@
                     </when>
                     <when value="tune">
    
-                    <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
 
                     </when>
                 </conditional>
@@ -419,7 +421,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -481,7 +483,7 @@
                 </when>
 
                 <when value="tune">
-                  <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                  <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                 </when>
                 </conditional>
               </when>
@@ -535,7 +537,7 @@
                   </when>
 
                   <when value="tune">
-                    <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                    <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                   </when>
 
                 </conditional>
@@ -589,7 +591,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -645,7 +647,7 @@
               </when>
 
               <when value="tune">
-                  <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                  <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
               </when>
             </conditional>
           </when>
@@ -745,7 +747,7 @@
                     </when>
                     
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -819,7 +821,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -850,7 +852,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="tabular"  label="Tune parameter file" optional="false"  argument= "--tune_para"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Tune parameter file" optional="false"  argument= "--tune_para"/>
                     </when>
                 </conditional>
               </when>

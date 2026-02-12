@@ -7,8 +7,6 @@ import pandas as pd
 import json
 import io
 
-
-
 def retrieve_results_from_hdc_folds(n_folds, text):
     
     split_text = text.splitlines()
@@ -52,8 +50,11 @@ def convert_value(val):
         return val
 
 def read_params(filename):
+
+    print("Reading hyperparameters from:", filename)
     """Read hyperparameter values from file."""
     params = {}
+
     with open(filename, 'r') as f:
         for line in f:
             parts = line.strip().split(',')
@@ -61,7 +62,6 @@ def read_params(filename):
             values = [convert_value(val) for val in parts[1:]]
             params[key] = values
     return params
-
 
 def tune_hdc(tune_param, data):
     combinations = list(itertools.product(
@@ -81,27 +81,20 @@ def tune_hdc(tune_param, data):
         result = subprocess.run(command, capture_output=True, text=True)
         text = result.stdout
 
+        df_scores =retrieve_results_from_hdc_folds(5, text)
 
-        print("##########################")
-
-        scores, f1 = {}, []
-        for i, line in enumerate(text.split("\n")):
-            if "Total elapsed time" in line:
-                scores["MCC"] = text.split("\n")[i-1].split(' ')[3]
-                scores["Recall"] = text.split("\n")[i-2].split(' ')[1]
-                scores["Prec."] = text.split("\n")[i-3].split(' ')[1]
-                scores["F1"] = text.split("\n")[i-4].split(' ')[1]
-                scores["Accuracy"] = text.split("\n")[i-5].split(' ')[1]
-                f1.append(scores["F1"])
-
-        full_score[n] = scores
-        f1_score[n] = f1
+        if output_tabular:
+            df_scores.to_csv(output_tabular, sep='\t', index=False)
+        if output_html:
+            df_scores.to_html(output_html, index=False)
+    else:
+        print("Command failed:", result.stderr)
 
     max_key = max(f1_score, key=lambda k: f1_score[k])
     return full_score[max_key]
 
 
-def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, setup_param=None, target_label=None, metadata_file=None, output_tabular=None, output_html=None, dp_columns=None):
+def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, setup_param=None, target_label=None, metadata_file=None, output_tabular=None, output_html=None, dp_columns=None, param_txt=None):
 
     # print(target_label)
     df = pd.read_csv(file_path, sep='\t')
@@ -160,8 +153,7 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
                 print("Command failed:", result.stderr)
 
         elif tune_para:
-            
-            params = read_params('params.txt')
+            params = read_params(param_txt)
             result = tune_hdc(params, file_path)
             print("Best Tune Result:\n", result)
 
@@ -170,7 +162,7 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
             result = subprocess.run(command, capture_output=True, text=True)
             if result.returncode == 0:
                 text = result.stdout
-                df_scores =retrieve_results_from_hdc_folds(4, text)
+                df_scores =retrieve_results_from_hdc_folds(5, text)
                 if output_tabular:
                     df_scores.to_csv(output_tabular, sep='\t', index=False)
                 if output_html:
@@ -240,6 +232,8 @@ if __name__ == "__main__":
     parser.add_argument('--output_tabular', required=False, type=str, help='Path to output tabular file')
     parser.add_argument('--output_html', required=False, type=str, help='Path to output HTML file')
     parser.add_argument('--dp_columns', required=False, type=str, help='Columns to drop from training data')
+    parser.add_argument('--param_file', type=str, required=False, help='Path to parameter file')
+
 
     args = parser.parse_args()
 
@@ -253,7 +247,8 @@ if __name__ == "__main__":
         metadata_file=args.metadata_file,
         output_tabular=args.output_tabular,
         output_html=args.output_html,
-        dp_columns=args.dp_columns
+        dp_columns=args.dp_columns,
+        param_txt=args.param_file
     )
 
 

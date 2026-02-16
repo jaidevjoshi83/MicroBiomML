@@ -40,7 +40,7 @@
                     --custom_para '{"C": $SelMLAlgo.settings.settings.C, "break_ties":$SelMLAlgo.settings.settings.break_ties, "cache_size":$SelMLAlgo.settings.settings.cache_size, "class_weight":$SelMLAlgo.settings.settings.class_weight, "coef0":$SelMLAlgo.settings.settings.coef0, "decision_function_shape":"$SelMLAlgo.settings.settings.decision_function_shape", "degree":$SelMLAlgo.settings.settings.degree, "gamma":"$SelMLAlgo.settings.settings.gamma", "kernel":"$SelMLAlgo.settings.settings.kernel", "max_iter":$SelMLAlgo.settings.settings.max_iter, "probability":$SelMLAlgo.settings.settings.probability, "random_state":$SelMLAlgo.settings.settings.random_state, "shrinking":$SelMLAlgo.settings.settings.shrinking,"tol":$SelMLAlgo.settings.settings.tol, "verbose":$SelMLAlgo.settings.settings.verbose}'
                 #end if 
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                    --tune_para "$tune_param_file"
+                    --param_file"$tune_param_file"
                 #end if 
             #end if
           #end if  
@@ -51,7 +51,7 @@
                     --custom_para '{"ccp_alpha":$SelMLAlgo.settings.ccp_alpha, "criterion":"$SelMLAlgo.settings.criterion", "init":$SelMLAlgo.settings.init, "learning_rate":$SelMLAlgo.settings.learning_rate, "loss":"$SelMLAlgo.settings.loss", "max_depth":$SelMLAlgo.settings.max_depth, "max_features":$SelMLAlgo.settings.max_features, "max_leaf_nodes":$SelMLAlgo.settings.max_leaf_nodes, "min_impurity_decrease":$SelMLAlgo.settings.min_impurity_decrease, "min_samples_leaf":$SelMLAlgo.settings.min_samples_leaf, "min_samples_split":$SelMLAlgo.settings.min_samples_split, "min_weight_fraction_leaf":$SelMLAlgo.settings.min_weight_fraction_leaf, "n_estimators":$SelMLAlgo.settings.n_estimators, "n_iter_no_change":$SelMLAlgo.settings.n_iter_no_change, "random_state":$SelMLAlgo.settings.random_state, "subsample":$SelMLAlgo.settings.subsample, "tol":$SelMLAlgo.settings.tol, "validation_fraction":$SelMLAlgo.settings.validation_fraction, "verbose":$SelMLAlgo.settings.verbose, "warm_start":$SelMLAlgo.settings.warm_start}'
                 #end if
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                    --tune_para "$tune_param_file"
+                    --param_file "$tune_param_file"
                 #end if
             #end if
           #end if 
@@ -62,7 +62,7 @@
                   --custom_para  '{"ccp_alpha": $SelMLAlgo.settings.settings.ccp_alpha, "class_weight": $SelMLAlgo.settings.settings.class_weight, "criterion":"$SelMLAlgo.settings.settings.criterion", "max_depth":$SelMLAlgo.settings.settings.max_depth, "max_features":$SelMLAlgo.settings.settings.max_features, "max_leaf_nodes":$SelMLAlgo.settings.settings.max_leaf_nodes, "min_impurity_decrease":$SelMLAlgo.settings.settings.min_impurity_decrease, "min_samples_leaf":$SelMLAlgo.settings.settings.min_samples_leaf, "min_samples_split":$SelMLAlgo.settings.settings.min_samples_split, "min_weight_fraction_leaf":$SelMLAlgo.settings.settings.min_weight_fraction_leaf, "monotonic_cst":$SelMLAlgo.settings.settings.monotonic_cst, "random_state":$SelMLAlgo.settings.settings.random_state, "splitter":"$SelMLAlgo.settings.settings.splitter"}'
                 #end if
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                  --tune_para "$tune_param_file"
+                  --param_file "$tune_param_file"
                 #end if
             #end if
           #end if 
@@ -73,7 +73,7 @@
                   --custom_para '{"bootstrap": $SelMLAlgo.settings.settings.bootstrap, "ccp_alpha": $SelMLAlgo.settings.settings.ccp_alpha, "class_weight": $SelMLAlgo.settings.settings.class_weight, "criterion": "$SelMLAlgo.settings.settings.criterion", "max_depth": $SelMLAlgo.settings.settings.max_depth, "max_features": "$SelMLAlgo.settings.settings.max_features", "max_leaf_nodes": $SelMLAlgo.settings.settings.max_leaf_nodes, "max_samples": $SelMLAlgo.settings.settings.max_samples, "min_impurity_decrease": $SelMLAlgo.settings.settings.min_impurity_decrease, "min_samples_leaf": $SelMLAlgo.settings.settings.min_samples_leaf, "min_samples_split": $SelMLAlgo.settings.settings.min_samples_split, "min_weight_fraction_leaf": $SelMLAlgo.settings.settings.min_weight_fraction_leaf, "monotonic_cst": $SelMLAlgo.settings.settings.monotonic_cst, "n_estimators": $SelMLAlgo.settings.settings.n_estimators,  "oob_score": $SelMLAlgo.settings.settings.oob_score, "random_state": $SelMLAlgo.settings.settings.random_state, "verbose": $SelMLAlgo.settings.settings.verbose, "warm_start": $SelMLAlgo.settings.settings.warm_start }'
                 #end if
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                  --tune_para "$tune_param_file"
+                  --param_file "$tune_param_file"
                 #end if
             #end if
           #end if 
@@ -84,7 +84,7 @@
                   --custom_para '{"C":$SelMLAlgo.settings.settings.C,  "dual":$SelMLAlgo.settings.settings.dual, "fit_intercept":$SelMLAlgo.settings.settings.fit_intercept, "intercept_scaling":$SelMLAlgo.settings.settings.intercept_scaling, "l1_ratio":$SelMLAlgo.settings.settings.l1_ratio, "max_iter":$SelMLAlgo.settings.settings.max_iter, "multi_class":"$SelMLAlgo.settings.settings.multi_class",  "penalty":"$SelMLAlgo.settings.settings.penalty", "random_state":$SelMLAlgo.settings.settings.random_state, "solver":"$SelMLAlgo.settings.settings.solver", "tol":$SelMLAlgo.settings.settings.tol, "verbose":$SelMLAlgo.settings.settings.verbose, "warm_start":$SelMLAlgo.settings.settings.warm_start}' 
                 #end if
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                  --tune_para "$tune_param_file"
+                  --param_file "$tune_param_file"
                 #end if
             #end if
           #end if 
@@ -95,7 +95,7 @@
                   --custom_para '{"algorithm": "$SelMLAlgo.settings.settings.algorithm", "leaf_size":$SelMLAlgo.settings.settings.leaf_size, "metric": "$SelMLAlgo.settings.settings.metric",  "n_neighbors": $SelMLAlgo.settings.settings.n_neighbors, "p":$SelMLAlgo.settings.settings.p, "weights":"$SelMLAlgo.settings.settings.weights"}'
                 #end if 
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                  --tune_para "$tune_param_file"
+                  --param_file "$tune_param_file"
                 #end if 
             #end if
           #end if 
@@ -106,7 +106,7 @@
                   --custom_para '{"priors": $SelMLAlgo.settings.settings.priors, "var_smoothing":$SelMLAlgo.settings.settings.var_smoothing}'
                 #end if
                 #if $SelMLAlgo.settings.settings.advanced == "tune"
-                 --tune_para "$tune_param_file"
+                 --param_file "$tune_param_file"
                 #end if
             #end if
           #end if 
@@ -117,7 +117,7 @@
                   --custom_para '{"objective": "$SelMLAlgo.settings.settings.objective", "base_score": $SelMLAlgo.settings.settings.base_score, "booster": "$SelMLAlgo.settings.settings.booster", "colsample_bylevel": $SelMLAlgo.settings.settings.colsample_bylevel, "colsample_bynode": $SelMLAlgo.settings.settings.colsample_bynode, "colsample_bytree": $SelMLAlgo.settings.settings.colsample_bytree,  "early_stopping_rounds": $SelMLAlgo.settings.settings.early_stopping_rounds, "enable_categorical": $SelMLAlgo.settings.settings.enable_categorical, "eval_metric": $SelMLAlgo.settings.settings.eval_metric, "feature_types": $SelMLAlgo.settings.settings.feature_types, "gamma": $SelMLAlgo.settings.settings.gamma, "grow_policy": $SelMLAlgo.settings.settings.grow_policy, "importance_type":$SelMLAlgo.settings.settings.importance_type, "interaction_constraints":$SelMLAlgo.settings.settings.interaction_constraints, "learning_rate":$SelMLAlgo.settings.settings.learning_rate, "max_bin":$SelMLAlgo.settings.settings.max_bin, "max_cat_threshold":$SelMLAlgo.settings.settings.max_cat_threshold, "max_cat_to_onehot":$SelMLAlgo.settings.settings.max_cat_to_onehot, "max_delta_step":$SelMLAlgo.settings.settings.max_delta_step, "max_depth":$SelMLAlgo.settings.settings.max_depth, "max_leaves":$SelMLAlgo.settings.settings.max_leaves, "min_child_weight":$SelMLAlgo.settings.settings.min_child_weight,  "monotone_constraints":$SelMLAlgo.settings.settings.monotone_constraints, "multi_strategy":$SelMLAlgo.settings.settings.multi_strategy, "n_estimators":$SelMLAlgo.settings.settings.n_estimators, "num_parallel_tree":$SelMLAlgo.settings.settings.num_parallel_tree, "random_state":$SelMLAlgo.settings.settings.random_state, "reg_alpha":$SelMLAlgo.settings.settings.reg_alpha, "reg_lambda":$SelMLAlgo.settings.settings.reg_lambda, "sampling_method":"$SelMLAlgo.settings.settings.sampling_method", "scale_pos_weight":$SelMLAlgo.settings.settings.scale_pos_weight, "subsample":$SelMLAlgo.settings.settings.subsample, "tree_method":"$SelMLAlgo.settings.settings.tree_method", "validate_parameters":$SelMLAlgo.settings.settings.validate_parameters, "verbosity":$SelMLAlgo.settings.settings.verbosity}'
               #end if 
               #if $SelMLAlgo.settings.settings.advanced == "tune"
-                  --tune_para "$tune_param_file"
+                  --param_file "$tune_param_file"
               #end if 
             #end if
           #end if 
@@ -128,7 +128,7 @@
                 --custom_para '{"boosting_type":"$SelMLAlgo.settings.settings.boosting_type", "class_weight":$SelMLAlgo.settings.settings.class_weight, "colsample_bytree":$SelMLAlgo.settings.settings.colsample_bytree, "importance_type":"$SelMLAlgo.settings.settings.importance_type", "learning_rate":$SelMLAlgo.settings.settings.learning_rate, "max_depth":$SelMLAlgo.settings.settings.max_depth, "min_child_samples":$SelMLAlgo.settings.settings.min_child_samples, "min_child_weight":$SelMLAlgo.settings.settings.min_child_weight, "min_split_gain":$SelMLAlgo.settings.settings.min_split_gain, "n_estimators":$SelMLAlgo.settings.settings.n_estimators,  "num_leaves":$SelMLAlgo.settings.settings.num_leaves, "objective":"$SelMLAlgo.settings.settings.objective", "random_state":$SelMLAlgo.settings.settings.random_state, "reg_alpha":$SelMLAlgo.settings.settings.reg_alpha, "reg_lambda":$SelMLAlgo.settings.settings.reg_lambda, "subsample":$SelMLAlgo.settings.settings.subsample, "subsample_for_bin":$SelMLAlgo.settings.settings.subsample_for_bin, "subsample_freq":$SelMLAlgo.settings.settings.subsample_freq}'
               #end if
               #if $SelMLAlgo.settings.settings.advanced == "tune"
-                --tune_para "$tune_param_file"
+                --param_file "$tune_param_file"
               #end if
             #end if
           #end if 
@@ -146,7 +146,7 @@
                 --custom_para '{"alpha":$SelMLAlgo.settings.settings.alpha, "average":$SelMLAlgo.settings.settings.average, "early_stopping":$SelMLAlgo.settings.settings.early_stopping, "epsilon":$SelMLAlgo.settings.settings.epsilon, "eta0":$SelMLAlgo.settings.settings.eta0, "fit_intercept":$SelMLAlgo.settings.settings.fit_intercept, "l1_ratio":$SelMLAlgo.settings.settings.l1_ratio, "learning_rate":"$SelMLAlgo.settings.settings.learning_rate", "loss":"$SelMLAlgo.settings.settings.loss", "max_iter":$SelMLAlgo.settings.settings.max_iter, "n_iter_no_change":$SelMLAlgo.settings.settings.n_iter_no_change,  "penalty":"$SelMLAlgo.settings.settings.penalty", "power_t":$SelMLAlgo.settings.settings.power_t, "random_state":$SelMLAlgo.settings.settings.random_state, "shuffle":$SelMLAlgo.settings.settings.shuffle, "tol":$SelMLAlgo.settings.settings.tol, "validation_fraction":$SelMLAlgo.settings.settings.validation_fraction, "verbose":$SelMLAlgo.settings.settings.verbose, "warm_start":$SelMLAlgo.settings.settings.warm_start}'
               #end if 
               #if $SelMLAlgo.settings.settings.advanced == "tune"
-                --tune_para "$tune_param_file"
+                --param_file "$tune_param_file"
               #end if 
             #end if
           #end if 

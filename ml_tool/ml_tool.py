@@ -41,6 +41,8 @@ def convert_value(val):
         return True
     elif val.lower() == 'false':
         return False
+    elif val.lower() == 'none':
+        return None
     try:
         if '.' in val:
             return float(val)
@@ -63,7 +65,7 @@ def read_params(filename):
             params[key] = values
     return params
 
-def tune_hdc(tune_param, data):
+def tune_hdc(tune_param, data, output_tabular=None, output_html=None):
     combinations = list(itertools.product(
         tune_param['dimensionality'], tune_param['levels'], tune_param['retrain']
     ))
@@ -79,19 +81,40 @@ def tune_hdc(tune_param, data):
             "--retrain", str(combination[2])
         ]
         result = subprocess.run(command, capture_output=True, text=True)
-        text = result.stdout
 
-        df_scores =retrieve_results_from_hdc_folds(5, text)
+        if result.returncode == 0:
+            text = result.stdout
+            df_scores = retrieve_results_from_hdc_folds(5, text)
+            
+            # Store the results for the current combination
+            full_score[n] = df_scores
+            # Get the mean F1 score from the results
+            mean_f1 = df_scores[df_scores['Fold'] == 'Mean']['F1'].iloc[0]
+            f1_score[n] = mean_f1
 
-        if output_tabular:
-            df_scores.to_csv(output_tabular, sep='\t', index=False)
-        if output_html:
-            df_scores.to_html(output_html, index=False)
-    else:
-        print("Command failed:", result.stderr)
+            print(f"Combination {n}: {combination} -> Mean F1: {mean_f1}")
+
+            # The user might want to see the output for each run, 
+            # but saving all of them to the same file will overwrite.
+            # Let's save only the best one at the end.
+        else:
+            print(f"Command failed for combination {combination}:", result.stderr)
+
+    if not f1_score:
+        print("No successful runs, cannot determine best parameters.")
+        return None
 
     max_key = max(f1_score, key=lambda k: f1_score[k])
-    return full_score[max_key]
+    print(f"\nBest parameter combination key: {max_key} with F1 score: {f1_score[max_key]}")
+    
+    best_results = full_score[max_key]
+
+    if output_tabular:
+        best_results.to_csv(output_tabular, sep='\t', index=False)
+    if output_html:
+        best_results.to_html(output_html, index=False)
+    
+    return best_results
 
 
 def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, setup_param=None, target_label=None, metadata_file=None, output_tabular=None, output_html=None, dp_columns=None, param_txt=None):
@@ -154,7 +177,7 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
 
         elif tune_para:
             params = read_params(param_txt)
-            result = tune_hdc(params, file_path)
+            result = tune_hdc(params, file_path, output_tabular=output_tabular, output_html=output_html)
             print("Best Tune Result:\n", result)
 
         else:
@@ -189,21 +212,61 @@ def run_pycaret(algo=None, custom_para=None, tune_para=None, file_path=None, set
                 df_result.to_html(output_html)
 
         elif tune_para:
-            params = read_params(tune_para)
-            model = create_model(algo)
-            tuned_model = tune_model(model, custom_grid=params)
-            df_result = pull()
-            res = df_result.T['Mean']
-            print(res)
+            params = read_params(param_txt)
+            # Generate all combinations of hyperparameters
+            keys, values = zip(*params.items())
+            combinations = [dict(zip(keys, v)) for v in itertools.product(*values)]
+            results = []
+            f1_scores = []
+            for idx, comb in enumerate(combinations):
+                print(f"Tuning combination {idx+1}/{len(combinations)}: {comb}")
+                try:
+                    model = create_model(algo)
+                    tuned_model = tune_model(model, custom_grid={k: [v] for k, v in comb.items()})
+                    df_result = pull()
+                    res = df_result.T['Mean']
+                    print(f"Result for combination {comb}:\n{res}")
+                    with open('logs.log', 'a') as f:
+                        f.write(f"Combination {comb}: {str(res)}\n")
+                    # Add three-letter classifier suffix (algorithm + 'C') to columns except 'Fold'
+                    algo_abbr = (str(algo).upper()[:2] + 'C') if algo else "ALC"
+                    df_result.columns = [col if col == 'Fold' else f"{col}_{algo_abbr}" for col in df_result.columns]
+                    results.append(df_result)
+                    # Try to get F1 score for ranking
+                    try:
+                        f1 = res['F1']
+                    except Exception:
+                        f1 = None
+                    f1_scores.append(f1)
+                except ValueError as e:
+                    print(f"Skipping invalid combination {comb}: {e}")
+                    with open('logs.log', 'a') as f:
+                        f.write(f"Skipping invalid combination {comb}: {e}\n")
+                    results.append(pd.DataFrame()) # Add empty dataframe to keep indices aligned
+                    f1_scores.append(None)
+
+            # Select best result by F1 score (if available)
+            if not any(f1 is not None for f1 in f1_scores):
+                print("No successful tuning runs. Cannot determine best parameters.")
+                # Exit or handle as appropriate
+                if output_tabular:
+                    pd.DataFrame().to_csv(output_tabular, sep='\t')
+                if output_html:
+                    pd.DataFrame().to_html(output_html)
+                return
+            
+            best_idx = max((i for i, f1 in enumerate(f1_scores) if f1 is not None), key=lambda i: f1_scores[i])
+            best_result = results[best_idx]
+            best_comb = combinations[best_idx]
+            best_f1 = f1_scores[best_idx]
+
+            print(f"\nBest parameter combination: {best_comb} with F1 score: {best_f1}")
             with open('logs.log', 'a') as f:
-                f.write(str(res) + '\n')
-            # Add three-letter classifier suffix (algorithm + 'C') to columns except 'Fold'
-            algo_abbr = (str(algo).upper()[:2] + 'C') if algo else "ALC"
-            df_result.columns = [col if col == 'Fold' else f"{col}_{algo_abbr}" for col in df_result.columns]
+                f.write(f"Best combination: {best_comb} F1: {best_f1}\n")
             if output_tabular:
-                df_result.to_csv(output_tabular, sep='\t')
+                best_result.to_csv(output_tabular, sep='\t')
             if output_html:
-                df_result.to_html(output_html)
+                best_result.to_html(output_html)
 
         else:
             model = create_model(algo)

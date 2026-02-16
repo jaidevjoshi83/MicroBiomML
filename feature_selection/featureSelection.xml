@@ -1,27 +1,48 @@
-<tool id="feature_selector" name="Sequential Feature Selector" version="1.0.0">
+<tool id="feature_selector" name="Sequential Feature Selector_2" version="1.0.0">
     <description>Feature selection using SequentialFeatureSelector on a single TSV file</description>
 
     <requirements>
-        <requirement type="package" version="2.2.3">pandas</requirement>
-        <requirement type="package" version="1.4.2">scikit-learn</requirement> 
+        <requirement type="package" version="2.1.4">pandas</requirement>
+        <requirement type="package" version="1.3.2">scikit-learn</requirement> 
+        <requirement type="package" version="0.1.18">hdlib</requirement>
     </requirements>
 
     <command detect_errors="exit_code">
         <![CDATA[
         python3 '$__tool_directory__/featureSelection.py' 
             --input '$input'
+            --metadata '$metadata'
             --threads '$threads'
             --classifier '$classifier'
             --label '$label'
             --tol '$tol'
-            --index_clm '$index'
             --log '$log_file'
             --feature_out '$selected_features'
+
+
         ]]>
     </command>
 
     <inputs>
-        <param name="input" type="data" format="tabular" label="Input TSV file" help="A TSV file containing your data with a header row." />
+        <param name="input" type="data" format="tabular" label="Count Matrix File" help="A TSV file containing your count matrix with a header row." />
+        <param name="metadata" type="data" format="tabular" label="Metadata File" help="A TSV file containing your metadata with a header row." />
+
+        <conditional name='drop_columns' >
+            <param name="advanced_setup" type="select" label="Drop Columns from Training Data">
+            <option value="default" selected="true">Do Not Drop Columns</option>
+            <option value="settings">Drop Columns</option>
+            </param>
+
+            <when value="default">
+            </when>
+
+            <when value="settings">
+            <param name="columns_to_drop" type='data_column' data_ref="input"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select columns to drop from training data">
+            </param>
+            </when>
+      </conditional>
+
+    <param name="target_label" type='data_column' data_ref="metadata"  label="Target Label" argument="--target_label" multiple="false" use_header_names="true" help="Select the target label column from your input file." />
 
         <param name="threads" type="integer" value="4" label="Number of Threads"
                help="Number of threads to use for SequentialFeatureSelector." />
@@ -32,16 +53,15 @@
             <option value="dt">Decision Tree</option>
             <option value="sv">Support Vector Classifier</option>
             <option value="rf">Random Forest</option>
+            <option value="hdc">HDC Classifier</option>
         </param>
 
-        <param name="label" type="text" label="Label Column Name"
-               help="Name of the column in your TSV file that contains class labels." />
+        <param name="label" type="data_column" data_ref="metadata" label="Label Column Name" help="Select the column from your metadata file that contains the class labels." />
 
-        <param name="index" type="text" label="Index Column Name" optional="true" value='None'
-               help="Name of the column in your TSV file that contains class labels." />
 
         <param name="tol" type="float" value="0.00001" label="Tolerance"
                help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
+
     </inputs>
 
     <outputs>

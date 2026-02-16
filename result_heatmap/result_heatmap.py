@@ -1,5 +1,5 @@
-import pandas as pd #pandas==2.2.3
-import plotly.graph_objects as go #plotly==5.24.0
+import pandas as pd #pandas==2.1.4
+import plotly.graph_objects as go #plotly==5.20.0
 import os
 import argparse
 
@@ -40,9 +40,7 @@ COLOR_SCALE = {
     'Comp_with_one': 'black',
     'better_one': 'red'
 }
-clm_list = [1, 6, 11, 16, 21]
-
-def ResultSummary(file, threshold, column_list):
+def ResultSummary(file, threshold, column_list=None):
     print(file)
     new_DF = pd.read_csv(file, sep='\t')
     new_DF.set_index('name', inplace=True)
@@ -50,7 +48,12 @@ def ResultSummary(file, threshold, column_list):
     DF = new_DF.T
     DF.columns = new_DF.index
     DF.index = new_DF.columns
-    df = DF.iloc[column_list]
+    
+    # If no column_list provided, use all columns
+    if column_list is None:
+        df = DF
+    else:
+        df = DF.iloc[column_list]
 
     column_anno_per = {}
     comparable = {}
@@ -59,9 +62,16 @@ def ResultSummary(file, threshold, column_list):
         comparable[n] = Analysis(df[n].values, threshold)
     return comparable
 
-def Plot(input_file, column_list, figure_size=(300, 400), saveSVG=False, file_type=None, color_labels='Greens', font_size=12, tick_font=14, tick_angle=-45, threshold = 0.05, outfile=None):
+def Plot(input_file, width=2460, height=800, color_labels='Greens', font_size=22, tick_font=26, tick_angle=-80, threshold=0.05, column_list=None, outfile='out.html'):
     
-    column_list = [int(i) for i in column_list.split(',')]
+    # Parse column_list if it's a string (from command line)
+    # Convert from 1-indexed (XML) to 0-indexed (Python)
+    if isinstance(column_list, str) and column_list:
+        column_list = [int(i) - 2 for i in column_list.split(',')]
+    
+    figure_size = (width, height)
+
+    print(column_list)
     
     result_1 = ResultSummary(input_file, threshold, column_list)
 
@@ -91,17 +101,29 @@ def Plot(input_file, column_list, figure_size=(300, 400), saveSVG=False, file_ty
                 plotting_columns[c].append((a[2], counter - 1))
                 arranged_columns.append(a[2])
 
-    # DF = pd.read_csv(input_file, sep='\t')
-    # DF.set_index('name', inplace=True)
-
+    # Read and prepare data for plotting - use the same processing as ResultSummary
     new_DF = pd.read_csv(input_file, sep='\t')
     new_DF.set_index('name', inplace=True)
-    # Assuming you have your heatmap data
+    
+    # Transpose to get classifiers as rows and metrics as columns
     DF = new_DF.T
     DF.columns = new_DF.index
     DF.index = new_DF.columns
-    df = DF.iloc[clm_list]  # Acc
-    df = df[arranged_columns]
+    
+    column_list
+
+    # Apply column_list filter if provided
+    if column_list is None:
+        df = DF
+    else:
+        df = DF.iloc[column_list]
+
+    print(df)
+    
+    # Filter to only keep the arranged_columns (columns that pass the analysis)
+    if arranged_columns:
+        df = df[arranged_columns]
+    
     df.index.name = 'name'
 
     # print(height, width)
@@ -111,7 +133,7 @@ def Plot(input_file, column_list, figure_size=(300, 400), saveSVG=False, file_ty
         x=df.columns,
         zmin=0,
         zmax=1,
-        y=['LRC', 'DTC', 'SVC', 'RFC', 'HDC'],
+        y=df.index,
         # colorbar=dict(title='Value'),
         text=df.values,  # Display values in each cell
         texttemplate="%{text}",  # Format for text
@@ -153,51 +175,76 @@ def Plot(input_file, column_list, figure_size=(300, 400), saveSVG=False, file_ty
 
     print(input_file.split('/')[len(input_file.split('/'))-1].split('.')[0])
 
+    # Create legend annotations for border colors at the top
+    legend_annotations = []
+    legend_labels = {
+        'better_all': 'Better than all (≥threshold)',
+        'better_one': 'Better than some',
+        'Comp_with_all': 'Comparable with all',
+        'Comp_with_one': 'Comparable with some'
+    }
+    
+    x_position = 0.0
+    for color_key, label_text in legend_labels.items():
+        legend_annotations.append(
+            dict(
+                x=x_position,
+                y=1.12,
+                xref='paper',
+                yref='paper',
+                text=f'<b style="color:{colors[color_key]};font-size:14px;">■</b> {label_text}',
+                showarrow=False,
+                xanchor='left',
+                yanchor='bottom',
+                font=dict(size=11)
+            )
+        )
+        x_position += 0.25
+
     fig.update_layout(
         width=figure_size[0],
         height=figure_size[1],
         shapes=shapes,
-        title=input_file.split('/')[len(input_file.split('/'))-1].split('.')[0],
+        title='',
         xaxis=dict(title='Study', tickfont=dict(size=24),  tickangle=tick_angle),
         yaxis=dict(title='Classifier', tickfont=dict(size=24) ),
         yaxis_autorange='reversed',
         # colorscale=[[1, 'blue'], [-1, 'red']],
         autosize=False,
+        annotations=legend_annotations,
+        margin=dict(t=200)  # Add top margin for legend
     )
 
-    if saveSVG:
-        # fig.write_image( "out.png",  scale=2, format='png')
-        fig.write_html(outfile)
-    
-    # fig.show()
+    # Save the figure as HTML
+    fig.write_html(outfile)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Plot function with specified parameters.")
-    parser.add_argument("--input_file", type=str,  help="Category index (integer)")
-    parser.add_argument("--column_list", type=str , default='4', help="Category index (integer)")
-    parser.add_argument("--figure_size", type=int, nargs=2, default=[2460, 800],
-                        metavar=('WIDTH', 'HEIGHT'), help="Figure size as two integers (width height)")
-    parser.add_argument("--saveSVG", default=True, help="Flag to save as SVG (default: False)")
-    parser.add_argument("--file_type", type=str, default="svg", choices=['svg', 'png', 'pdf'], help="File type for saving")
-    parser.add_argument("--color_labels", type=str, default="emrld", help="Color scheme for labels")
-    parser.add_argument("--font_size", type=int, default=22, help="Font size for labels")
-    parser.add_argument("--tick_font", type=int, default=26, help="Font size for tick labels")
-    parser.add_argument("--tick_angle", type=int, default=-80, help="Angle of tick labels")
-    parser.add_argument("--threshold", type=float, default=0.05, help="Angle of tick labels")
-    parser.add_argument("--output", type=str, default="out.html", help="Category index (integer)")
+    parser = argparse.ArgumentParser(description="Plot heatmap from TSV data with classification results.")
+    parser.add_argument("--input_file", type=str, default="test_data_age_category.tsv", help="Path to input TSV file (default: test_data_age_category.tsv)")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Plot heatmap from TSV data with classification results.")
+    parser.add_argument("--input_file", type=str, default="test_data_age_category.tsv", help="Path to input TSV file (default: test_data_age_category.tsv)")
+    parser.add_argument("--column_list", type=str, default=None, help="Comma-separated column indices to plot (default: None - plots all data)")
+    parser.add_argument("--width", type=int, default=2460, help="Figure width in pixels (default: 2460)")
+    parser.add_argument("--height", type=int, default=800, help="Figure height in pixels (default: 800)")
+    parser.add_argument("--color_labels", type=str, default="Greens", help="Color scheme for heatmap (default: Greens)")
+    parser.add_argument("--font_size", type=int, default=22, help="Font size for cell text (default: 22)")
+    parser.add_argument("--tick_font", type=int, default=26, help="Font size for tick labels (default: 26)")
+    parser.add_argument("--tick_angle", type=int, default=-80, help="Angle of x-axis tick labels in degrees (default: -80)")
+    parser.add_argument("--threshold", type=float, default=0.05, help="Threshold for comparison analysis (default: 0.05)")
+    parser.add_argument("--output", type=str, default="out.html", help="Output file path (default: out.html)")
 
     args = parser.parse_args()
 
     Plot(
         input_file=args.input_file,
-        column_list=args.column_list,
-        figure_size=tuple(args.figure_size),
-        saveSVG=args.saveSVG,
-        file_type=args.file_type,
+        width=args.width,
+        height=args.height,
         color_labels=args.color_labels,
         font_size=int(args.font_size),
         tick_font=int(args.tick_font),
         tick_angle=int(args.tick_angle),
         threshold=float(args.threshold),
+        column_list=args.column_list,
         outfile=args.output
     )

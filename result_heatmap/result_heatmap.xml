@@ -1,86 +1,91 @@
-<tool id="plot_tool" name="Custom Plot Tool" version="1.0.0">
-    <description>Generates a plot based on user-defined parameters</description>
+<tool id="result_heatmap" name="Result Heatmap" version="1.0.0">
+    <description>Plot heatmap from TSV data with classification results</description>
 
-  <requirements>
-    <requirement type="package" version="2.2.3">pandas</requirement>
-    <requirement type="package" version="5.24.0">plotly</requirement> 
-    <requirement type="package" version="0.2.1">kaleido</requirement>
-  </requirements> pip install -U kaleido
-
+    <requirements>
+        <requirement type="package" version="2.1.4">pandas</requirement>
+        <requirement type="package" version="5.17.0">plotly</requirement>
+    </requirements>
 
     <command detect_errors="exit_code"><![CDATA[
-
-        python '$__tool_directory__/result_heatmap.py' 
-            --column_list '${clm1}'
-            --input_file '${input_file}'
-            --figure_size '${figure_size_width}' '${figure_size_height}'
+        python '$__tool_directory__/result_heatmap.py'
+            --input_file '$input_file'
+            #if $columns_list
+            --column_list '${columns_list}'
+            #end if
+            --width ${width}
+            --height ${height}
             --color_labels '${color_labels}'
-            --font_size '${font_size}'
-            --tick_font '${tick_font}'
-            --tick_angle '${tick_angle}'
-            --threshold '${threshold}'
-            --output '${output}'
-        ]]>
+            --font_size ${font_size}
+            --tick_font ${tick_font}
+            --tick_angle ${tick_angle}
+            --threshold ${threshold}
+            --output '$output'
+    ]]>
     </command>
 
     <inputs>
-        <param name="input_file" type="data" format="tabular" label="Dataset" />
-
-        <param name="clm1" label="Select column containing data from instrument under test (sensors)" type="data_column" data_ref="input_file" numerical="True" multiple="true" use_header_names="true">
-            <validator type="no_options" message="Please select any one column."/>
-        </param>
-
-        <param name="figure_size_width" type="integer" label="Figure Width (px)" value="2460"/>
-        <param name="figure_size_height" type="integer" label="Figure Height (px)" value="800"/>
-        <param name="color_labels" type="text" label="Color Labels Palette" value="emrld"/>
-        <param name="font_size" type="integer" label="Font Size" value="22"/>
-        <param name="tick_font" type="integer" label="Tick Font Size" value="26"/>
-        <param name="tick_angle" type="integer" label="Tick Angle" value="-80"/>
-        <param name="threshold" type="float" label="Threshold" value="0.05"/>
+        <param name="input_file" type="data" format="tabular" label="Input TSV File" help="TSV file with classification results data. Must have a 'name' column." />
+        <param name="columns_list" type='data_column' data_ref="input_file"  label="Select Columns to plot the accuracy matrices (F1 score, accuracy etc.)" argument="--column_list" multiple="true" use_header_names="true" help="Select columns to drop from training data"/>
+        <param name="width" type="integer" label="Figure Width (px)" value="2460" help="Width of the output figure in pixels" />
+        <param name="height" type="integer" label="Figure Height (px)" value="800" help="Height of the output figure in pixels" />
+        <param name="color_labels" type="text" label="Color Palette" value="Greens" help="Color scheme for heatmap (e.g., Greens, Blues, Reds, emrld, Viridis)" />
+        <param name="font_size" type="integer" label="Font Size" value="22" help="Font size for cell text" />
+        <param name="tick_font" type="integer" label="Tick Font Size" value="26" help="Font size for axis tick labels" />
+        <param name="tick_angle" type="integer" label="Tick Angle (degrees)" value="-80" help="Rotation angle of x-axis tick labels" />
+        <param name="threshold" type="float" label="Threshold" value="0.05" help="Threshold for comparison analysis" />
     </inputs>
 
     <outputs>
-        <data name='output' format='html' label="${tool.name}" >
-        </data>
+        <data name="output" format="html" label="Heatmap Plot" />
     </outputs>
 
-<tests>
-    <test>
-        <param name="input_file" value="example_input.tsv"/>
-        <param name="clm1" value=""/>
-        <param name="figure_size_width" value="1200"/>
-        <param name="figure_size_height" value="600"/>
-        <param name="color_labels" value="viridis"/>
-        <param name="font_size" value="18"/>
-        <param name="tick_font" value="20"/>
-        <param name="tick_angle" value="-45"/>
-        <param name="threshold" value="0.01"/>
-        <output name="output" file="expected_output.tsv"/>
-    </test>
-</tests>
+    <tests>
+        <test>
+            <param name="input_file" value="test_data_age_category.tsv" />
+            <param name="columns_list" value="1,2,3" />
+            <param name="width" value="2460" />
+            <param name="height" value="800" />
+            <param name="color_labels" value="Greens" />
+            <param name="font_size" value="22" />
+            <param name="tick_font" value="26" />
+            <param name="tick_angle" value="-80" />
+            <param name="threshold" value="0.05" />
+            <output name="output" file="test.html" compare="contains" />
+        </test>
+    </tests>
 
     <help><![CDATA[
+**Result Heatmap Tool**
 
+This tool generates a heatmap visualization from TSV data containing classification results.
+n interactive heatmap visualization from TSV data containing classification results.
 
------
-    **This tool generates a plot using specified parameters.**
+**Parameters:**
 
-    **Parameters:**
+- **Input TSV File**: Tab-separated values file with classification results data. Must have a 'name' column as index.
+- **Column Indices (Optional)**: Comma-separated indices of rows to include in the plot (e.g., 1,6,11,16,21). Leave empty to plot all data rows.
+- **Figure Width**: Width of the output figure in pixels (default: 2460)
+- **Figure Height**: Height of the output figure in pixels (default: 800)
+- **Color Palette**: Plotly color scheme for the heatmap (e.g., Greens, Blues, Reds, emrld, Viridis)
+- **Font Size**: Size of text displayed in the heatmap cells (default: 22)
+- **Tick Font Size**: Size of axis labels (default: 26)
+- **Tick Angle**: Rotation angle of x-axis labels in degrees (e.g., -80 for bottom-right diagonal)
+- **Threshold**: Threshold value used for comparison analysis (default: 0.05)
 
-    - **Category Index**: Integer for category index.
-    - **Figure Size**: Width and Height in pixels.
-    - **Save as SVG**: Option to save output as SVG.
-    - **File Type**: Output file format (SVG/PNG/PDF).
-    - **Color Labels**: Color scheme to apply.
-    - **Font Size**: Text font size.
-    - **Tick Font Size**: Size of axis tick labels.
-    - **Tick Angle**: Rotation angle of tick labels.
-    - **Threshold**: Numeric threshold value.
------
+**Output:**
 
-Example command:
+An interactive HTML heatmap that can be viewed in a web browser.
 
-   ]]></help>
+**Workflow:**
+
+1. Read the input TSV file with 'name' column and classification results
+2. Analyze classification performance by comparing values
+3. Categorize columns based on comparison thresholds
+4. Generate an interactive heatmap visualization with color-coded highlights
+
+**Example Usage:**
+
+Plot all data with default parameters or specify custom dimensions and color scheme for customized visualizations.]]></help>
      <citations>
           <citation type="bibtex">
                @article{cumbo2023hdlib,

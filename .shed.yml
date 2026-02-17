@@ -1,0 +1,12 @@
+name: microbiom_ml
+owner: jay
+description: "Galaxy tools for microbiome machine learning analysis: ML model creation, feature selection, data retrieval, and result visualization."
+homepage_url: https://github.com/jaidevjoshi83/MicroBiomML
+remote_repository_url: https://github.com/jaidevjoshi83/MicroBiomML
+type: unrestricted
+auto_tool_repositories:
+  name_template: "{{ tool_id }}"
+  description_template: "Wrapper for the MicroBiomML tool suite: {{ tool_name }}"
+suite:
+  name: "suite_microbiom_ml"
+  description: "Galaxy tools for microbiome machine learning analysis: ML model creation, feature selection, data retrieval, and result visualization."

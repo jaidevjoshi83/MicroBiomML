@@ -1,5 +1,5 @@
 <tool id="result_heatmap" name="Result Heatmap" version="1.0.0">
-    <description>Plot interactive heatmap from TSV data with classification results</description>
+    <description>Generate an interactive heatmap visualization from TSV data containing classification results and performance metrics.</description>
 
     <requirements>
         <requirement type="package" version="2.1.4">pandas</requirement>
@@ -24,11 +24,11 @@
     </command>
 
     <inputs>
-        <param name="input_file" type="data" format="tabular" label="Input TSV File" help="Tab-separated values file with classification results. Must have a 'name' column as the row index." />
-        <param name="column_list" type="text" data_ref="input_file"   optional="false" label="Column Indices to Plot (Optional)" help="Comma-separated column indices to plot (e.g., 1,2,3 or 1,6,11,16,21). Uses 1-based indexing. Leave empty to plot all columns." />
-        <param name="width" type="integer" label="Figure Width (pixels)" value="2460" help="Width of the output figure in pixels." />
-        <param name="height" type="integer" label="Figure Height (pixels)" value="800" help="Height of the output figure in pixels." />
-        <param name="color_labels" type="select" label="Color Palette" value="Greens" help="Plotly color scheme for the heatmap.">
+        <param name="input_file" type="data" format="tabular" label="Input TSV File" help="A tab-separated values file with classification results. Must have a 'name' column as the row index." />
+        <param name="column_list" type="text" data_ref="input_file"   optional="false" label="Column Indices to Plot (Optional)." help="Comma-separated column indices to plot (e.g., 1,2,3 or 1,6,11,16,21). Uses 1-based indexing. Leave empty to plot all columns." />
+        <param name="width" type="integer" label="Figure Width (Pixels)" value="2460" help="The width of the output figure in pixels." />
+        <param name="height" type="integer" label="Figure Height (Pixels)" value="800" help="The height of the output figure in pixels." />
+        <param name="color_labels" type="select" label="Color Palette" value="Greens" help="The Plotly color scheme for the heatmap.">
             <option value="Greens">Greens</option>
             <option value="Blues">Blues</option>
             <option value="Reds">Reds</option>
@@ -36,14 +36,14 @@
             <option value="Plasma">Plasma</option>
             <option value="Inferno">Inferno</option>
         </param>
-        <param name="font_size" type="integer" label="Cell Text Font Size" value="22" min="8" max="32" help="Font size for values displayed in the heatmap cells." />
-        <param name="tick_font" type="integer" label="Axis Tick Font Size" value="26" min="8" max="32" help="Font size for the axis tick labels." />
-        <param name="tick_angle" type="integer" label="X-Axis Tick Angle (degrees)" value="-80" min="-90" max="90" help="Rotation angle of the x-axis tick labels (negative = bottom-right diagonal)." />
-        <param name="threshold" type="float" label="Performance Threshold" value="0.05" min="0.0" max="1.0" help="Threshold value for classifying performance comparisons." />
+        <param name="font_size" type="integer" label="Cell Text Font Size" value="22" min="8" max="32" help="The font size for the values displayed in the heatmap cells." />
+        <param name="tick_font" type="integer" label="Axis Tick Font Size" value="26" min="8" max="32" help="The font size for the axis tick labels." />
+        <param name="tick_angle" type="integer" label="X-Axis Tick Angle (Degrees)" value="-80" min="-90" max="90" help="The rotation angle of the x-axis tick labels (negative values = bottom-right diagonal)." />
+        <param name="threshold" type="float" label="Performance Threshold" value="0.05" min="0.0" max="1.0" help="The threshold value for classifying performance comparisons." />
     </inputs>
 
     <outputs>
-        <data name="output" format="html" label="Result Heatmap" />
+        <data name="output" format="html" label="Result Heatmap." />
     </outputs>
 
     <tests>

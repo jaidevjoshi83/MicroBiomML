@@ -1,5 +1,5 @@
 <tool id="curated_metagenomic_data" name="Curated Metagenomic Data" version="1.0.0">
-    <description>This tool provides standardized, curated human microbiome data</description>
+    <description>Retrieve standardized, curated human microbiome data from the Curated Metagenomic Data collection.</description>
 
     <requirements>
         <requirement type="package" version="3.14.0">bioconductor-curatedmetagenomicdata</requirement> 
@@ -12,7 +12,7 @@
     </command>
 
     <inputs>
-    <param name="name" type="select" label="Dataset Name" help="Select a dataset from the curated metagenomic collection.">
+    <param name="name" type="select" label="Dataset Name" help="Select a dataset from the Curated Metagenomic collection.">
             <option value="LiuW_2016">LiuW_2016</option>
             <option value="LiJ_2017">LiJ_2017</option>
             <option value="ThomasAM_2018a">ThomasAM_2018a</option>
@@ -101,6 +101,8 @@
         </test>
     </tests>
     <help><![CDATA[
+**Curated Metagenomic Data Tool**
+
 This tool returns curated microbiome data as TSV files.
 
 **Usage**
@@ -108,10 +110,10 @@ This tool returns curated microbiome data as TSV files.
 - Select a dataset from the dropdown menu.
 - The tool will output two files:
 
-  - **Count Data**: Tab-separated values file containing microbiome counts.
-  - **Metadata**: Tab-separated values file containing sample metadata.
+  - **Count Data**: Tab-separated values file containing microbiome abundance counts.
+  - **Metadata**: Tab-separated values file containing sample metadata information.
 
-The curatedMetagenomicData package provides access to standardized, curated human microbiome datasets for advanced analysis and research.
+The curatedMetagenomicData package provides access to standardized, curated human microbiome datasets for advanced analysis and research applications.
 ]]></help>
      <citations>
           <citation type="bibtex">

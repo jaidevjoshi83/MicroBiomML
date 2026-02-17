@@ -1,5 +1,5 @@
 <tool id="feature_selector" name="Feature Selector" version="1.0.0">
-    <description>Feature selection using SequentialFeatureSelector on a single TSV file</description>
+    <description>Perform feature selection using SequentialFeatureSelector for microbiome data analysis.</description>
 
     <requirements>
         <requirement type="package" version="2.1.4">pandas</requirement>
@@ -22,11 +22,11 @@
     </command>
 
     <inputs>
-        <param name="input" type="data" format="tabular" label="Count Matrix File" help="A TSV file containing your count matrix with a header row." />
-        <param name="metadata_file" type="data" format="tabular" label="Metadata File" help="A TSV file containing your metadata with a header row." />
+        <param name="input" type="data" format="tabular" label="Count Matrix File" help="A TSV file containing the count matrix with a header row." />
+        <param name="metadata_file" type="data" format="tabular" label="Metadata File" help="A TSV file containing the metadata with a header row." />
 
-        <conditional name='drop_columns' >
-            <param name="advanced_setup" type="select" label="Drop Columns from Training Data">
+        <conditional name='drop_columns'>
+            <param name="advanced_setup" type="select" label="Drop Columns from Training Data.">
             <option value="default" selected="true">Do Not Drop Columns</option>
             <option value="settings">Drop Columns</option>
             </param>
@@ -35,15 +35,15 @@
             </when>
 
             <when value="settings">
-            <param name="columns_to_drop" type='data_column' data_ref="input"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select columns to drop from training data" />
+            <param name="columns_to_drop" type='data_column' data_ref="input"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select the columns to drop from the training data." />
             </when>
       </conditional>
 
         <param name="threads" type="integer" value="4" label="Number of Threads"
-               help="Number of threads to use for SequentialFeatureSelector." />
+               help="The number of threads to use for SequentialFeatureSelector." />
 
         <param name="classifier" type="select" label="Classifier"
-               help="Classifier to use for feature selection.">
+               help="The classifier to use for feature selection.">
             <option value="lr">Logistic Regression</option>
             <option value="dt">Decision Tree</option>
             <option value="sv">Support Vector Classifier</option>
@@ -55,13 +55,13 @@
      
         </param>
 
-        <param name="tol" type="float" value="0.00001" label="Tolerance" help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
+        <param name="tol" type="float" value="0.00001" label="Tolerance" help="The tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
 
     </inputs>
 
     <outputs>
-        <data name="log_file" format="txt" label="Feature Selection Log"/>
-        <data name="selected_features" format="tsv" label="Selected Features"/>
+        <data name="log_file" format="txt" label="Feature Selection Log."/>
+        <data name="selected_features" format="tsv" label="Selected Features."/>
     </outputs>
 
     <tests>
@@ -122,23 +122,26 @@
      
     </tests>
 
-    <help>
+    <help><![CDATA[
+**Feature Selector**
+
 This tool performs feature selection on a single TSV file using scikit-learn's `SequentialFeatureSelector`.
-You can choose from multiple classifiers and configure parameters like tolerance and number of threads.
+You can choose from multiple classifiers and configure parameters such as tolerance and the number of threads.
 
 **Inputs**
 
-- A TSV file with features and a class label column
-- Name of the class label column
-- Classifier type
-- Number of threads
-- Tolerance (optional)
+- **Count Matrix File**: A TSV file containing the features (columns) and samples (rows).
+- **Metadata File**: A TSV file containing the sample metadata.
+- **Class Label Column**: The column in the metadata file that contains the class labels for feature selection.
+- **Classifier**: The classifier type to use for feature selection.
+- **Number of Threads**: The number of threads to use for computation.
+- **Tolerance**: The convergence tolerance for the SequentialFeatureSelector (optional).
 
 **Outputs**
 
-- A text file listing the selected feature names
-- A log file summarizing the run details and timing
-</help>
+- **Feature Selection Log**: A text file containing the run details and timing information.
+- **Selected Features**: A TSV file listing the selected feature names.
+]]></help>
      <citations>
           <citation type="bibtex">
                @article{cumbo2023hdlib,

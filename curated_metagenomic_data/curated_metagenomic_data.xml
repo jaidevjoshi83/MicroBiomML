@@ -1,5 +1,5 @@
 <tool id="curated_metagenomic_data" name="Curated Metagenomic Data" version="1.0.0">
-    <description>The curatedMetagenomicData package provides standardized, curated human microbiome data for novel analyses.</description>
+    <description>This tool provides standardized, curated human microbiome data</description>
 
     <requirements>
         <requirement type="package" version="3.14.0">bioconductor-curatedmetagenomicdata</requirement> 
@@ -82,25 +82,37 @@
     </outputs>
 
     <tests>
-        <test>
-            <param name="name" value="OhJ_2014" />
-            <output name="count_data" file="merged_data.tsv"/>
+        <test >
+            <param name="name" value="LiuW_2016" />
+            <output name="count_data" file="count.tsv"/>
             <output name="metadata" file="metadata.tsv"/>
+
+            <output name="metadata" file="test-data/test-metadata.tsv" ftype="tabular">
+                <assert_contents>
+                    <has_text text="sample_id"/>
+                </assert_contents>
+            </output>
+
+            <output name="count_data" file="test-data/test-count.tsv" ftype="tabular">
+                <assert_contents>
+                    <has_text text="sample_id"/>
+                </assert_contents>
+            </output>
         </test>
     </tests>
     <help><![CDATA[
+This tool returns curated microbiome data as TSV files.
 
-        This tool returns curated microbiome data as TSV files.
-        
-        Usage:
-        - Select a dataset from the dropdown menu.
-        - The tool will output two files:
-            - Count Data: Tab-separated values file containing microbiome counts.
-            - Metadata: Tab-separated values file containing sample metadata.
-        
-        The curatedMetagenomicData package provides access to standardized, curated human microbiome datasets for advanced analysis and research.
+**Usage**
 
-    ]]></help>
+- Select a dataset from the dropdown menu.
+- The tool will output two files:
+
+  - **Count Data**: Tab-separated values file containing microbiome counts.
+  - **Metadata**: Tab-separated values file containing sample metadata.
+
+The curatedMetagenomicData package provides access to standardized, curated human microbiome datasets for advanced analysis and research.
+]]></help>
      <citations>
           <citation type="bibtex">
                @article{cumbo2023hdlib,

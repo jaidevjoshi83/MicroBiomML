@@ -9,9 +9,7 @@
 
     <command detect_errors="exit_code"><![CDATA[
 
-
-
-          python '$__tool_directory__/ml_tool.py'  
+          python '$__tool_directory__/ml_tool.py' 
 
           --algo $SelMLAlgo.MLAlgo
           --data_file $input1
@@ -133,13 +131,6 @@
             #end if
           #end if 
 
-          ## #if $SelMLAlgo.MLAlgo == 'ada'
-          ##   --model_type $SelMLAlgo.settings.settings.advanced 
-          ##   #if $SelMLAlgo.settings.advanced == "advanced"
-          ##     --user_define_hyper_para '{"algorithm":[$SelMLAlgo.settings.algorithm,  "learning_rate":[$SelMLAlgo.settings.learning_rate, "n_estimators":[$SelMLAlgo.settings.n_estimators, "random_state":[$SelMLAlgo.settings.random_state]}'
-          ##   #end if
-          ## #end if 
-
           #if $SelMLAlgo.MLAlgo == 'svm'
             #if $SelMLAlgo.settings.advanced == "settings"
               #if $SelMLAlgo.settings.settings.advanced == "custom"
@@ -162,13 +153,14 @@
             #end if
           #end if 
 
+
+
     ]]></command>
 
     <inputs>
   <param name="input1" type="data" format="tabular"  label="Training Data" optional="false"  argument= "--data_file"/>
   <param name="input2" type="data" format="tabular"  label="Metadata" optional="false"  argument= "--metadata_file"/>
-    <param name="column_label" type='data_column' data_ref="input2" label="Target Column (Class Label)" multiple="False" use_header_names="true" help="Select the target column for classification (e.g., phenotype, class, label)">
-      </param>
+  <param name="column_label" type='data_column' data_ref="input2" label="Target Column (Class Label)" multiple="False" use_header_names="true" help="Select the target column for classification (e.g., phenotype, class, label)"></param>
 
   <!-- Index column options removed -->
 
@@ -228,7 +220,7 @@
       </conditional>
 
       <conditional name='SelMLAlgo' >
-  <param name="MLAlgo" type="select" label="Machine Learning Algorithm" argument="">
+      <param name="MLAlgo" type="select" label="Machine Learning Algorithm" argument="">
           <option value="lr">Logistic Regression Classifier</option>
           <option value="knn">K-Nearest Neighbors Classifier</option>
           <option value="nb">Gaussian Naive Bayes Classifier</option>
@@ -261,7 +253,6 @@
 
                     <when value="custom">
 
-                      <param name="C" type="float" value="1.0" label="Inverse Regularization Strength"/>
                       <param name="class_weight" type="text" value="null" label="Class Weight" optional="true"/>
                       <param name="dual" type="boolean" value="false" label="Dual Formulation"/>
                       <param name="fit_intercept" type="boolean" value="True" label="Fit Intercept"/>
@@ -294,7 +285,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="text"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
 
                 </conditional>
@@ -343,7 +334,7 @@
                     </when>
 
                     <when value="tune">
-                      <param name="tune_param_file" type="data" format="text"  label="Training data" optional="false"  argument= "--input_data"/>
+                      <param name="tune_param_file" type="data" format="txt"  label="Training data" optional="false"  argument= "--input_data"/>
                     </when>
                 </conditional>
               </when>
@@ -694,47 +685,39 @@
                         <option value="reg:tweedie">Tweedie regression with log-link</option>
                       </param>
 
-                      <param name="booster" type="select"  label="Booster Type" >
-                          <option value="gbtree">GBTree</option>
-                          <option value="gblinear">GBLinear</option>
-                          <option value="dart">DART</option>
-                      </param>
-
-                      <param name="base_score" type="float" label="Base Score" value="0.1" optional="true" />
-                      <param name="colsample_bylevel" type="float" label="Base Score" value="0.5" />
-                      <param name="c" type="float" label="Base Score" value="0.5" />
-                      <param name="colsample_bynode" type="float" label="Colsample by Level" value="0.0" optional="true" />
-                      <param name="colsample_bytree" type="float" label="Colsample by Tree" value="0.0" optional="true" />
+                      <param name="base_score" type="float" label="Base Score" value="0.5" optional="true" />
+                      <param name="colsample_bylevel" type="float" label="Colsample by Level" value="1" />
+                      <param name="colsample_bynode" type="float" label="Colsample by Node" value="1" optional="true" />
+                      <param name="colsample_bytree" type="float" label="Colsample by Tree" value="1" optional="true" />
                       <param name="early_stopping_rounds" type="integer" label="Early Stopping Rounds" value="0" optional="true" />
                       <param name="enable_categorical" type="boolean" label="Enable Categorical" value="False" />
                       <param name="eval_metric" type="text" label="Eval Metric" value="null" optional="true" />
                       <param name="feature_types" type="text" label="Feature Types" value="null" optional="true" />
-                      <param name="gamma" type="float" label="Gamma" value="0.0" optional="true" />
+                      <param name="gamma" type="float" label="Gamma" value="0" optional="true" />
                       <param name="grow_policy" type="text" label="Grow Policy" value="null" optional="true" />
                       <param name="importance_type" type="text" label="Importance Type" value="null" optional="true" />
                       <param name="interaction_constraints" type="text" label="Interaction Constraints" value="null" optional="true" />
-                      <param name="learning_rate" type="float" label="Learning Rate" value="0.0" optional="true" />
+                      <param name="learning_rate" type="float" label="Learning Rate" value="0.3" optional="true" />
                       <param name="max_bin" type="integer" label="Max Bin" value="256" optional="true" />
-                      <param name="max_cat_threshold" type="integer" label="Max Cat Threshold" value="1" optional="true" />
-                      <param name="max_cat_to_onehot" type="integer" label="Max Cat to Onehot" value="1" optional="true" />
-                      <param name="max_delta_step" type="float" label="Max Delta Step" value="0.0" optional="true" />
-                      <param name="max_depth" type="integer" label="Max Depth" value="0" optional="true" />
+                      <param name="max_cat_threshold" type="integer" label="Max Cat Threshold" value="64" optional="true" />
+                      <param name="max_cat_to_onehot" type="integer" label="Max Cat to Onehot" value="4" optional="true" />
+                      <param name="max_delta_step" type="float" label="Max Delta Step" value="0" optional="true" />
+                      <param name="max_depth" type="integer" label="Max Depth" value="6" optional="true" />
                       <param name="max_leaves" type="integer" label="Max Leaves" value="0" optional="true" />
-                      <param name="min_child_weight" type="float" label="Min Child Weight" value="0.0" optional="true" />
+                      <param name="min_child_weight" type="float" label="Min Child Weight" value="1" optional="true" />
                       <param name="monotone_constraints" type="text" label="Monotone Constraints" value="null" optional="true" />
                       <param name="multi_strategy" type="text" label="Multi Strategy" value="null" optional="true" />
-                      <param name="n_estimators" type="integer" label="Number of Estimators" value="0" optional="true" />
+                      <param name="n_estimators" type="integer" label="Number of Estimators" value="100" optional="true" />
                       <param name="num_parallel_tree" type="integer" label="Number of Parallel Trees" value="1" optional="true" />
                       <param name="random_state" type="integer" label="Random State" value="4131" />
-                      <param name="reg_alpha" type="float" label="Reg Alpha" value="0.0" optional="true" />
-                      <param name="reg_lambda" type="float" label="Reg Lambda" value="0.0" optional="true" />
-                      <param name="sampling_method" type="select" label="Tree Method" value="uniform">
-                        <option value="uniform" selected="true" >Uniform"</option>
-                        <option value="weighted">Weighted</option>
-                        <option value="random">Random</option>
+                      <param name="reg_alpha" type="float" label="Reg Alpha" value="0" optional="true" />
+                      <param name="reg_lambda" type="float" label="Reg Lambda" value="1" optional="true" />
+                      <param name="sampling_method" type="select" label="Sampling Method" value="uniform">
+                        <option value="uniform" selected="true" >Uniform</option>
+                        <option value="gradient_based">Gradient Based</option>
                       </param>
-                      <param name="scale_pos_weight" type="float" label="Scale Pos Weight" value="0.0" optional="true" />
-                      <param name="subsample" type="float" label="Subsample" value="0.0" optional="true" />
+                      <param name="scale_pos_weight" type="float" label="Scale Pos Weight" value="1" optional="true" />
+                      <param name="subsample" type="float" label="Subsample" value="1" optional="true" />
                       <param name="tree_method" type="select" label="Tree Method" value="auto">
                           <option value="auto" selected="true" >Auto</option>
                           <option value="exact">Exact</option>
@@ -742,8 +725,8 @@
                           <option value="hist">Histogram-based</option>
                           <option value="gpu_hist">GPU Histogram-based</option>
                       </param>
-                      <param name="validate_parameters" type="boolean" label="Validate Parameters" value="null" optional="true" />
-                      <param name="verbosity" type="integer" label="Verbosity" value="0" />
+                      <param name="validate_parameters" type="boolean" label="Validate Parameters" value="False" optional="true" />
+                      <param name="verbosity" type="integer" label="Verbosity" value="1" />
                     </when>
                     
                     <when value="tune">
@@ -869,85 +852,96 @@
     <tests>
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="lr"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="knn"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="nb"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="dt"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="svm"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="rbfsvm"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="rf"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="gbc"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
-        <param name="SelMLAlgo|MLAlgo" value="xboost"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
+        <param name="SelMLAlgo|MLAlgo" value="xgboost"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="lightgbm"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
         <param name="input1" value="test.tsv"/>
+        <param name="input2" value="metadata.tsv"/>
+        <param name="column_label" value="2"/>
         <param name="SelMLAlgo|MLAlgo" value="hdc"/>
         <param name="setup|advanced_setup" value="default"/>
-        <param name="setup|column_label" value="label" />
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
     </tests>
@@ -990,5 +984,3 @@
           </citation>
      </citations>
 </tool>
-   
-   

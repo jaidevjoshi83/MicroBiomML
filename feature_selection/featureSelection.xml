@@ -1,4 +1,4 @@
-<tool id="feature_selector" name="Sequential Feature Selector_2" version="1.0.0">
+<tool id="feature_selector" name="Feature Selector" version="1.0.0">
     <description>Feature selection using SequentialFeatureSelector on a single TSV file</description>
 
     <requirements>
@@ -11,21 +11,19 @@
         <![CDATA[
         python3 '$__tool_directory__/featureSelection.py' 
             --input '$input'
-            --metadata '$metadata'
+            --metadata '$metadata_file'
             --threads '$threads'
             --classifier '$classifier'
-            --label '$label'
+            --label '$label_clm'
             --tol '$tol'
             --log '$log_file'
             --feature_out '$selected_features'
-
-
         ]]>
     </command>
 
     <inputs>
         <param name="input" type="data" format="tabular" label="Count Matrix File" help="A TSV file containing your count matrix with a header row." />
-        <param name="metadata" type="data" format="tabular" label="Metadata File" help="A TSV file containing your metadata with a header row." />
+        <param name="metadata_file" type="data" format="tabular" label="Metadata File" help="A TSV file containing your metadata with a header row." />
 
         <conditional name='drop_columns' >
             <param name="advanced_setup" type="select" label="Drop Columns from Training Data">
@@ -37,12 +35,9 @@
             </when>
 
             <when value="settings">
-            <param name="columns_to_drop" type='data_column' data_ref="input"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select columns to drop from training data">
-            </param>
+            <param name="columns_to_drop" type='data_column' data_ref="input"  label="Columns to Drop from Training Data" argument="--dp_columns" multiple="true" use_header_names="true" help="Select columns to drop from training data" />
             </when>
       </conditional>
-
-    <param name="target_label" type='data_column' data_ref="metadata"  label="Target Label" argument="--target_label" multiple="false" use_header_names="true" help="Select the target label column from your input file." />
 
         <param name="threads" type="integer" value="4" label="Number of Threads"
                help="Number of threads to use for SequentialFeatureSelector." />
@@ -56,8 +51,7 @@
             <option value="hdc">HDC Classifier</option>
         </param>
 
-        <param name="label" type="data_column" data_ref="metadata" label="Label Column Name" help="Select the column from your metadata file that contains the class labels." />
-
+        <param name="label_clm" type='data_column' data_ref="metadata_file"  label="Select the class label column" argument="--label" multiple="false" use_header_names="true" help="Select the class label column."/>
 
         <param name="tol" type="float" value="0.00001" label="Tolerance"
                help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
@@ -70,39 +64,80 @@
     </outputs>
 
     <tests>
-    <test expect_exit_code="0">
-        <param name="input" value="test.tsv"/>
-        <param name="threads" value="2"/>
+      <test>
+        <param name="input" value="test_count.tsv"/>
+        <param name="metadata_file" value="test_metadata.tsv"/>
+        <param name="threads" value="4"/>
+        <param name="classifier" value="lr"/>
+        <param name="label" value='1'/>
+        <param name="tol" value="1e-05"/>
+        <output name="log_file" file="out.log" />
+        <output name="selected_features" file="out.tsv"/>
+      </test>
+
+    <test>
+        <param name="input" value="test_count.tsv"/>
+        <param name="metadata_file" value="test_metadata.tsv"/>
+        <param name="threads" value="4"/>
+        <param name="classifier" value="dt"/>
+        <param name="label" value='1'/>
+        <param name="tol" value="1e-05"/>
+        <output name="log_file" file="out.log" />
+        <output name="selected_features" file="out.tsv"/>
+      </test>
+
+      <test>
+        <param name="input" value="test_count.tsv"/>
+        <param name="metadata_file" value="test_metadata.tsv"/>
+        <param name="threads" value="4"/>
+        <param name="classifier" value="sv"/>
+        <param name="label" value='1'/>
+        <param name="tol" value="1e-05"/>
+        <output name="log_file" file="out.log" />
+        <output name="selected_features" file="out.tsv"/>
+      </test>
+
+     <test>
+        <param name="input" value="test_count.tsv"/>
+        <param name="metadata_file" value="test_metadata.tsv"/>
+        <param name="threads" value="4"/>
         <param name="classifier" value="rf"/>
-        <param name="label" value="target"/>
-        <param name="index" value="ID"/>
-        <param name="tol" value="0.001"/>
-        <output name="log_file" file="out.tsv"/>
-    </test>
+        <param name="label" value='1'/>
+        <param name="tol" value="1e-05"/>
+        <output name="log_file" file="out.log" />
+        <output name="selected_features" file="out.tsv"/>
+      </test>
+
+      <test>
+        <param name="input" value="test_count.tsv"/>
+        <param name="metadata_file" value="test_metadata.tsv"/>
+        <param name="threads" value="4"/>
+        <param name="classifier" value="rf"/>
+        <param name="label" value='1'/>
+        <param name="tol" value="1e-05"/>
+        <output name="log_file" file="out.log" />
+        <output name="selected_features" file="out.tsv"/>
+      </test>
+     
     </tests>
 
-    <help><![CDATA[
+    <help>
+This tool performs feature selection on a single TSV file using scikit-learn's `SequentialFeatureSelector`.
+You can choose from multiple classifiers and configure parameters like tolerance and number of threads.
 
-        -----
-        **Sequential Feature Selector**
+**Inputs**
 
-        This tool performs feature selection on a single TSV file using scikit-learn's `SequentialFeatureSelector`.
-        You can choose from multiple classifiers and configure parameters like tolerance and number of threads.
+- A TSV file with features and a class label column
+- Name of the class label column
+- Classifier type
+- Number of threads
+- Tolerance (optional)
 
-        **Inputs**
-        **A TSV file with features and a class label column**
-        **Name of the class label column**
-        **Classifier type**
-        **Number of threads**
-        **Tolerance (optional)**
+**Outputs**
 
-        **Outputs**
-        **A text file listing the selected feature names**
-        **A log file summarizing the run details and timing**
-
-        -----
-
-    ]]></help>
+- A text file listing the selected feature names
+- A log file summarizing the run details and timing
+</help>
      <citations>
           <citation type="bibtex">
                @article{cumbo2023hdlib,

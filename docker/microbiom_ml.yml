@@ -1,0 +1,23 @@
+---
+
+install_repository_dependencies: true
+install_resolver_dependencies: true
+install_tool_dependencies: false
+
+
+tools:
+- name: curated_metagenomic_data
+  owner: jay
+  tool_panel_section_label: "MicroBiomML"
+
+- name: feature_selector
+  owner: jay
+  tool_panel_section_label: "MicroBiomML"
+
+- name: ml_tool
+  owner: jay
+  tool_panel_section_label: "MicroBiomML"
+
+- name: result_heatmap
+  owner: jay
+  tool_panel_section_label: "MicroBiomML"

@@ -225,8 +225,8 @@
           <option value="knn">K-Nearest Neighbors Classifier</option>
           <option value="nb">Gaussian Naive Bayes Classifier</option>
           <option value="dt">Decision Tree Classifier</option>
-          <option value="svm">Stochastic Gradient Classifier</option>
-          <option value="rbfsvm">Support Vector Machine Classifier</option>
+          <option value="svm">Support Vector Machine Classifier</option>
+          <option value="rbfsvm">RBF Support Vector Machine Classifier</option>
           <option value="rf">Random Forest Classifier</option>
           <option value="gbc">Gradient Boosting Classifier</option>
           <option value="xgboost">XGBoost Classifier</option>
@@ -851,99 +851,146 @@
 
     <tests>
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="lr"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="knn"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="nb"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="dt"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
+
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="svm"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
-        <param name="SelMLAlgo|MLAlgo" value="rbfsvm"/>
-        <param name="setup|advanced_setup" value="default"/>
-        <output name="output1" file="out.tsv" ftype="tabular"/> 
-      </test>
-      <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="rf"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
+
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
+        <param name="SelMLAlgo|MLAlgo" value="rbfsvm"/>
+        <param name="setup|advanced_setup" value="default"/>
+        <output name="output1" file="out.tsv" ftype="tabular"/> 
+      </test>
+
+      <test>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="gbc"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="xgboost"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
 
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="lightgbm"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
-
       <test>
-        <param name="input1" value="test.tsv"/>
-        <param name="input2" value="metadata.tsv"/>
-        <param name="column_label" value="2"/>
+        <param name="input1" value="test_count.tsv"/>
+        <param name="input2" value="test_metadata.tsv"/>
+        <conditional name="drop_columns">
+          <param name="advanced_setup" value="settings"/>
+          <param name="columns_to_drop" value="1"/>
+        </conditional>
+        <param name="column_label" value="9"/>
         <param name="SelMLAlgo|MLAlgo" value="hdc"/>
         <param name="setup|advanced_setup" value="default"/>
         <output name="output1" file="out.tsv" ftype="tabular"/> 
       </test>
+     
     </tests>
  
     <help><![CDATA[

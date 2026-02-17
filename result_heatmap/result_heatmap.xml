@@ -1,5 +1,5 @@
 <tool id="result_heatmap" name="Result Heatmap" version="1.0.0">
-    <description>Plot heatmap from TSV data with classification results</description>
+    <description>Plot interactive heatmap from TSV data with classification results</description>
 
     <requirements>
         <requirement type="package" version="2.1.4">pandas</requirement>
@@ -9,8 +9,8 @@
     <command detect_errors="exit_code"><![CDATA[
         python '$__tool_directory__/result_heatmap.py'
             --input_file '$input_file'
-            #if $columns_list
-            --column_list '${columns_list}'
+            #if $column_list
+            --column_list '${column_list}'
             #end if
             --width ${width}
             --height ${height}
@@ -24,25 +24,31 @@
     </command>
 
     <inputs>
-        <param name="input_file" type="data" format="tabular" label="Input TSV File" help="TSV file with classification results data. Must have a 'name' column." />
-        <param name="columns_list" type='data_column' data_ref="input_file"  label="Select Columns to plot the accuracy matrices (F1 score, accuracy etc.)" argument="--column_list" multiple="true" use_header_names="true" help="Select columns to drop from training data"/>
-        <param name="width" type="integer" label="Figure Width (px)" value="2460" help="Width of the output figure in pixels" />
-        <param name="height" type="integer" label="Figure Height (px)" value="800" help="Height of the output figure in pixels" />
-        <param name="color_labels" type="text" label="Color Palette" value="Greens" help="Color scheme for heatmap (e.g., Greens, Blues, Reds, emrld, Viridis)" />
-        <param name="font_size" type="integer" label="Font Size" value="22" help="Font size for cell text" />
-        <param name="tick_font" type="integer" label="Tick Font Size" value="26" help="Font size for axis tick labels" />
-        <param name="tick_angle" type="integer" label="Tick Angle (degrees)" value="-80" help="Rotation angle of x-axis tick labels" />
-        <param name="threshold" type="float" label="Threshold" value="0.05" help="Threshold for comparison analysis" />
+        <param name="input_file" type="data" format="tabular" label="Input TSV File" help="Tab-separated values file with classification results. Must have a 'name' column as the row index." />
+        <param name="column_list" type="text" data_ref="input_file"   optional="false" label="Column Indices to Plot (Optional)" help="Comma-separated column indices to plot (e.g., 1,2,3 or 1,6,11,16,21). Uses 1-based indexing. Leave empty to plot all columns." />
+        <param name="width" type="integer" label="Figure Width (pixels)" value="2460" help="Width of the output figure in pixels." />
+        <param name="height" type="integer" label="Figure Height (pixels)" value="800" help="Height of the output figure in pixels." />
+        <param name="color_labels" type="select" label="Color Palette" value="Greens" help="Plotly color scheme for the heatmap.">
+            <option value="Greens">Greens</option>
+            <option value="Blues">Blues</option>
+            <option value="Reds">Reds</option>
+            <option value="Viridis">Viridis</option>
+            <option value="Plasma">Plasma</option>
+            <option value="Inferno">Inferno</option>
+        </param>
+        <param name="font_size" type="integer" label="Cell Text Font Size" value="22" min="8" max="32" help="Font size for values displayed in the heatmap cells." />
+        <param name="tick_font" type="integer" label="Axis Tick Font Size" value="26" min="8" max="32" help="Font size for the axis tick labels." />
+        <param name="tick_angle" type="integer" label="X-Axis Tick Angle (degrees)" value="-80" min="-90" max="90" help="Rotation angle of the x-axis tick labels (negative = bottom-right diagonal)." />
+        <param name="threshold" type="float" label="Performance Threshold" value="0.05" min="0.0" max="1.0" help="Threshold value for classifying performance comparisons." />
     </inputs>
 
     <outputs>
-        <data name="output" format="html" label="Heatmap Plot" />
+        <data name="output" format="html" label="Result Heatmap" />
     </outputs>
 
     <tests>
         <test>
-            <param name="input_file" value="test_data_age_category.tsv" />
-            <param name="columns_list" value="1,2,3" />
+            <param name="input_file" value="test_data.tsv" />
             <param name="width" value="2460" />
             <param name="height" value="800" />
             <param name="color_labels" value="Greens" />
@@ -50,65 +56,87 @@
             <param name="tick_font" value="26" />
             <param name="tick_angle" value="-80" />
             <param name="threshold" value="0.05" />
-            <output name="output" file="test.html" compare="contains" />
+            <output name="output" file="test.html" />
         </test>
     </tests>
 
     <help><![CDATA[
 **Result Heatmap Tool**
 
-This tool generates a heatmap visualization from TSV data containing classification results.
-n interactive heatmap visualization from TSV data containing classification results.
+This tool generates an interactive heatmap visualization from TSV data containing classification results.
+
+**Input Format:**
+
+The input TSV file must have:
+- A 'name' column (first column) containing row identifiers
+- Multiple metric columns (e.g., F1 score, Accuracy, Precision, Recall, etc.)
+- Each row represents a classifier or method being evaluated
 
 **Parameters:**
 
-- **Input TSV File**: Tab-separated values file with classification results data. Must have a 'name' column as index.
-- **Column Indices (Optional)**: Comma-separated indices of rows to include in the plot (e.g., 1,6,11,16,21). Leave empty to plot all data rows.
+- **Input TSV File**: Tab-separated values file with classification results data. Must have a 'name' column as the row index.
+- **Column Indices to Plot (Optional)**: Comma-separated 1-based column indices to plot. Leave empty to plot all columns. Example: '1,2,3' or '1,6,11,16,21'
 - **Figure Width**: Width of the output figure in pixels (default: 2460)
 - **Figure Height**: Height of the output figure in pixels (default: 800)
-- **Color Palette**: Plotly color scheme for the heatmap (e.g., Greens, Blues, Reds, emrld, Viridis)
-- **Font Size**: Size of text displayed in the heatmap cells (default: 22)
-- **Tick Font Size**: Size of axis labels (default: 26)
-- **Tick Angle**: Rotation angle of x-axis labels in degrees (e.g., -80 for bottom-right diagonal)
-- **Threshold**: Threshold value used for comparison analysis (default: 0.05)
+- **Color Palette**: Plotly color scheme for the heatmap visualization (default: Greens)
+- **Cell Text Font Size**: Font size for the values displayed in the heatmap cells (default: 22)
+- **Axis Tick Font Size**: Font size for the x and y axis labels (default: 26)
+- **X-Axis Tick Angle**: Rotation angle of the x-axis labels in degrees. Negative values rotate to the bottom-right (default: -80)
+- **Performance Threshold**: Threshold value for comparing classifier performance (default: 0.05)
+
+**Border Color Legend:**
+
+- **Violet**: Classifier performs better than all reference classifiers (≥threshold)
+- **Red**: Classifier performs better than some reference classifiers
+- **Blue**: Classifier is comparable with all reference classifiers
+- **Black**: Classifier is comparable with some reference classifiers
 
 **Output:**
 
-An interactive HTML heatmap that can be viewed in a web browser.
+An interactive HTML heatmap that can be viewed in any web browser. The heatmap includes:
+- Performance metrics displayed as a color-coded grid
+- Cell values showing the exact metric values
+- Border highlights indicating classifier performance categories
+- Legend explaining the border color meanings
 
 **Workflow:**
 
-1. Read the input TSV file with 'name' column and classification results
-2. Analyze classification performance by comparing values
-3. Categorize columns based on comparison thresholds
-4. Generate an interactive heatmap visualization with color-coded highlights
+1. Read the input TSV file with classification results
+2. Analyze each classifier's performance by comparing metric values
+3. Categorize classifiers based on performance thresholds
+4. Generate an interactive heatmap with color-coded highlights and a legend
 
-**Example Usage:**
+**Example:**
 
-Plot all data with default parameters or specify custom dimensions and color scheme for customized visualizations.]]></help>
-     <citations>
-          <citation type="bibtex">
-               @article{cumbo2023hdlib,
-                    title={hdlib: A Python library for designing Vector-Symbolic Architectures},
-                    author={Cumbo, Fabio and Weitschek, Emanuel and Blankenberg, Daniel},
-                    journal={Journal of Open Source Software},
-                    volume={8},
-                    number={89},
-                    pages={5704},
-                    year={2023}
-               }
-          </citation>
-          <citation type="bibtex">
-               @article{cumbo2025feature,
-                    title={Feature selection with vector-symbolic architectures: a case study on microbial profiles of shotgun metagenomic samples of colorectal cancer},
-                    author={Cumbo, Fabio and Truglia, Simone and Weitschek, Emanuel and Blankenberg, Daniel},
-                    journal={Briefings in Bioinformatics},
-                    volume={26},
-                    number={2},
-                    pages={bbaf177},
-                    year={2025},
-                    publisher={Oxford University Press}
-               }
-          </citation>
-     </citations>
+For a TSV file with classifiers (rows) and metrics such as F1, Accuracy, Precision, Recall, and AUC:
+- Select columns 1,2,3 to plot only the first three metrics
+- Adjust colors and fonts for better readability
+- Set threshold to 0.1 for stricter performance comparison
+    ]]></help>
+
+    <citations>
+        <citation type="bibtex">
+            @article{cumbo2023hdlib,
+                title={hdlib: A Python library for designing Vector-Symbolic Architectures},
+                author={Cumbo, Fabio and Weitschek, Emanuel and Blankenberg, Daniel},
+                journal={Journal of Open Source Software},
+                volume={8},
+                number={89},
+                pages={5704},
+                year={2023}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{cumbo2025feature,
+                title={Feature selection with vector-symbolic architectures: a case study on microbial profiles of shotgun metagenomic samples of colorectal cancer},
+                author={Cumbo, Fabio and Truglia, Simone and Weitschek, Emanuel and Blankenberg, Daniel},
+                journal={Briefings in Bioinformatics},
+                volume={26},
+                number={2},
+                pages={bbaf177},
+                year={2025},
+                publisher={Oxford University Press}
+            }
+        </citation>
+    </citations>
 </tool>

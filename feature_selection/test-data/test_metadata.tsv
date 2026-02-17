@@ -1,11 +1,11 @@
-class_label
-A
-B
-A
-B
-A
-B
-A
-B
-A
-B
+age	class_label
+23	A
+34	B
+45	A
+53	B
+31	A
+28	B
+23	A
+22	B
+23	A
+34	B

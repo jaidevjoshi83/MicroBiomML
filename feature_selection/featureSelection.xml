@@ -51,10 +51,11 @@
             <option value="hdc">HDC Classifier</option>
         </param>
 
-        <param name="label_clm" type='data_column' data_ref="metadata_file"  label="Select the class label column" argument="--label" multiple="false" use_header_names="true" help="Select the class label column."/>
+        <param name="label_clm" type="data_column" data_ref="metadata_file"  multiple="false" use_header_names="true"  label="Class Label Column" help="Select the column in the metadata file that contains the class labels for feature selection." >
+     
+        </param>
 
-        <param name="tol" type="float" value="0.00001" label="Tolerance"
-               help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
+        <param name="tol" type="float" value="0.00001" label="Tolerance" help="Tolerance for SequentialFeatureSelector convergence. Lower values mean stricter convergence (default: 0.00001)." />
 
     </inputs>
 
@@ -69,7 +70,7 @@
         <param name="metadata_file" value="test_metadata.tsv"/>
         <param name="threads" value="4"/>
         <param name="classifier" value="lr"/>
-        <param name="label" value='1'/>
+        <param name="label_clm" value='2'/>
         <param name="tol" value="1e-05"/>
         <output name="log_file" file="out.log" />
         <output name="selected_features" file="out.tsv"/>
@@ -80,7 +81,7 @@
         <param name="metadata_file" value="test_metadata.tsv"/>
         <param name="threads" value="4"/>
         <param name="classifier" value="dt"/>
-        <param name="label" value='1'/>
+        <param name="label_clm" value='2'/>
         <param name="tol" value="1e-05"/>
         <output name="log_file" file="out.log" />
         <output name="selected_features" file="out.tsv"/>
@@ -91,7 +92,7 @@
         <param name="metadata_file" value="test_metadata.tsv"/>
         <param name="threads" value="4"/>
         <param name="classifier" value="sv"/>
-        <param name="label" value='1'/>
+        <param name="label_clm" value='2'/>
         <param name="tol" value="1e-05"/>
         <output name="log_file" file="out.log" />
         <output name="selected_features" file="out.tsv"/>
@@ -102,7 +103,7 @@
         <param name="metadata_file" value="test_metadata.tsv"/>
         <param name="threads" value="4"/>
         <param name="classifier" value="rf"/>
-        <param name="label" value='1'/>
+        <param name="label_clm" value='2'/>
         <param name="tol" value="1e-05"/>
         <output name="log_file" file="out.log" />
         <output name="selected_features" file="out.tsv"/>
@@ -112,8 +113,8 @@
         <param name="input" value="test_count.tsv"/>
         <param name="metadata_file" value="test_metadata.tsv"/>
         <param name="threads" value="4"/>
-        <param name="classifier" value="rf"/>
-        <param name="label" value='1'/>
+        <param name="classifier" value="hdc"/>
+        <param name="label_clm" value='2'/>
         <param name="tol" value="1e-05"/>
         <output name="log_file" file="out.log" />
         <output name="selected_features" file="out.tsv"/>

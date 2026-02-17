@@ -221,7 +221,6 @@ def Plot(input_file, width=2460, height=800, color_labels='Greens', font_size=22
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Plot heatmap from TSV data with classification results.")
     parser.add_argument("--input_file", type=str, default="test_data_age_category.tsv", help="Path to input TSV file (default: test_data_age_category.tsv)")
-if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Plot heatmap from TSV data with classification results.")
     parser.add_argument("--input_file", type=str, default="test_data_age_category.tsv", help="Path to input TSV file (default: test_data_age_category.tsv)")
     parser.add_argument("--column_list", type=str, default=None, help="Comma-separated column indices to plot (default: None - plots all data)")

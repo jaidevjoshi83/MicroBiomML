@@ -10,9 +10,6 @@ import argparse
 import json
 import subprocess
 
-#scikit-learn==1.4.2
-#pandas==2.2.3
-
 def retrieve_results_from_hdc_folds(n_folds, text):
     
     split_text = text.splitlines()
@@ -128,7 +125,6 @@ def run_hdc_classification(args, df, dir_name, start_time):
 
 def run_sequential_feature_selection(args, df, start_time, target_label):
 
-    print("target_label:", target_label)
     """Run sequential feature selection for non-HDC classifiers."""
     classifiers = {
         'lr': LogisticRegression(),
@@ -138,19 +134,20 @@ def run_sequential_feature_selection(args, df, start_time, target_label):
     }
     classifier = classifiers[args.classifier]
 
-    column_list = df.columns.tolist()
 
     if target_label not in df.columns:
         raise ValueError(f"Label column '{target_label}' not found in the data.")
 
     X = df.drop(columns=[target_label])
 
-    labels = list(set(df[target_label].to_list()))
+
+    labels = list(set(df[target_label].to_list() ))
 
     if len(labels) != 2:
         raise ValueError(f"Expected exactly 2 class labels, found {len(labels)}: {labels}")
 
     label_mapping = {labels[0]: 0, labels[1]: 1}
+
     y = df[target_label].map(label_mapping).tolist()
 
     sfs = SequentialFeatureSelector(
@@ -163,7 +160,7 @@ def run_sequential_feature_selection(args, df, start_time, target_label):
     sfs.fit(X, y)
 
     selected_feature_names = X.columns[sfs.get_support()]
-    print("Selected Features:", selected_feature_names.tolist())
+
 
     out_df = pd.DataFrame(selected_feature_names, columns=['feature_name'])
     out_df.to_csv(args.feature_out, sep="\t", index=False)
@@ -180,12 +177,9 @@ def main():
     dir_name = os.path.splitext(os.path.basename(args.input))[0] + "_" + args.classifier
     os.makedirs(f"./{dir_name}", exist_ok=True)
     
-    print(f"Processing: {args.input}")
     start_time = time.time()
     
     df, target_label = load_and_preprocess_data(args)
-
-    print("Class_label:", target_label)
 
     if args.classifier == 'hdc':
         run_hdc_classification(args, df, dir_name, start_time)

@@ -1,36 +1,37 @@
 # MicroBiomML
 
-This repository contains supporting materials for the research article "_Large-scale classification of metagenomic samples: a comparative analysis of classical machine learning techniques vs a novel brain-inspired hyperdimensional computing approach_".
+This research explores hyperdimensional computing (HDC), a brain-inspired computational approach, as an alternative to classical machine learning for classifying high-dimensional metagenomic data. We demonstrate that HDC achieves comparable or superior classification accuracy while offering improved computational efficiency on large-scale datasets. Our comprehensive comparison includes HDC against established machine learning techniques across diverse microbiome classification tasks using publicly available datasets. We provide a Galaxy-powered toolset enabling researchers to apply these methods to their own datasets with reproducible workflows and ease of use.
 
-## Overview
+## Citation:
 
-MicroBiomML provides Galaxy tools and pipelines for running classical machine learning (ML) methods on metagenomic datasets sourced from the curatedMetagenomicData R package. In addition, it includes a dedicated Galaxy tool for comparing the performance of traditional ML techniques versus a new brain-inspired hyperdimensional computing (HDC) classification approach.
+Joshi, J., Cumbo, F., & Blankenberg, D. (2025). Large-scale classification of metagenomic samples: a comparative analysis of classical machine learning techniques vs a novel brain-inspired hyperdimensional computing approach. *bioRxiv* [Preprint], Version 2. https://doi.org/10.1101/2025.07.06.663394
 
-## Features
 
-- __Classical Machine Learning Tools__: Scripts and workflows for applying common ML algorithms (e.g., Random Forest, Support Vector Machines, etc.) to metagenomic data.
-- __HDC Tool__: An implementation of the hyperdimensional computing approach for the classification and feature selection of metagenomic data.
-- __Galaxy Integration__: All tools and pipelines are wrapped as Galaxy tools for easy execution and reproducibility.
+## Docker Image: 
 
-## Getting Started
+:whale: Galaxy Docker repository for the data analysis with MicrobiomML.
 
-### Prerequisites
+![MicroBiomML Galaxy Interface](images/MicroBiomML_homepage.png)
 
-- Galaxy installation
-- R and the curatedMetagenomicData package
+# Installed tools
 
-### Usage
+ * [Curated Metagenomic Data](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/curated_metagenomic_data)
+ * [Feature Selector](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/feature_selection)
+ * [ML Tool](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/ml_tool)
+ * [Result Heatmap](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/result_heatmap)
 
-- Install the Galaxy tools from this repository.
-- Import metagenomic datasets via curatedMetagenomicData.
-- Run the available ML or HDC pipelines within Galaxy.
-- Compare results using the dedicated comparison tool.
+To launch:
 
-## Citation
+```
+docker run --rm -i -t --privileged -p 8080:80 jayadevjoshi12/microbiomml:latest
+```
 
-If you utilize these tools in your research, please cite:
+For persistent data storage:
 
-> _Manuscript in preparation_
+```
+docker run --rm -i -t --privileged -p 8080:80 -v /home/<username>/export.gaiac/:/export jayadevjoshi12/microbiomml:latest
+```
+
 
 ## Contact
 

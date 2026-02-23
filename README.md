@@ -13,7 +13,7 @@ Joshi, J., Cumbo, F., & Blankenberg, D. (2025). Large-scale classification of me
 
 ![MicroBiomML Galaxy Interface](images/MicroBiomML_homepage.png)
 
-# Installed tools
+Installed tools: 
 
  * [Curated Metagenomic Data](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/curated_metagenomic_data)
  * [Feature Selector](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/feature_selection)
@@ -36,6 +36,15 @@ Quick tip:
 From the left side tool menu in the `MicroBiomML` tool panel, click on [Curated Metagenomic Data](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/curated_metagenomic_data) tool, as shown in the image below. You can download any dataset by selecting it from the dropdown menu (e.g., LiuW_2016). Once downloaded, you can proceed with downstream machine learning analysis. 
 
 ![MicroBiomML Galaxy Interface](images/microbiomml_homepage_1.png)
+
+## Install tools from Tool-shed: 
+
+All these tools are available at the Galaxy [tool-shed](https://toolshed.g2.bx.psu.edu/repositories/bf264a9be4402594), and can be installed in your local Galaxy instance.
+
+ * [Curated Metagenomic Data](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/curated_metagenomic_data)
+ * [Feature Selector](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/feature_selection)
+ * [ML Tool](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/ml_tool)
+ * [Result Heatmap](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/result_heatmap)
 
 
 ## Contact

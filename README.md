@@ -31,6 +31,11 @@ For persistent data storage:
 ```
 docker run --rm -i -t --privileged -p 8080:80 -v /home/<username>/export.gaiac/:/export jayadevjoshi12/microbiomml:latest
 ```
+Quick tip: 
+
+From the left side tool menu in the `MicroBiomML` tool panel, click on [Curated Metagenomic Data](https://github.com/jaidevjoshi83/MicroBiomML/tree/master/curated_metagenomic_data). You can download any dataset by selecting it from the dropdown menu (e.g., LiuW_2016). Once downloaded, you can proceed with downstream machine learning analysis. 
+
+![MicroBiomML Galaxy Interface](images/microbiomml_homepage_1.png)
 
 
 ## Contact
